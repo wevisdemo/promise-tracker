@@ -1,8 +1,8 @@
+const BASE_PATH = process.env.BASE_PATH || '';
+
 export default {
-  // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
 
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Promise Tracker',
     htmlAttrs: {
@@ -16,33 +16,30 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-      { rel: 'stylesheet', href: '/fonts/typography.css' },
+      { rel: 'stylesheet', href: `${BASE_PATH}/fonts/typography.css` },
     ],
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@wevisdemo/ui/styles/typography.css',
     '@wevisdemo/ui/styles/components.css',
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-    // https://go.nuxtjs.dev/typescript
-    '@nuxt/typescript-build',
-    // https://go.nuxtjs.dev/tailwindcss
-    '@nuxtjs/tailwindcss',
-  ],
+  buildModules: ['@nuxt/typescript-build', '@nuxtjs/tailwindcss'],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+
+  env: {
+    BASE_PATH,
+  },
+
+  router: {
+    base: BASE_PATH || '/',
+  },
 };

@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <WvNavbar title="PROMISE TRACKER" logo-addon-src="/logo-addon.png">
+    <WvNavbar
+      title="PROMISE TRACKER"
+      :logo-addon-src="`${basePath}/logo-addon.png`"
+    >
       <WvNavButton>Home</WvNavButton>
       <WvNavButton>ดูคำสัญญา</WvNavButton>
       <WvNavButton>วิธีทวงสัญญา</WvNavButton>
@@ -24,5 +27,10 @@ import WvNavButton from '@wevisdemo/ui/components/nav-button.vue';
 
 export default Vue.extend({
   components: { WvNavbar, WvFooter, WvNavButton },
+  data() {
+    return {
+      basePath: process.env.BASE_PATH,
+    };
+  },
 });
 </script>

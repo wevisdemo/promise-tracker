@@ -1,14 +1,9 @@
-name: ci
+name: Deploy to staging
 
 on:
   push:
     branches:
       - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
 
 jobs:
   ci:
@@ -45,8 +40,16 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: yarn
 
-      - name: Run linter 👀
-        run: yarn lint
-
       - name: Run tests 🧪
         run: yarn test
+
+      - name: Build 🍳
+        run: yarn build
+        env:
+          BASE_PATH: /promise-tracker
+
+      - name: Deploy ☁️
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
