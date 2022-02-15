@@ -1,9 +1,9 @@
-<template><div>Index</div></template>
+<template><div>About</div></template>
 
 <script lang="ts">
 import Vue from 'vue';
 
 export default Vue.extend({
-  name: 'IndexPage',
+  name: 'AboutPage',
 });
 </script>

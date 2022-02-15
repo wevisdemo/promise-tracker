@@ -4,10 +4,11 @@
       title="PROMISE TRACKER"
       :logo-addon-src="`${basePath}/logo-addon.png`"
     >
-      <WvNavButton>Home</WvNavButton>
-      <WvNavButton>ดูคำสัญญา</WvNavButton>
-      <WvNavButton>วิธีทวงสัญญา</WvNavButton>
-      <WvNavButton>เกี่ยวกับโครงการ</WvNavButton>
+      <NuxtLink v-for="{ label, path } in routes" :key="path" :to="path">
+        <WvNavButton :active="path === $route.path || undefined">{{
+          label
+        }}</WvNavButton>
+      </NuxtLink>
     </WvNavbar>
     <div class="flex-1">
       <Nuxt />
@@ -30,6 +31,12 @@ export default Vue.extend({
   data() {
     return {
       basePath: process.env.BASE_PATH,
+      routes: [
+        { label: 'หน้าแรก', path: '/' },
+        { label: 'ดูคำสัญญา', path: '/explore' },
+        { label: 'วิธีทวงสัญญา', path: '/guide' },
+        { label: 'เกี่ยวกับโครงการ', path: '/about' },
+      ],
     };
   },
 });
