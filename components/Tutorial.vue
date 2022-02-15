@@ -118,5 +118,5 @@
 <script>
 export default {
   name: 'NuxtTutorial',
-}
+};
 </script>
