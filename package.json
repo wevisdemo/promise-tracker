@@ -10,7 +10,7 @@
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "prepare": "husky install",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "lint-staged": "lint-staged"
   },
@@ -34,7 +34,7 @@
     "@nuxtjs/eslint-config-typescript": "^8.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
     "@nuxtjs/tailwindcss": "^4.2.1",
-    "@vue/test-utils": "^1.3.0",
+    "@testing-library/vue": "^6.5.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^27.4.4",
     "eslint": "^8.4.1",
