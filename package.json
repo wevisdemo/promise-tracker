@@ -8,7 +8,7 @@
     "start": "nuxt start",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.ts,.vue\" --ignore-path .gitignore .",
-    "lint:prettier": "prettier --check .",
+    "lint:prettier": "prettier --write .",
     "lint": "yarn lint:js && yarn lint:prettier",
     "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
     "prepare": "husky install",
@@ -18,7 +18,7 @@
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache",
-    "*.**": "prettier --check --ignore-unknown"
+    "*.**": "prettier --write --ignore-unknown"
   },
   "dependencies": {
     "core-js": "^3.19.3",
