@@ -1,6 +1,4 @@
-<template>
-  <Tutorial />
-</template>
+<template><div>index</div></template>
 
 <script lang="ts">
 import Vue from 'vue';
