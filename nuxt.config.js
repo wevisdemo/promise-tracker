@@ -15,7 +15,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' },
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'icon', type: 'image/x-icon', href: `${BASE_PATH}/favicon.ico` },
+      {
+        rel: 'manifest',
+        href: `${BASE_PATH}/site.webmanifest`,
+      },
       { rel: 'stylesheet', href: `${BASE_PATH}/fonts/typography.css` },
     ],
   },
