@@ -10,7 +10,7 @@ module.exports = {
       gray: '#BBBBBB',
       ultramarine: '#3904E9',
       status: {
-        inaction: '#8F8F8F',
+        nodata: '#8F8F8F',
         proposed: '#FD9154',
         paused: '#E91E63',
         working: '#F4C51F',

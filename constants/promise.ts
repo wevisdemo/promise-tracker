@@ -37,7 +37,7 @@ export const PromiseCategoryTextMap = new Map<
 ]);
 
 export enum PromiseStatus {
-  Inactive = 'inaction',
+  NoData = 'nodata',
   Proposed = 'proposed',
   Paused = 'paused',
   Working = 'working',
@@ -45,7 +45,7 @@ export enum PromiseStatus {
 }
 
 export const promiseStatusTextMap = new Map<PromiseStatus, string>([
-  [PromiseStatus.Inactive, 'ไม่พบข้อมูล'],
+  [PromiseStatus.NoData, 'ไม่พบข้อมูล'],
   [PromiseStatus.Proposed, 'ถูกเสนอต่อสภา'],
   [PromiseStatus.Paused, 'ถูกระงับ'],
   [PromiseStatus.Working, 'กำลังดำเนินการ'],
