@@ -8,6 +8,38 @@ export enum PromiseCategory {
   Environmental = 'environmental',
 }
 
+export enum PromiseStatus {
+  NoData = 'nodata',
+  Proposed = 'proposed',
+  Paused = 'paused',
+  Working = 'working',
+  Done = 'done',
+}
+
+export interface PromiseLink {
+  name: string;
+  url: string;
+}
+
+export interface PromiseTimeline {
+  label: string;
+  from: string;
+  to?: string;
+}
+
+export interface Promise {
+  id: number;
+  isActive: boolean;
+  party: string;
+  category: PromiseCategory;
+  status: PromiseStatus;
+  description: string;
+  isNCPO: boolean;
+  imageFileName?: string;
+  links: PromiseLink[];
+  timelines: PromiseTimeline[];
+}
+
 export const PromiseCategoryTextMap = new Map<
   PromiseCategory,
   { long: string; short: string }
@@ -35,14 +67,6 @@ export const PromiseCategoryTextMap = new Map<
     { long: 'สิ่งแวดล้อม', short: 'สิ่งแวดล้อม' },
   ],
 ]);
-
-export enum PromiseStatus {
-  NoData = 'nodata',
-  Proposed = 'proposed',
-  Paused = 'paused',
-  Working = 'working',
-  Done = 'done',
-}
 
 export const promiseStatusTextMap = new Map<PromiseStatus, string>([
   [PromiseStatus.NoData, 'ไม่พบข้อมูล'],
