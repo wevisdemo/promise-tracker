@@ -10,7 +10,11 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 
-type ButtonTheme = 'primary' | 'secondary-white' | 'secondary-blue';
+type ButtonTheme =
+  | 'primary-white'
+  | 'primary-blue'
+  | 'secondary-white'
+  | 'secondary-blue';
 
 export default Vue.extend({
   name: 'Button',
@@ -43,8 +47,7 @@ export default Vue.extend({
             'hover:bg-ultramarine',
           ];
 
-        case 'primary':
-        default:
+        case 'primary-blue':
           return [
             'border-ultramarine',
             'text-ultramarine',
@@ -52,6 +55,17 @@ export default Vue.extend({
             'hover:border-white',
             'hover:text-white',
             'hover:bg-ultramarine',
+          ];
+
+        case 'primary-white':
+        default:
+          return [
+            'border-white',
+            'text-white',
+            'bg-ultramarine',
+            'hover:border-ultramarine',
+            'hover:text-ultramarine',
+            'hover:bg-white',
           ];
       }
     },

@@ -11,7 +11,7 @@ test('should render slot', () => {
 });
 
 describe('should render correct theme from given prop', () => {
-  test('primary', () => {
+  test('primary-blue', () => {
     const EXPECTED_CLASS = [
       'border-ultramarine',
       'text-ultramarine',
@@ -21,7 +21,24 @@ describe('should render correct theme from given prop', () => {
       'hover:bg-ultramarine',
     ];
 
-    const wrapper = mount(Button, { propsData: { theme: 'primary' } });
+    const wrapper = mount(Button, { propsData: { theme: 'primary-blue' } });
+
+    const button = wrapper.getComponent({ name: 'button' });
+
+    expect(button.classes()).toEqual(expect.arrayContaining(EXPECTED_CLASS));
+  });
+
+  test('primary-white', () => {
+    const EXPECTED_CLASS = [
+      'border-white',
+      'text-white',
+      'bg-ultramarine',
+      'hover:border-ultramarine',
+      'hover:text-ultramarine',
+      'hover:bg-white',
+    ];
+
+    const wrapper = mount(Button, { propsData: { theme: 'primary-white' } });
 
     const button = wrapper.getComponent({ name: 'button' });
 
