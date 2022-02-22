@@ -1,6 +1,6 @@
 <template>
   <button
-    class="flex flex-row items-center px-4 py-2 border wv_u4 wv_font_bold space-x-2 rounded-sm"
+    class="flex flex-row items-center px-4 py-2 border wv-u4 wv-font-bold space-x-2 rounded-sm"
     :class="themeClasses"
   >
     <slot />

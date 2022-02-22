@@ -1,13 +1,11 @@
 <template>
-  <div class="flex flex-col min-h-screen">
+  <div class="flex flex-col min-h-screen wv-font-anuphan wv-b5">
     <WvNavbar
       title="PROMISE TRACKER"
       :logo-addon-src="`${basePath}/logo-addon.png`"
     >
       <NuxtLink v-for="{ label, path } in routes" :key="path" :to="path">
-        <WvNavButton :active="path === $route.path || undefined">{{
-          label
-        }}</WvNavButton>
+        <WvNavButton :active="path === $route.path">{{ label }}</WvNavButton>
       </NuxtLink>
     </WvNavbar>
     <div class="flex-1">
