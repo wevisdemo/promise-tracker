@@ -21,7 +21,7 @@ Thai politicians and parties promise tracker
   - Communication language doesn't matter. Feel free to use Thai or English.
 - We use Trunk-based development.
   - No braches, we all push to main branch.
-  - If the commit is related to a specifig issue, add issue id in the commit message eg. `[#21] Add button components`
+  - If the commit is related to a specifig issue, add issue id in the commit message eg. `#21 Add button components`
   - Pull rebase `git pull --rebase` often. Before you start coding and pushing.
   - Continueus integration: don't leave your code without pushing overnight, push as much as you can without breaking the build.
   - Linter and formater will be run on commit, while test and build will be run on push so you can't push if it fail.
