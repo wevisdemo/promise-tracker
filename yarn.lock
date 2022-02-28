@@ -2485,10 +2485,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@wevisdemo/ui@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@wevisdemo/ui/-/ui-3.0.0.tgz#e8723ea2042179b6397997c6aab42f51b794c219"
-  integrity sha512-k3AFyiFadCew6gjhgjLAH6MOHH0KQgydgb1o0yKwRDu8u+87YBuQm9X3eW/tzhLFgvSB9EZkVqhKxOSTgst5OA==
+"@wevisdemo/ui@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@wevisdemo/ui/-/ui-3.1.0.tgz#657e9d4a085393d6c4921fd0f69fbba2446dec02"
+  integrity sha512-PPHSHdAT3+zpjgb53IML54R5cpnofaKqgq8N+5Tn6UcYA3+6CugrEi/e5Xm+hrusuHNK30ePxSNFq/qe6dHhpw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
