@@ -40,7 +40,7 @@ export interface TrackingPromise {
   timelines: PromiseTimeline[];
 }
 
-export const PromiseTopicTextMap = new Map<
+export const promiseTopicTextMap = new Map<
   PromiseTopic,
   { long: string; short: string }
 >([
