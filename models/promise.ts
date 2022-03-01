@@ -1,4 +1,4 @@
-export enum PromiseCategory {
+export enum PromiseTopic {
   Equality = 'equality',
   Security = 'security',
   Foreign = 'foreign',
@@ -31,7 +31,7 @@ export interface TrackingPromise {
   id: number;
   isActive: boolean;
   party: string;
-  category: PromiseCategory;
+  category: PromiseTopic;
   status: PromiseStatus;
   description: string;
   isNCPO: boolean;
@@ -40,32 +40,29 @@ export interface TrackingPromise {
   timelines: PromiseTimeline[];
 }
 
-export const PromiseCategoryTextMap = new Map<
-  PromiseCategory,
+export const PromiseTopicTextMap = new Map<
+  PromiseTopic,
   { long: string; short: string }
 >([
   [
-    PromiseCategory.Equality,
+    PromiseTopic.Equality,
     { long: 'ความเท่าเทียม/คุณภาพชีวิต', short: 'คุณภาพชีวิต' },
   ],
   [
-    PromiseCategory.Security,
+    PromiseTopic.Security,
     { long: 'ความมั่นคง/ปกป้องสถาบันกษัตริย์', short: 'ความมั่นคง' },
   ],
-  [PromiseCategory.Foreign, { long: 'ต่างประเทศ', short: 'ต่างประเทศ' }],
+  [PromiseTopic.Foreign, { long: 'ต่างประเทศ', short: 'ต่างประเทศ' }],
   [
-    PromiseCategory.Administration,
+    PromiseTopic.Administration,
     { long: 'บริหารจัดการ(ราชการ)', short: 'บริหารจัดการ' },
   ],
   [
-    PromiseCategory.Culture,
+    PromiseTopic.Culture,
     { long: 'ศาสนาและวัฒนธรรม', short: 'ศาสนาและวัฒนธรรม' },
   ],
-  [PromiseCategory.Economics, { long: 'เศรษฐกิจ', short: 'เศรษฐกิจ' }],
-  [
-    PromiseCategory.Environmental,
-    { long: 'สิ่งแวดล้อม', short: 'สิ่งแวดล้อม' },
-  ],
+  [PromiseTopic.Economics, { long: 'เศรษฐกิจ', short: 'เศรษฐกิจ' }],
+  [PromiseTopic.Environmental, { long: 'สิ่งแวดล้อม', short: 'สิ่งแวดล้อม' }],
 ]);
 
 export const promiseStatusTextMap = new Map<PromiseStatus, string>([
