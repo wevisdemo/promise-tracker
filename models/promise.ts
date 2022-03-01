@@ -27,7 +27,7 @@ export interface PromiseTimeline {
   to?: string;
 }
 
-export interface Promise {
+export interface TrackingPromise {
   id: number;
   isActive: boolean;
   party: string;
