@@ -49,3 +49,14 @@ describe('should render correct text content for each filter type', () => {
     }
   );
 });
+
+test('should emit remove event when remove button is click', () => {
+  const wrapper = mount(FilterChip, {
+    propsData: { filter: filterTestCases[0][0] },
+  });
+
+  const button = wrapper.get('button');
+  button.trigger('click');
+
+  expect(wrapper.emitted().remove).toBeTruthy();
+});
