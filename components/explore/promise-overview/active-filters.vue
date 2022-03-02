@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col space-y-2">
     <h1 class="wv-h8 wv-font-kondolar wv-font-black">
       สำรวจคำสัญญา พรรคการเมือง
     </h1>
@@ -9,16 +9,23 @@
     >
       {{ promises.length }} คำสัญญา
     </p>
-    <div class="flex flex-wrap">
-      <FilterChip :filter="filter" />
+    <div v-if="filters.length > 0" class="flex flex-col items-start space-y-1">
+      <FilterChip
+        v-for="filter in filters"
+        :key="filter.type"
+        :filter="filter"
+      />
     </div>
+    <p v-else class="wv-u4 wv-font-semibold">จากทุกพรรค ในทุกประเด็น</p>
   </div>
 </template>
 
 <script lang="ts">
 import Vue, { PropType } from 'vue';
-import { TrackingPromise } from '../../../models/promise';
 import FilterChip from './filter-chip.vue';
+
+import { Filter } from '@/models/filter';
+import { TrackingPromise } from '@/models/promise';
 
 export default Vue.extend({
   name: 'ActiveFilters',
@@ -30,11 +37,10 @@ export default Vue.extend({
       type: Array as PropType<TrackingPromise[]>,
       default: () => [],
     },
-  },
-  data() {
-    return {
-      filter: { type: 'party', value: 'พลังประชารัฐ' },
-    };
+    filters: {
+      type: Array as PropType<Filter[]>,
+      default: () => [],
+    },
   },
 });
 </script>

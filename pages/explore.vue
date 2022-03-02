@@ -1,6 +1,18 @@
 <template>
   <div>
     <h1>Explore</h1>
+    <ActiveFilters
+      :filters="[
+        {
+          type: 'party',
+          value: 'พลังประชารัฐ',
+        },
+        {
+          type: 'keyword',
+          value: 'รถเมล์',
+        },
+      ]"
+    />
     <ActiveFilters />
   </div>
 </template>
