@@ -8,7 +8,7 @@
       <img
         v-if="iconImage"
         class="w-12 mr-4"
-        :src="'/images/' + iconImage"
+        :src="`${$config.path.images}/${iconImage}`"
         :alt="iconImageName"
       />
       <h1 class="wv-h5 wv-font-kondolar wv-font-bold">

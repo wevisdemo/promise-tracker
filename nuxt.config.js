@@ -39,8 +39,11 @@ export default {
 
   build: {},
 
-  env: {
-    BASE_PATH,
+  publicRuntimeConfig: {
+    path: {
+      base: BASE_PATH,
+      images: `${BASE_PATH}/images`,
+    },
   },
 
   router: {

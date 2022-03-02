@@ -35,9 +35,6 @@ Thai politicians and parties promise tracker
 
 Use `pascal-case` for every file name since Linux (eg. Github Action runner) is not case-incensitive, in contrary to Mac and Windows.
 
-- `/assets` Assets such as images which [can be import into Nuxt](https://nuxtjs.org/docs/directory-structure/assets/)
-  - Before adding new assets, check first if it's already exist here.
-  - For SVG that can change the color (eg. button icon on hover), recommend in use inline svg with `currentColor` and Tailwind color preset
 - `/components` Vue components
   - Put on the root if it's shared between pages
   - Put in the `/components/<page>/` if it's only used in that page
@@ -45,6 +42,14 @@ Use `pascal-case` for every file name since Linux (eg. Github Action runner) is 
 - `/data` JSON promises and related data, including example one before fetching script is implemented.
 - `/models` Data types (interface, enum, etc.) sharing across the project
 - `/pages` Represent [Nuxt routing](https://nuxtjs.org/docs/directory-structure/pages)
+- `/static` Static assets such as images
+  - Before adding new assets, check first if it's already exist here.
+  - `$config.path.base` can be used to reference `static` path (or base path)
+  - `$config.path.images` can be used to reference `static/images` path
+  ```vue
+    <img :src="`${$config.path.images}/status/nodata.png`"
+  ```
+  - For SVG that can change the color (eg. button icon on hover), recommend in use inline svg with `currentColor` and Tailwind color preset
 - `/tests` Test file
   - Recommend to mimick project structure eg. `/tests/components/component-name.test.ts`
 

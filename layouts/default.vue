@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen wv-font-anuphan wv-b5">
     <WvNavbar
       title="PROMISE TRACKER"
-      :logo-addon-src="`${basePath}/logo-addon.png`"
+      :logo-addon-src="`${$config.path.images}/logo-addon.png`"
     >
       <NuxtLink v-for="{ label, path } in routes" :key="path" :to="path">
         <WvNavButton :active="path === $route.path">{{ label }}</WvNavButton>
@@ -28,7 +28,6 @@ export default Vue.extend({
   components: { WvNavbar, WvFooter, WvNavButton },
   data() {
     return {
-      basePath: process.env.BASE_PATH,
       routes: [
         { label: 'หน้าแรก', path: '/' },
         { label: 'ดูคำสัญญา', path: '/explore' },

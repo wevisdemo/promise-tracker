@@ -7,7 +7,7 @@
         class="rounded-full shadow-xl"
         :class="filterImages.length > 1 ? 'w-24' : 'w-32'"
         :style="{ zIndex: -i }"
-        :src="src"
+        :src="`${$config.path.images}/${src}`"
         :alt="value"
       />
     </div>
@@ -70,7 +70,7 @@ export default Vue.extend({
             {
               type: 'default',
               value: 'all',
-              src: '/images/status/notfound.png',
+              src: 'status/notfound.png',
             },
           ]
         : (this.filters as Filter[]).length === 0
@@ -78,7 +78,7 @@ export default Vue.extend({
             {
               type: 'default',
               value: 'all',
-              src: '/images/status/default.png',
+              src: 'status/default.png',
             },
           ]
         : this.filters
@@ -86,7 +86,7 @@ export default Vue.extend({
             .map(({ type, value }) => ({
               type,
               value,
-              src: `/images/${type}/${value}${
+              src: `${type}/${value}${
                 type === FilterType.Topic ? '_small' : ''
               }.${type === FilterType.Party ? 'jpg' : 'png'}`,
             }));
