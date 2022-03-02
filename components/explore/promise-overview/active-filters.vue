@@ -65,7 +65,7 @@ export default Vue.extend({
   },
   computed: {
     filterImages() {
-      return this.promises.length === 0
+      return (this.promises as TrackingPromise[]).length === 0
         ? [
             {
               type: 'default',
@@ -73,7 +73,7 @@ export default Vue.extend({
               src: '/images/status/notfound.png',
             },
           ]
-        : this.filters.length === 0
+        : (this.filters as Filter[]).length === 0
         ? [
             {
               type: 'default',
