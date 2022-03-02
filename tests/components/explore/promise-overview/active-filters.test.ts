@@ -3,6 +3,7 @@ import ActiveFilters from '@/components/explore/promise-overview/active-filters.
 import FilterChip from '@/components/explore/promise-overview/filter-chip.vue';
 import promises from '@/data/promises-example.json';
 import { FilterType } from '@/models/filter';
+import { PromiseStatus, PromiseTopic } from '@/models/promise';
 
 test('should render ไม่พบคำสัญญาที่คุณค้นหา text if promises is empty', () => {
   const wrapper = mount(ActiveFilters, { propsData: { promises: [] } });
@@ -36,6 +37,33 @@ test('should render FilterChip from given filters', () => {
 
   expect(filterChips.length).toBe(filters.length);
   expect(wrapper.text().includes('จากทุกพรรค ในทุกประเด็น')).toBeFalsy();
+});
+
+test('should render images from given filters, except keyword', () => {
+  const filters = [
+    {
+      type: FilterType.Party,
+      value: 'พลังประชารัฐ',
+    },
+    {
+      type: FilterType.Status,
+      value: PromiseStatus.NoData,
+    },
+    {
+      type: FilterType.Topic,
+      value: PromiseTopic.Environmental,
+    },
+    {
+      type: FilterType.Keyword,
+      value: 'รถเมล์',
+    },
+  ];
+
+  const wrapper = mount(ActiveFilters, { propsData: { promises, filters } });
+
+  const images = wrapper.findAll('img');
+
+  expect(images.length).toBe(filters.length - 1);
 });
 
 test('should render จากทุกพรรค ในทุกประเด็น text if filters is empty', () => {

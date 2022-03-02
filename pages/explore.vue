@@ -12,6 +12,10 @@
           type: 'keyword',
           value: 'รถเมล์',
         },
+        {
+          type: 'status',
+          value: 'done',
+        },
       ]"
     />
     <ActiveFilters :promises="promises" />
