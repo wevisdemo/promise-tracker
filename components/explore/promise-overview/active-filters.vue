@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col space-y-2">
+  <div v-if="promises.length > 0" class="flex flex-col space-y-2">
     <h1 class="wv-h8 wv-font-kondolar wv-font-black">
       สำรวจคำสัญญา พรรคการเมือง
     </h1>
@@ -17,6 +17,11 @@
       />
     </div>
     <p v-else class="wv-u4 wv-font-semibold">จากทุกพรรค ในทุกประเด็น</p>
+  </div>
+  <div v-else>
+    <h1 class="wv-h8 wv-font-kondolar wv-font-black">
+      ไม่พบคำสัญญาที่คุณค้นหา
+    </h1>
   </div>
 </template>
 
