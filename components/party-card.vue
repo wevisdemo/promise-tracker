@@ -1,5 +1,10 @@
 <template>
-  <div class="h11">{{ partyName }}</div>
+  <div>
+    <div class="h11">
+      {{ partyName }}
+    </div>
+    <NuxtLink :to="partyLink"></NuxtLink>
+  </div>
 </template>
 
 <script lang="ts">
@@ -9,6 +14,10 @@ export default Vue.extend({
   name: 'PartyCard',
   props: {
     partyName: {
+      type: String,
+      default: '',
+    },
+    partyLink: {
       type: String,
       default: '',
     },
