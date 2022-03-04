@@ -21,13 +21,13 @@ Thai politicians and parties promise tracker
   - Communication language doesn't matter. Feel free to use Thai or English.
 - We use Trunk-based development.
   - No braches, we all push to main branch.
-  - If the commit is related to a specifig issue, add issue id in the commit message eg. `#21 Add button components`
+  - If the commit is related to a specific issue, add issue id in the commit message eg. `#21 Add button components`
   - Pull rebase `git pull --rebase` often. Before you start coding and pushing.
-  - Continueus integration: don't leave your code without pushing overnight, push as much as you can without breaking the build.
+  - Continuous integration: don't leave your code without pushing overnight, push as much as you can without breaking the build.
   - Linter and formater will be run on commit, while test and build will be run on push so you can't push if it fail.
-- Encourage to write component test with TDD (Test driven development) but it's not mendatory.
+- Encourage to write component test with TDD (Test driven development) but it's not mandatory.
 - Each time the code is pushed to main, Github Action will build and deploy to the staging environment.
-- Use asynchonous communication. Let's try not to have meeting if not nessesary.
+- Use asynchonous communication. Let's try not to have meeting if not necessary.
   - For issue related discussion, please use Github issue
   - Other discussion can be done in slack
 
