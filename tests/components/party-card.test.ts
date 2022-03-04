@@ -26,7 +26,7 @@ describe('party card', () => {
 
   test('should link to the given url', async () => {
     const URL_TEXT = '/explore?party-name=รวมพลังประชาชาติไทย';
-    await wrapper.setProps({ partyLink: URL_TEXT });
+    await wrapper.setProps({ buttonUrl: URL_TEXT });
 
     const routerLink = wrapper.get('nuxtlink-stub');
 

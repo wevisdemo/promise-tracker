@@ -49,6 +49,12 @@
         buttonText="ดูคำสัญญา"
         buttonUrl="explore"
       />
+      <PartyCard
+        partyLogo="party/รวมพลังประชาชาติไทย.jpg"
+        partyName="รวมพลังประชาชาติไทย"
+        :partyPromises="chart"
+        buttonUrl="explore"
+      />
     </div>
   </div>
 </template>
@@ -57,9 +63,23 @@
 import Vue from 'vue';
 import Button from '../components/button.vue';
 import LinkBanner from '../components/link-banner.vue';
+import PartyCard from '../components/party-card.vue';
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { Button, LinkBanner },
+  components: { Button, LinkBanner, PartyCard },
+  data() {
+    return {
+      chart: [
+        {
+          NoData: 10,
+          Proposed: 5,
+          Paused: 2,
+          Working: 2,
+          Done: 3,
+        },
+      ],
+    };
+  },
 });
 </script>
