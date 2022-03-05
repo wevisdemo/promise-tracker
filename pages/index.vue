@@ -66,7 +66,7 @@
           :src="`${$config.path.images}/topic/proposed.png`"
           alt="proposed"
         />
-        <p class="wv-font-baijamjuri text-white">
+        <p class="wv-font-baijamjuri wv-b6 text-white">
           <span class="wv-font-bold"
             >บทบาทหลักของฝ่ายค้านในรัฐสภา คือการตรวจสอบการทำงานของรัฐบาล</span
           >
