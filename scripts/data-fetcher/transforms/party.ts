@@ -9,7 +9,8 @@ export function transformToParties(rawParties: RawParty[]): Party[] {
         side: mapSide(p.side),
       };
     } catch (e) {
-      throw new Error(`${(e as Error).message} on party = "${p.name}"`);
+      (e as Error).message += ` on party = "${p.name}"`;
+      throw e;
     }
   });
 }

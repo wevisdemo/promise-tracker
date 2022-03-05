@@ -40,7 +40,8 @@ export function transformToTrackingPromises(
         timelines,
       };
     } catch (e) {
-      throw new Error(`${(e as Error).message} on promiseId = ${r.promiseId}`);
+      (e as Error).message += ` on promiseId = ${r.promiseId}`;
+      throw e;
     }
   });
 }
