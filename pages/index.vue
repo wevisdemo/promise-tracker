@@ -52,7 +52,7 @@
       <PartyCard
         partyLogo="party/รวมพลังประชาชาติไทย.jpg"
         partyName="รวมพลังประชาชาติไทย"
-        :partyPromises="chart"
+        :partyPromises="chartData"
         buttonUrl="explore"
       />
       <StatusExplaination />
@@ -66,20 +66,19 @@ import Button from '@/components/button.vue';
 import LinkBanner from '@/components/link-banner.vue';
 import PartyCard from '@/components/party-card.vue';
 import StatusExplaination from '@/components/status-explaination.vue';
+import { PromiseStatus } from '@/models/promise';
 
 export default Vue.extend({
   name: 'IndexPage',
   components: { Button, LinkBanner, PartyCard, StatusExplaination },
   data() {
     return {
-      chart: [
-        {
-          NoData: 10,
-          Proposed: 5,
-          Paused: 2,
-          Working: 2,
-          Done: 3,
-        },
+      chartData: [
+        { status: PromiseStatus.NoData, count: 20 },
+        { status: PromiseStatus.Proposed, count: 10 },
+        { status: PromiseStatus.Paused, count: 5 },
+        { status: PromiseStatus.Working, count: 6 },
+        { status: PromiseStatus.Done, count: 4 },
       ],
     };
   },

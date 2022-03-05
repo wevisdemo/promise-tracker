@@ -15,7 +15,7 @@ describe('party card', () => {
     });
   });
 
-  test('should show party name', async () => {
+  test('should render party name', async () => {
     const PARTY_NAME = 'รวมพลังประชาชาติไทย';
     await wrapper.setProps({ partyName: PARTY_NAME });
 
@@ -31,5 +31,13 @@ describe('party card', () => {
     const routerLink = wrapper.get('nuxtlink-stub');
 
     expect(routerLink.attributes().to).toBe(URL_TEXT);
+  });
+
+  test('should show sum of promises', () => {
+    const PROMISES_COUNT = '0 คำสัญญา';
+
+    const partyCard = wrapper.get('.party-promises');
+
+    expect(partyCard.text()).toBe(PROMISES_COUNT);
   });
 });
