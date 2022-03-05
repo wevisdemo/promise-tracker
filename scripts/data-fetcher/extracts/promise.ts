@@ -1,4 +1,5 @@
 import { parse } from 'papaparse';
+import { guardEmptiness, transformBoolean } from './helpers';
 
 export interface RawLink {
   name: string;
@@ -26,15 +27,8 @@ export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
   }).data;
 
   const mapped = parsed.map((e): RawPromise => {
-    const linkKeys = Object.keys(e).filter(
-      (k) => k.startsWith('nameLink') && e[k] !== ''
-    );
-    const links: RawLink[] = linkKeys.map(
-      (k): RawLink => ({
-        name: e[k],
-        url: e[`urlLink${k.replace('nameLink', '')}`],
-      })
-    );
+    const linkKeys = Object.keys(e).filter(isNameLinkKeyAndContentNotEmpty(e));
+    const links: RawLink[] = linkKeys.map(createRawLink(e));
 
     return {
       promiseId: Number(e.promiseId),
@@ -51,15 +45,20 @@ export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
     };
   });
 
-  return await Promise.resolve(mapped);
+  return mapped;
 }
 
-function transformBoolean(value: string): boolean {
-  if (value === 'TRUE') return true;
-  return false;
+function isNameLinkKeyAndContentNotEmpty(data: {
+  [key: string]: string;
+}): (key: string) => boolean {
+  return (key: string) => key.startsWith('nameLink') && data[key] !== '';
 }
 
-function guardEmptiness(value: string): string | null {
-  if (value === '-' || value === '') return null;
-  return value;
+function createRawLink(data: {
+  [key: string]: string;
+}): (key: string) => RawLink {
+  return (key: string): RawLink => ({
+    name: data[key],
+    url: data[`urlLink${key.replace('nameLink', '')}`],
+  });
 }
