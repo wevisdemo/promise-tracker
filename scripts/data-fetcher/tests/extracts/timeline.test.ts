@@ -1,13 +1,11 @@
 import { getRawPromiseTimelines } from '../../extracts/timeline';
+import { createMockFetch, MockFetch } from './mock-fetch';
 
 describe('getRawPromiseTimelines', () => {
-  let mockFetch: { text: jest.Mock<any, any> };
+  let mockFetch: MockFetch;
 
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    global.fetch = jest.fn().mockResolvedValue(mockFetch) as jest.Mock;
+    mockFetch = createMockFetch();
   });
 
   const HEADER_ROW = `promiseId,name1,timeline1,name2,timeline2`;

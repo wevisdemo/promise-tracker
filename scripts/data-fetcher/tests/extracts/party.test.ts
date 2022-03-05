@@ -1,13 +1,11 @@
 import { getRawParties } from '../../extracts/party';
+import { createMockFetch, MockFetch } from './mock-fetch';
 
 describe('getRawParties', () => {
-  let mockFetch: { text: jest.Mock<any, any> };
+  let mockFetch: MockFetch;
 
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    global.fetch = jest.fn().mockResolvedValue(mockFetch) as jest.Mock;
+    mockFetch = createMockFetch();
   });
 
   const HEADER_ROW = `name,side`;

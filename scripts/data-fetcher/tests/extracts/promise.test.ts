@@ -1,13 +1,11 @@
 import { getRawPromises } from '../../extracts/promise';
+import { createMockFetch, MockFetch } from './mock-fetch';
 
 describe('getRawPromises', () => {
-  let mockFetch: { text: jest.Mock<any, any> };
+  let mockFetch: MockFetch;
 
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    global.fetch = jest.fn().mockResolvedValue(mockFetch) as jest.Mock;
+    mockFetch = createMockFetch();
   });
 
   const HEADER_ROW = `promiseId,party,topic,promiseTitle,status,explain,isNCPO,refPicture,picturesDrive,vdo,nameLink1,urlLink1,nameLink2,urlLink2,nameLink3,urlLink3,nameLink4,urlLink4`;
