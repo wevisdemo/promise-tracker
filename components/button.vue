@@ -2,6 +2,7 @@
   <button
     class="flex flex-row items-center px-4 py-2 border wv-u4 wv-font-bold space-x-2 rounded-sm"
     :class="themeClasses"
+    @click="onClick"
   >
     <slot />
   </button>
@@ -68,6 +69,11 @@ export default Vue.extend({
             'hover:bg-white',
           ];
       }
+    },
+  },
+  methods: {
+    onClick() {
+      this.$emit('click', true);
     },
   },
 });

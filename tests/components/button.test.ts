@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import Button from '../../components/button.vue';
+import Button from '@/components/button.vue';
 
 test('should render slot', () => {
   const SLOT_TEXT = 'Test Button';
@@ -8,6 +8,13 @@ test('should render slot', () => {
   const button = wrapper.getComponent({ name: 'button' });
 
   expect(button.text()).toBe(SLOT_TEXT);
+});
+
+test('should emit event on click', () => {
+  const wrapper = mount(Button);
+  const button = wrapper.getComponent({ name: 'button' });
+  button.trigger('click');
+  expect(wrapper.emitted('click')).toBeTruthy();
 });
 
 describe('should render correct theme from given prop', () => {
