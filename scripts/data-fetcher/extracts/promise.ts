@@ -20,6 +20,8 @@ export interface RawPromise {
   links: RawLink[];
 }
 
+const NAME_LINK_PREFIX = 'nameLink';
+
 export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
   const content = await (await fetch(csvUrl)).text();
   const parsed = await parse<{ [key: string]: string }>(content, {
@@ -27,7 +29,9 @@ export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
   }).data;
 
   const mapped = parsed.map((e): RawPromise => {
-    const linkKeys = Object.keys(e).filter(isNameLinkKeyAndContentNotEmpty(e));
+    const linkKeys = Object.keys(e).filter(
+      (key: string) => key.startsWith(NAME_LINK_PREFIX) && e[key] !== ''
+    );
     const links: RawLink[] = linkKeys.map(createRawLink(e));
 
     return {
@@ -48,17 +52,11 @@ export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
   return mapped;
 }
 
-function isNameLinkKeyAndContentNotEmpty(data: {
-  [key: string]: string;
-}): (key: string) => boolean {
-  return (key: string) => key.startsWith('nameLink') && data[key] !== '';
-}
-
 function createRawLink(data: {
   [key: string]: string;
 }): (key: string) => RawLink {
   return (key: string): RawLink => ({
     name: data[key],
-    url: data[`urlLink${key.replace('nameLink', '')}`],
+    url: data[`urlLink${key.replace(NAME_LINK_PREFIX, '')}`],
   });
 }
