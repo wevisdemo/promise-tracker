@@ -33,7 +33,7 @@ describe('transformToParties', () => {
       const raw = [{ side: CANNOT_BE_MAPPED_SIDE, name: PARTY_NAME }];
 
       expect(() => transformToParties(raw)).toThrowError(
-        `Cannot find appropriate side to map "${CANNOT_BE_MAPPED_SIDE}" on party = "${PARTY_NAME}"`
+        `Cannot find side to map "${CANNOT_BE_MAPPED_SIDE}" on party = "${PARTY_NAME}"`
       );
     });
   });

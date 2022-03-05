@@ -77,7 +77,7 @@ describe('transformToTrackingPromises', () => {
       ];
 
       expect(() => transformToTrackingPromises(rawPromises, [])).toThrowError(
-        `Cannot find appropriate topic to map ${RAW_INCORRECT_TOPIC} on promiseId = ${PROMISE_ID}`
+        `Cannot find topic to map "${RAW_INCORRECT_TOPIC}" on promiseId = ${PROMISE_ID}`
       );
     });
   });
@@ -105,7 +105,7 @@ describe('transformToTrackingPromises', () => {
       ];
 
       expect(() => transformToTrackingPromises(rawPromises, [])).toThrowError(
-        `Cannot find appropriate status to map ${RAW_INCORRECT_STATUS} on promiseId = ${PROMISE_ID}`
+        `Cannot find status to map "${RAW_INCORRECT_STATUS}" on promiseId = ${PROMISE_ID}`
       );
     });
   });
@@ -220,7 +220,7 @@ describe('transformToTrackingPromises', () => {
         expect(() =>
           transformToTrackingPromises(rawPromises, rawPromiseTimelines)
         ).toThrowError(
-          `Incorrect timeline ${range} on promiseId = ${PROMISE_ID}`
+          `Incorrect timeline "${range}" on promiseId = ${PROMISE_ID}`
         );
       });
 

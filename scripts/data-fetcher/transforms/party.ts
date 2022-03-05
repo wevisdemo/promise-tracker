@@ -24,5 +24,5 @@ function mapSide(side: string): PartySide {
   if (mapped) {
     return mapped;
   }
-  throw new Error(`Cannot find appropriate side to map "${side}"`);
+  throw new Error(`Cannot find side to map "${side}"`);
 }

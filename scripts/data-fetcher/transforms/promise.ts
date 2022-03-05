@@ -60,7 +60,7 @@ function mapTopic(value: string): PromiseTopic {
   if (topic) {
     return topic;
   }
-  throw new Error(`Cannot find appropriate topic to map ${value}`);
+  throw new Error(`Cannot find topic to map "${value}"`);
 }
 
 const statuses = new Map<string, PromiseStatus>([
@@ -76,7 +76,7 @@ function mapStatus(value: string): PromiseStatus {
   if (status) {
     return status;
   }
-  throw new Error(`Cannot find appropriate status to map ${value}`);
+  throw new Error(`Cannot find status to map "${value}"`);
 }
 
 function convertRangeToFromTo(value: string): {
@@ -85,7 +85,7 @@ function convertRangeToFromTo(value: string): {
 } {
   const [from, to] = value.split('-').map((e) => e.trim());
   if (from === '' || to === '') {
-    throw new Error(`Incorrect timeline ${value}`);
+    throw new Error(`Incorrect timeline "${value}"`);
   }
   return {
     from: convertDateToISOFormat(from),
@@ -102,5 +102,5 @@ function convertDateToISOFormat(date: string): string {
     const [month, year] = splited;
     return `${year}-${month}`;
   }
-  throw new Error(`Incorrect timeline ${date}`);
+  throw new Error(`Incorrect timeline "${date}"`);
 }

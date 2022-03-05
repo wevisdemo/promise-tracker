@@ -114,7 +114,7 @@ describe('getRawPromises', () => {
       ]);
     });
 
-    test('two links', async () => {
+    test('2 links', async () => {
       const DATA_ROW = `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,,,,`;
       mockFetch.text = jest
         .fn()
