@@ -55,19 +55,21 @@
         :partyPromises="chart"
         buttonUrl="explore"
       />
+      <StatusExplaination />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Button from '../components/button.vue';
-import LinkBanner from '../components/link-banner.vue';
-import PartyCard from '../components/party-card.vue';
+import Button from '@/components/button.vue';
+import LinkBanner from '@/components/link-banner.vue';
+import PartyCard from '@/components/party-card.vue';
+import StatusExplaination from '@/components/status-explaination.vue';
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { Button, LinkBanner, PartyCard },
+  components: { Button, LinkBanner, PartyCard, StatusExplaination },
   data() {
     return {
       chart: [
