@@ -1,11 +1,17 @@
+import fetch from 'node-fetch';
 import { getRawPromises } from '../../extracts/promise';
-import { createMockFetch, MockFetch } from './mock-fetch';
 
+jest.mock('node-fetch', () => jest.fn());
 describe('getRawPromises', () => {
-  let mockFetch: MockFetch;
+  let mockFetch: {
+    text: jest.Mock<any, any>;
+  };
 
   beforeEach(() => {
-    mockFetch = createMockFetch();
+    mockFetch = {
+      text: jest.fn().mockResolvedValue(''),
+    };
+    (fetch as unknown as any).mockResolvedValue(mockFetch);
   });
 
   const HEADER_ROW = `promiseId,party,topic,promiseTitle,status,explain,isNCPO,refPicture,picturesDrive,vdo,nameLink1,urlLink1,nameLink2,urlLink2,nameLink3,urlLink3,nameLink4,urlLink4`;
@@ -13,7 +19,7 @@ describe('getRawPromises', () => {
   test('should fetch remote csv from given URL', async () => {
     const CSV_URL = 'https://path/to/promises.csv';
     await getRawPromises(CSV_URL);
-    expect(global.fetch).toBeCalledWith(CSV_URL);
+    expect(fetch).toBeCalledWith(CSV_URL);
   });
 
   test('should extract simple string properties properly', async () => {

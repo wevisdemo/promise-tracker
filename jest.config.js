@@ -17,6 +17,7 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue',
     '<rootDir>/scripts/**/*.ts',
+    '!<rootDir>/scripts/data-fetcher/index.ts',
   ],
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],

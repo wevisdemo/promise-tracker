@@ -1,4 +1,5 @@
 import { parse } from 'papaparse';
+import fetch from 'node-fetch';
 import { guardEmptiness, transformBoolean } from './helpers';
 
 export interface RawLink {

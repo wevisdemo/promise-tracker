@@ -1,4 +1,5 @@
 import { parse } from 'papaparse';
+import fetch from 'node-fetch';
 
 export interface RawParty {
   name: string;

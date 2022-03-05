@@ -1,11 +1,17 @@
+import fetch from 'node-fetch';
 import { getRawPromiseTimelines } from '../../extracts/timeline';
-import { createMockFetch, MockFetch } from './mock-fetch';
 
+jest.mock('node-fetch', () => jest.fn());
 describe('getRawPromiseTimelines', () => {
-  let mockFetch: MockFetch;
+  let mockFetch: {
+    text: jest.Mock<any, any>;
+  };
 
   beforeEach(() => {
-    mockFetch = createMockFetch();
+    mockFetch = {
+      text: jest.fn().mockResolvedValue(''),
+    };
+    (fetch as unknown as any).mockResolvedValue(mockFetch);
   });
 
   const HEADER_ROW = `promiseId,name1,timeline1,name2,timeline2`;
@@ -13,7 +19,7 @@ describe('getRawPromiseTimelines', () => {
   test('should fetch remote csv from given URL', async () => {
     const CSV_URL = 'https://path/to/timeline.csv';
     await getRawPromiseTimelines(CSV_URL);
-    expect(global.fetch).toBeCalledWith(CSV_URL);
+    expect(fetch).toBeCalledWith(CSV_URL);
   });
 
   test('should extract promiseId as number', async () => {

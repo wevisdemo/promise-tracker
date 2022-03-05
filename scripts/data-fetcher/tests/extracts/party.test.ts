@@ -1,11 +1,17 @@
+import fetch from 'node-fetch';
 import { getRawParties } from '../../extracts/party';
-import { createMockFetch, MockFetch } from './mock-fetch';
 
+jest.mock('node-fetch', () => jest.fn());
 describe('getRawParties', () => {
-  let mockFetch: MockFetch;
+  let mockFetch: {
+    text: jest.Mock<any, any>;
+  };
 
   beforeEach(() => {
-    mockFetch = createMockFetch();
+    mockFetch = {
+      text: jest.fn().mockResolvedValue(''),
+    };
+    (fetch as unknown as any).mockResolvedValue(mockFetch);
   });
 
   const HEADER_ROW = `name,side`;
@@ -13,7 +19,7 @@ describe('getRawParties', () => {
   test('should fetch remote csv from given URL', async () => {
     const CSV_URL = 'https://path/to/timeline.csv';
     await getRawParties(CSV_URL);
-    expect(global.fetch).toBeCalledWith(CSV_URL);
+    expect(fetch).toBeCalledWith(CSV_URL);
   });
 
   test('should extract name and side for raw party', async () => {
