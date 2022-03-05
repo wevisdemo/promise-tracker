@@ -55,7 +55,29 @@
         :partyPromises="chartData"
         buttonUrl="explore"
       />
-      <StatusExplaination />
+      <div class="grid grid-cols-1 gap-4">
+        <StatusLegend :showDetail="false" :showInline="true" />
+        <StatusLegend :showDetail="false" />
+      </div>
+      <StatusExplanation />
+      <ExplanationContainer title="ทวงสัญญากับฝ่ายค้านได้ด้วยเหรอ?">
+        <img
+          class="mb-4 sm:mr-8 sm:mb-0 w-28 sm:w-48"
+          :src="`${$config.path.images}/topic/proposed.png`"
+          alt="proposed"
+        />
+        <p class="wv-font-baijamjuri text-white">
+          <span class="wv-font-bold"
+            >บทบาทหลักของฝ่ายค้านในรัฐสภา คือการตรวจสอบการทำงานของรัฐบาล</span
+          >
+          และแม้จะเป็นการยากที่จะผลักดันเสียงของประชาชนด้วยเสียงข้างน้อย
+          แต่เราก็อยากลองชวนทุกคนทบทวนดูว่า พวกเขาพยายามเพื่อเราแค่ไหน ดังนั้น
+          สำหรับพรรคฝ่ายค้าน หากดำเนินการมาถึงขั้นตอน "เสนอต่อสภา" ขึ้นไป
+          หรือใช้กลไกของสภา เช่น การอภิปราย การตั้งกระทู้ถาม นั่นแสดงให้เห็นว่า
+          ฝ่ายค้านได้พยายามผลักดันให้คำสัญญานั้นได้เป็นที่รับรู้
+          หรือเข้าสู่กระบวนการตามอำนาจหน้าที่ที่พวกเขาทำได้
+        </p>
+      </ExplanationContainer>
     </div>
   </div>
 </template>
@@ -65,12 +87,21 @@ import Vue from 'vue';
 import Button from '@/components/button.vue';
 import LinkBanner from '@/components/link-banner.vue';
 import PartyCard from '@/components/party-card.vue';
-import StatusExplaination from '@/components/status-explaination.vue';
 import { PromiseStatus } from '@/models/promise';
+import StatusExplanation from '@/components/explanation/status-explanation.vue';
+import StatusLegend from '@/components/explanation/status-legend.vue';
+import ExplanationContainer from '@/components/explanation/explanation-container.vue';
 
 export default Vue.extend({
   name: 'IndexPage',
-  components: { Button, LinkBanner, PartyCard, StatusExplaination },
+  components: {
+    Button,
+    LinkBanner,
+    PartyCard,
+    StatusExplanation,
+    StatusLegend,
+    ExplanationContainer,
+  },
   data() {
     return {
       chartData: [
