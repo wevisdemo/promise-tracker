@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex flex-col max-w-3xl p-4 rounded-lg sm:flex-row"
+    class="flex flex-col max-w-4xl p-4 rounded-lg sm:flex-row"
     :class="themeClasses"
     data-testid="theme"
   >
-    <div class="flex items-center sm:items-start sm:w-1/2">
+    <div class="flex items-center sm:items-start sm:w-2/5">
       <img
         v-if="iconImage"
         class="w-12 mr-4"
@@ -22,7 +22,7 @@
       class="w-full h-10 justify-center sm:w-max flex-shrink-0"
       theme="primary-white"
       data-testid="navigation"
-      @click.native="handleButtonClick"
+      @click="handleRedirect"
     >
       <span class="wv-font-anuphan">
         {{ buttonText }}
@@ -91,8 +91,8 @@ export default Vue.extend({
     },
   },
   methods: {
-    handleButtonClick() {
-      location.href += this.$props.buttonUrl;
+    handleRedirect() {
+      this.$router.push('/' + this.$props.buttonUrl);
     },
   },
 });

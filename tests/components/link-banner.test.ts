@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import LinkBanner from '../../components/link-banner.vue';
+import LinkBanner from '@/components/link-banner.vue';
 
 describe('Theme handling', () => {
   test('renders transparent-gray', () => {
@@ -71,13 +71,22 @@ describe('Props handling', () => {
   });
 });
 
-// describe('Event handling', () => {
-//   test('method called on button click', () => {
-//     const wrapper = mount(LinkBanner, {
-//       propsData: {
-//         buttonText: 'ดูคำสัญญา',
-//         buttonUrl: 'explore',
-//       },
-//     });
-//   });
-// });
+describe('Event handling', () => {
+  test('routes on button click', async () => {
+    const mockRouter = {
+      push: jest.fn(),
+    };
+    const wrapper = mount(LinkBanner, {
+      propsData: {
+        buttonText: 'ดูคำสัญญา',
+        buttonUrl: 'explore',
+      },
+      mocks: {
+        $router: mockRouter,
+      },
+    });
+    await wrapper.find('[data-testid="navigation"]').trigger('click');
+    expect(mockRouter.push).toHaveBeenCalledTimes(1);
+    expect(mockRouter.push).toHaveBeenCalledWith('/explore');
+  });
+});
