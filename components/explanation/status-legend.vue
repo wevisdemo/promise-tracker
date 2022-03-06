@@ -1,10 +1,10 @@
 <template>
   <div :class="showInline ? 'flex' : ''" data-testid="status-legend-container">
     <div
-      v-for="data in dataArray"
+      v-for="data in selectedLegend"
       :key="data.id"
       class="flex flex-col md:flex-row text-white"
-      :class="showInline ? '' : 'mb-4'"
+      :class="showInline || showOnly !== '' ? '' : 'mb-4'"
     >
       <div class="flex wv-u4 wv-font-anuphan wv-font-bold">
         <span class="pr-2" v-html="data.icon"></span>
@@ -35,16 +35,9 @@ export default Vue.extend({
       type: Boolean,
       default: false,
     },
-  },
-  computed: {
-    propsClass() {
-      if (this.$props.showDetail) {
-        return 'w-24 mb-2';
-      }
-      if (!this.$props.showInline) {
-        return 'w-24';
-      }
-      return '';
+    showOnly: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -85,6 +78,23 @@ export default Vue.extend({
         },
       ],
     };
+  },
+  computed: {
+    propsClass() {
+      if (this.showDetail) {
+        return 'w-24 mb-2';
+      }
+      if (!this.showInline) {
+        return 'w-24';
+      }
+      return '';
+    },
+    selectedLegend(): {} {
+      if (this.showOnly !== '') {
+        return this.dataArray.filter((data) => data.name === this.showOnly);
+      }
+      return this.dataArray;
+    },
   },
 });
 </script>

@@ -68,4 +68,42 @@ describe('Style handling', () => {
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
+  test('showDetail is false and showInline is true', () => {
+    const expectedClasses = ['mr-2'];
+    const wrapper = mount(StatusLegend, {
+      propsData: { showDetail: false, showInline: true },
+    });
+    const text = wrapper.find('[data-testid="status-legend-text"]');
+    expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
+  });
+});
+
+describe('Selection handling', () => {
+  test('selects all', () => {
+    const expectedText = [
+      'ไม่พบข้อมูล',
+      'ถูกเสนอต่อสภา',
+      'ถูกระงับ',
+      'กำลังดำเนินการ',
+      'สำเร็จ',
+    ];
+    const wrapper = mount(StatusLegend, {
+      propsData: { showDetail: false },
+    });
+    const spans = wrapper.findAll('[data-testid="status-legend-text"]');
+    // console.log([...spans.wrappers.map((wrapper) => wrapper.html())]);
+    expect(spans.length).toEqual(expectedText.length);
+    spans.wrappers.forEach((span, index) => {
+      expect(span.text()).toBe(expectedText[index]);
+    });
+  });
+  test('selects one', () => {
+    const expectedText = ['ไม่พบข้อมูล'];
+    const wrapper = mount(StatusLegend, {
+      propsData: { showDetail: false, showOnly: 'ไม่พบข้อมูล' },
+    });
+    const spans = wrapper.findAll('[data-testid="status-legend-text"]');
+    expect(spans.length).toEqual(expectedText.length);
+    expect(spans.at(0).text()).toBe(expectedText[0]);
+  });
 });
