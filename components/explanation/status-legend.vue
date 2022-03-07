@@ -3,17 +3,14 @@
     <div
       v-for="data in selectedLegend"
       :key="data.id"
-      class="flex flex-col md:flex-row text-white"
+      class="flex flex-col md:flex-row"
       :class="showInline || showOnly !== '' ? '' : 'mb-4'"
     >
       <div class="flex wv-u4 wv-font-anuphan wv-font-bold">
         <span class="pr-2" v-html="data.icon"></span>
-        <span
-          class="mr-2"
-          :class="propsClass"
-          data-testid="status-legend-text"
-          >{{ data.name }}</span
-        >
+        <span :class="propsClass" data-testid="status-legend-text">{{
+          data.name
+        }}</span>
       </div>
       <p v-if="showDetail" class="wv-b6 wv-font-baijamjuri">
         {{ data.description }}
@@ -81,13 +78,15 @@ export default Vue.extend({
   },
   computed: {
     propsClass() {
-      if (this.showDetail) {
-        return 'w-24 mb-2';
-      }
-      if (!this.showInline) {
+      if (this.showOnly !== '') {
+        return '';
+      } else if (this.showDetail) {
+        return 'mr-2 w-24 mb-2';
+      } else if (!this.showInline) {
         return 'w-24';
+      } else {
+        return 'mr-2';
       }
-      return '';
     },
     selectedLegend(): {} {
       if (this.showOnly !== '') {
