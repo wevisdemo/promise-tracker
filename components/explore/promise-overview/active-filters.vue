@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row p-8 space-x-8 items-center justify-center">
+  <div class="bg-white flex flex-row p-8 space-x-8 items-center justify-center">
     <div class="flex flex-col -space-y-4">
       <img
         v-for="({ type, value, src }, i) in filterImages"
@@ -29,6 +29,7 @@
           v-for="filter in filters"
           :key="filter.type"
           :filter="filter"
+          @remove="$emit('removefilter', filter)"
         />
       </div>
       <p v-else class="wv-u4 wv-font-semibold">จากทุกพรรค ในทุกประเด็น</p>

@@ -76,3 +76,25 @@ test('should render จากทุกพรรค ในทุกประเ�
   expect(filterChips.length).toBe(0);
   expect(wrapper.text().includes('จากทุกพรรค ในทุกประเด็น')).toBeTruthy();
 });
+
+test('should emit removefilter event with filter detail when filterchip emit remove', () => {
+  const filters = [
+    {
+      type: FilterType.Party,
+      value: 'พลังประชารัฐ',
+    },
+    {
+      type: FilterType.Status,
+      value: PromiseStatus.NoData,
+    },
+  ];
+
+  const wrapper = mount(ActiveFilters, { propsData: { promises, filters } });
+
+  const firstFilterChip = wrapper.findComponent(FilterChip);
+
+  firstFilterChip.get('button').trigger('click');
+
+  expect(wrapper.emitted().removefilter).toBeTruthy();
+  expect(wrapper.emitted().removefilter?.[0][0]).toEqual(filters[0]);
+});
