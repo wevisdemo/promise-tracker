@@ -27,6 +27,7 @@
       :max="15"
       :total="60"
     />
+    <TabNavigation active-tab="status" />
   </div>
 </template>
 
@@ -36,12 +37,14 @@ import ActiveFilters from '@/components/explore/promise-overview/active-filters.
 import promises from '@/data/promises-example.json';
 import ChartItem from '@/components/explore/promise-overview/chart-item.vue';
 import { PromiseStatus } from '@/models/promise';
+import TabNavigation from '@/components/explore/promise-overview/tab-navigation.vue';
 
 export default Vue.extend({
   name: 'ExplorePage',
   components: {
     ActiveFilters,
     ChartItem,
+    TabNavigation,
   },
   data() {
     return {
