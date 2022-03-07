@@ -56,10 +56,22 @@
         buttonUrl="explore"
       />
       <div class="grid grid-cols-1 gap-4">
-        <StatusLegend :showDetail="false" :showInline="true" />
-        <StatusLegend :showDetail="false" />
-        <StatusLegend :showDetail="false" showOnly="ถูกระงับ" />
-        <StatusLegend :showDetail="false" showOnly="สำเร็จ" />
+        <StatusLegend
+          class="text-white"
+          :showDetail="false"
+          :showInline="true"
+        />
+        <StatusLegend class="text-white" :showDetail="false" />
+        <StatusLegend
+          class="text-white"
+          :showDetail="false"
+          showOnly="ถูกระงับ"
+        />
+        <StatusLegend
+          class="text-white"
+          :showDetail="false"
+          showOnly="สำเร็จ"
+        />
       </div>
       <StatusExplanation />
       <ExplanationContainer title="ทวงสัญญากับฝ่ายค้านได้ด้วยเหรอ?">
