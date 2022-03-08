@@ -17,7 +17,7 @@ test('should render given label and data count as a text', () => {
 });
 
 test('should render given icon', () => {
-  const icon = 'test.png';
+  const icon = 'party/test.png';
   const wrapper = mount(ChartItem, { propsData: { data, icon } });
 
   expect(wrapper.find('img').attributes('src')).toBe(

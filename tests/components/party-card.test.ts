@@ -38,7 +38,7 @@ describe('party card', () => {
     await wrapper.setProps({ partyLogo: LOGO });
 
     expect(wrapper.find('img').attributes('src')).toBe(
-      `${config.mocks.$config.path.images}/dummy.jpg`
+      `${config.mocks.$config.path.images}/party/dummy.jpg`
     );
   });
 

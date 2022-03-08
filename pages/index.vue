@@ -49,12 +49,27 @@
         buttonText="ดูคำสัญญา"
         buttonUrl="explore"
       />
-      <PartyCard
-        partyLogo="party/รวมพลังประชาชาติไทย.jpg"
-        partyName="รวมพลังประชาชาติไทย"
-        :partyPromises="chartData"
-        buttonUrl="explore"
-      />
+      <div class="flex flex-col gap-1">
+        <PartyCard
+          partyLogo="party/รวมพลังประชาชาติไทย.jpg"
+          partyName="รวมพลังประชาชาติไทย"
+          :partyPromises="chartData"
+          buttonUrl="explore"
+        />
+        <PartyCard
+          partyLogo="party/ก้าวไกล.jpg"
+          partyName="ก้าวไกล"
+          :partyPromises="chartData"
+          buttonUrl="explore"
+        />
+        <PartyCard
+          partyLogo="party/เครือข่ายชาวนาแห่งประเทศไทย.jpg"
+          partyName="เครือข่ายชาวนาแห่งประเทศไทย"
+          :partyPromises="chartData"
+          buttonUrl="explore"
+        />
+        <PartyCard partyName="Dummy party" />
+      </div>
       <div class="grid grid-cols-1 gap-4">
         <StatusLegend
           class="text-white"

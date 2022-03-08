@@ -1,29 +1,29 @@
 <template>
   <div
-    class="flex flex-col bg-white w-max p-4 rounded-lg sm:flex-row items-center gap-4"
+    class="flex flex-col bg-white w-max px-4 py-3 rounded-sm items-center sm:flex-row gap-6"
   >
-    <div>
+    <div class="flex gap-1">
       <img
         v-if="partyLogo"
-        class="w-12"
+        class="w-9 h-9 rounded shadow"
         :src="`${$config.path.images}/${partyLogo}`"
         :alt="partyName"
       />
       <img
         v-else
-        class="w-12"
-        :src="`${$config.path.images}/dummy.jpg`"
+        class="w-9 h-9 rounded shadow"
+        :src="`${$config.path.images}/party/dummy.jpg`"
         alt="Dummy Party Logo"
       />
-    </div>
-    <div>
-      <div class="h11 wv-font-bold">{{ partyName }}</div>
-      <div>
-        <span id="promise-sum">{{ sumPartyPromises }}</span>
-        <span> คำสัญญา</span>
+      <div class="w-40">
+        <div class="h11 wv-font-black">{{ partyName }}</div>
+        <div>
+          <span id="promise-sum">{{ sumPartyPromises }}</span>
+          <span> คำสัญญา</span>
+        </div>
       </div>
     </div>
-    <div class="w-64">
+    <div class="w-44">
       <span class="flex h-4 overflow-hidden">
         <span
           v-for="(item, i) in promises"
@@ -35,7 +35,7 @@
       </span>
     </div>
     <div>
-      <Button theme="primary-blue">
+      <Button theme="primary-blue" class="h-10">
         <NuxtLink :to="buttonUrl">ดูคำสัญญา</NuxtLink>
         <svg
           width="12"
@@ -55,6 +55,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import { PromiseStatus } from '@/models/promise';
 
 export default Vue.extend({
   name: 'PartyCard',
@@ -95,15 +96,22 @@ export default Vue.extend({
     },
     promises() {
       const promiseStatus = this.partyPromises as Array<any>;
-      const obj = promiseStatus.map((a: any) => {
-        const status = a.status;
-        const countPercentage = (
-          (a.count / (this as any).sumPartyPromises) *
-          100
-        ).toFixed(2);
-        return { status, countPercentage };
-      });
-      return obj;
+      if (promiseStatus.length > 0) {
+        const chart = promiseStatus.map((a: any) => {
+          const status = a.status;
+          const countPercentage = (
+            (a.count / (this as any).sumPartyPromises) *
+            100
+          ).toFixed(2);
+          return { status, countPercentage };
+        });
+        return chart;
+      } else {
+        const dummy = [
+          { status: PromiseStatus.NoData, countPercentage: '100' },
+        ];
+        return dummy;
+      }
     },
   },
 });
