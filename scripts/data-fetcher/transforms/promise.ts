@@ -54,18 +54,9 @@ function mapTopic(value: string): PromiseTopic {
   throw new Error(`Cannot find topic to map "${value}"`);
 }
 
-const statuses = new Map<string, PromiseStatus>([
-  ['nodata', PromiseStatus.NoData],
-  ['proposed', PromiseStatus.Proposed],
-  ['paused', PromiseStatus.Paused],
-  ['working', PromiseStatus.Working],
-  ['done', PromiseStatus.Done],
-]);
-
 function mapStatus(value: string): PromiseStatus {
-  const status = statuses.get(value);
-  if (status) {
-    return status;
+  if (Object.values(PromiseStatus).includes(value as PromiseStatus)) {
+    return value as PromiseStatus;
   }
   throw new Error(`Cannot find status to map "${value}"`);
 }

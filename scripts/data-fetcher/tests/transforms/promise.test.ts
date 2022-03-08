@@ -52,18 +52,15 @@ describe('transformToTrackingPromises', () => {
   });
 
   describe('map status', () => {
-    test.each([
-      { status: 'nodata', expected: PromiseStatus.NoData },
-      { status: 'proposed', expected: PromiseStatus.Proposed },
-      { status: 'paused', expected: PromiseStatus.Paused },
-      { status: 'working', expected: PromiseStatus.Working },
-      { status: 'done', expected: PromiseStatus.Done },
-    ])('from string $status', ({ status, expected }) => {
-      const rawPromises = [rawPromiseStub({ status })];
+    test('should map status directly when status is valid', () => {
+      const RAW_VALID_STATUS = PromiseStatus.NoData as string;
+      const rawPromises = [
+        rawPromiseStub({ promiseId: 1, status: RAW_VALID_STATUS }),
+      ];
 
       const promises = transformToTrackingPromises(rawPromises, []);
 
-      expect(promises[0].status).toBe(expected);
+      expect(promises[0].status).toBe(PromiseStatus.NoData);
     });
 
     test('should throw error when cannot find correct status', () => {
