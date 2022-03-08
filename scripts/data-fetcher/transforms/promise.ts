@@ -31,6 +31,7 @@ export function transformToTrackingPromises(
         id: r.promiseId,
         isActive: false,
         party: r.party,
+        title: r.promiseTitle,
         category: topic,
         status,
         description: r.explain,

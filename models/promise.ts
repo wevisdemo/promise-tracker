@@ -31,6 +31,7 @@ export interface TrackingPromise {
   id: number;
   isActive: boolean;
   party: string;
+  title: string;
   category: PromiseTopic;
   status: PromiseStatus;
   description: string;

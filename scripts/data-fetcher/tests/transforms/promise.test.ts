@@ -8,6 +8,7 @@ describe('transformToTrackingPromises', () => {
     const raw = rawPromiseStub({
       promiseId: 1,
       party: 'mock_party',
+      promiseTitle: 'mock_title',
       explain: 'mock_description',
       isNCPO: true,
       refPicture: 'mock_fileName',
@@ -17,6 +18,7 @@ describe('transformToTrackingPromises', () => {
       expect.objectContaining({
         id: raw.promiseId,
         party: raw.party,
+        title: raw.promiseTitle,
         description: raw.explain,
         isNCPO: raw.isNCPO,
         imageFileName: raw.refPicture,
