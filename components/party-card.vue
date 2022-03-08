@@ -9,17 +9,27 @@
         :src="`${$config.path.images}/${partyLogo}`"
         :alt="partyName"
       />
+      <img
+        v-else
+        class="w-12"
+        :src="`${$config.path.images}/dummy.jpg`"
+        alt="Dummy Party Logo"
+      />
     </div>
     <div>
       <div class="h11 wv-font-bold">{{ partyName }}</div>
-      <div class="party-promises">{{ `${partyPromisesSum} คำสัญญา` }}</div>
+      <div>
+        <span id="promise-sum">{{ partyPromisesSum }}</span>
+        <span> คำสัญญา</span>
+      </div>
     </div>
     <div class="w-64">
       <span class="flex h-4 overflow-hidden">
         <span
           v-for="(item, i) in promises"
           :key="i"
-          :style="`width:${item.count}%;background-color:${bgColor[i]}`"
+          :style="`width:${item.countPercentage}%;`"
+          :class="`bg-status-${bgColor[i]}`"
           :title="item.status"
         ></span>
       </span>
@@ -69,7 +79,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      bgColor: ['#8f8f8f', '#fd9154', '#e91e63', '#f4c51f', '#48dbdb'],
+      bgColor: ['nodata', 'proposed', 'paused', 'working', 'done'],
     };
   },
   computed: {
@@ -87,8 +97,9 @@ export default Vue.extend({
       const promiseStatus = this.partyPromises as Array<any>;
       const obj = promiseStatus.map((a: any) => {
         const status = a.status;
-        const count = (a.count / (this as any).partyPromisesSum) * 100;
-        return { status, count };
+        const countPercentage =
+          (a.count / (this as any).partyPromisesSum) * 100;
+        return { status, countPercentage };
       });
       return obj;
     },
