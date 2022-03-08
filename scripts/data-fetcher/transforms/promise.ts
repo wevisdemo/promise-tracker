@@ -32,7 +32,7 @@ export function transformToTrackingPromises(
         isActive: false,
         party: r.party,
         title: r.promiseTitle,
-        category: topic,
+        topic,
         status,
         description: r.explain,
         isNCPO: r.isNCPO,
@@ -47,20 +47,9 @@ export function transformToTrackingPromises(
   });
 }
 
-const topics = new Map<string, PromiseTopic>([
-  ['บริหารจัดการ(ราชการ)', PromiseTopic.Administration],
-  ['ศาสนาและวัฒนธรรม', PromiseTopic.Culture],
-  ['เศรษฐกิจ', PromiseTopic.Economics],
-  ['สิ่งแวดล้อม', PromiseTopic.Environmental],
-  ['ความเท่าเทียม/คุณภาพชีวิต', PromiseTopic.Equality],
-  ['ความมั่นคง/ปกป้องสถาบันกษัตริย์', PromiseTopic.Foreign],
-  ['ต่างประเทศ', PromiseTopic.Security],
-]);
-
 function mapTopic(value: string): PromiseTopic {
-  const topic = topics.get(value);
-  if (topic) {
-    return topic;
+  if (Object.values(PromiseTopic).includes(value as PromiseTopic)) {
+    return value as PromiseTopic;
   }
   throw new Error(`Cannot find topic to map "${value}"`);
 }

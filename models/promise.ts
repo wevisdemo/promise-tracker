@@ -32,7 +32,7 @@ export interface TrackingPromise {
   isActive: boolean;
   party: string;
   title: string;
-  category: PromiseTopic;
+  topic: PromiseTopic;
   status: PromiseStatus;
   description: string;
   isNCPO: boolean;

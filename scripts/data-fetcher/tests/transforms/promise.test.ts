@@ -27,48 +27,15 @@ describe('transformToTrackingPromises', () => {
   });
 
   describe('map topic', () => {
-    test.each([
-      {
-        topic: 'บริหารจัดการ(ราชการ)',
-        category: 'administration',
-        expected: PromiseTopic.Administration,
-      },
-      {
-        topic: 'ศาสนาและวัฒนธรรม',
-        category: 'culture',
-        expected: PromiseTopic.Culture,
-      },
-      {
-        topic: 'เศรษฐกิจ',
-        category: 'economics',
-        expected: PromiseTopic.Economics,
-      },
-      {
-        topic: 'สิ่งแวดล้อม',
-        category: 'environmental',
-        expected: PromiseTopic.Environmental,
-      },
-      {
-        topic: 'ความเท่าเทียม/คุณภาพชีวิต',
-        category: 'equality',
-        expected: PromiseTopic.Equality,
-      },
-      {
-        topic: 'ความมั่นคง/ปกป้องสถาบันกษัตริย์',
-        category: 'security',
-        expected: PromiseTopic.Foreign,
-      },
-      {
-        topic: 'ต่างประเทศ',
-        category: 'foreign',
-        expected: PromiseTopic.Security,
-      },
-    ])('from $topic to $category', ({ topic, expected }) => {
-      const rawPromises = [rawPromiseStub({ topic })];
+    test('should map topic directly when topic is valid', () => {
+      const RAW_VALID_TOPIC = PromiseTopic.Administration as string;
+      const rawPromises = [
+        rawPromiseStub({ promiseId: 1, topic: RAW_VALID_TOPIC }),
+      ];
 
       const promises = transformToTrackingPromises(rawPromises, []);
 
-      expect(promises[0].category).toBe(expected);
+      expect(promises[0].topic).toBe(PromiseTopic.Administration);
     });
 
     test('should throw error when cannot find correct topic', () => {
@@ -239,7 +206,7 @@ describe('transformToTrackingPromises', () => {
       {
         promiseId: 0,
         party: '',
-        topic: 'บริหารจัดการ(ราชการ)',
+        topic: PromiseTopic.Administration as string,
         promiseTitle: '',
         status: 'nodata',
         explain: '',
