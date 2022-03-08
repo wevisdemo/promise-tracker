@@ -28,8 +28,9 @@
       :total="60"
     />
     <TabNavigation active-tab="status" />
-    <div class="bg-ultramarine">
+    <div class="bg-gray">
       <SingleCard></SingleCard>
+      <ExpandedCard></ExpandedCard>
     </div>
   </div>
 </template>
@@ -42,6 +43,7 @@ import ChartItem from '@/components/explore/promise-overview/chart-item.vue';
 import { PromiseStatus } from '@/models/promise';
 import TabNavigation from '@/components/explore/promise-overview/tab-navigation.vue';
 import SingleCard from '@/components/promise-card/single-card.vue';
+import ExpandedCard from '@/components/promise-card/expanded-card.vue';
 
 export default Vue.extend({
   name: 'ExplorePage',
@@ -50,6 +52,7 @@ export default Vue.extend({
     ChartItem,
     TabNavigation,
     SingleCard,
+    ExpandedCard,
   },
   data() {
     return {
