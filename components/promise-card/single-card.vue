@@ -8,7 +8,7 @@
         <div class="bg-gray bg-opacity-10 rounded w-max p-2 ml-3">
           <StatusLegend :show-detail="false" show-only="สำเร็จ" />
         </div>
-        <h2 class="wv-h8 wv-font-kondolar wv-font-black px-3 py-4">
+        <h2 class="wv-h10 wv-font-kondolar wv-font-black px-3 py-4">
           เงินเดือนปริญญาตรี 20,000 บาท เงินเดือน อาชีวะ 18,000 บาท
         </h2>
         <div
