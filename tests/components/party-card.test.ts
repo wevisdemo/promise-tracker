@@ -63,8 +63,21 @@ describe('party card', () => {
   test('should render correct total sum of promises', async () => {
     const PROMISES_COUNT = '28';
     await wrapper.setProps({ partyPromises: data });
-    const partyCard = wrapper.get('#promise-sum');
 
-    expect(partyCard.text()).toBe(PROMISES_COUNT);
+    const sumPromises = wrapper.get('#promise-sum');
+
+    expect(sumPromises.text()).toBe(PROMISES_COUNT);
+  });
+
+  test('should render percentage for barchart width', async () => {
+    const NODATA_PERCENTAGE = 'width: 35.71%;';
+    const PROPOSED_PERCENTAGE = 'width: 17.86%;';
+    await wrapper.setProps({ partyPromises: data });
+
+    const noData = wrapper.get('.bg-status-nodata');
+    const proposed = wrapper.get('.bg-status-proposed');
+
+    expect(noData.attributes().style).toBe(NODATA_PERCENTAGE);
+    expect(proposed.attributes().style).toBe(PROPOSED_PERCENTAGE);
   });
 });

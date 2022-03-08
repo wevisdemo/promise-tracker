@@ -19,7 +19,7 @@
     <div>
       <div class="h11 wv-font-bold">{{ partyName }}</div>
       <div>
-        <span id="promise-sum">{{ partyPromisesSum }}</span>
+        <span id="promise-sum">{{ sumPartyPromises }}</span>
         <span> คำสัญญา</span>
       </div>
     </div>
@@ -83,7 +83,7 @@ export default Vue.extend({
     };
   },
   computed: {
-    partyPromisesSum() {
+    sumPartyPromises() {
       const promiseStatus = this.partyPromises as Array<any>;
       const count = promiseStatus.map((a: any) => a.count);
       if (count.length > 0) {
@@ -97,8 +97,10 @@ export default Vue.extend({
       const promiseStatus = this.partyPromises as Array<any>;
       const obj = promiseStatus.map((a: any) => {
         const status = a.status;
-        const countPercentage =
-          (a.count / (this as any).partyPromisesSum) * 100;
+        const countPercentage = (
+          (a.count / (this as any).sumPartyPromises) *
+          100
+        ).toFixed(2);
         return { status, countPercentage };
       });
       return obj;
