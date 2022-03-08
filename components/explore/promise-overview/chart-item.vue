@@ -24,7 +24,7 @@
           :class="`bg-status-${item.status}`"
         />
       </div>
-      <span>{{ Math.round((count / total) * 100) }}%</span>
+      <span>{{ percentage }}%</span>
     </div>
   </div>
 </template>
@@ -60,6 +60,14 @@ export default Vue.extend({
   computed: {
     count() {
       return this.data.reduce((sum, { count }) => sum + count, 0);
+    },
+    percentage() {
+      return (((this as any).count / this.total) * 100).toLocaleString(
+        'th-TH',
+        {
+          maximumFractionDigits: 1,
+        }
+      );
     },
   },
 });

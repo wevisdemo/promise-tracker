@@ -52,10 +52,18 @@ test('should render corrected subbar color from given data and max', () => {
   expect(subbars.at(2).classes()).toContain('bg-status-proposed');
 });
 
-test('should render overall percenrtage from given data as a text', () => {
+test('should render overall percentage from given data as a text', () => {
   const total = 60;
 
   const wrapper = mount(ChartItem, { propsData: { data, total } });
 
   expect(wrapper.find('span').text()).toBe('25%');
+});
+
+test('should render overall percentage with decimal point if exist from given data as a text', () => {
+  const total = 45;
+
+  const wrapper = mount(ChartItem, { propsData: { data, total } });
+
+  expect(wrapper.find('span').text()).toBe('33.3%');
 });
