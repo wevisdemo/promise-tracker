@@ -4,6 +4,7 @@ import {
   PromiseStatus,
   PromiseTopic,
   promiseTopicTextMap,
+  promiseStatusTextMap,
 } from '~/models/promise';
 
 export interface ChartData {
@@ -13,8 +14,21 @@ export interface ChartData {
 
 export interface Chart {
   label: string;
+  icon?: string;
   data: ChartData[];
 }
+
+interface StatusPair {
+  [status: string]: number;
+}
+
+const promiseStatusOrder: PromiseStatus[] = [
+  PromiseStatus.NoData,
+  PromiseStatus.Proposed,
+  PromiseStatus.Paused,
+  PromiseStatus.Working,
+  PromiseStatus.Done,
+];
 
 const promiseTopicOrder: PromiseTopic[] = [
   PromiseTopic.Equality,
@@ -26,20 +40,29 @@ const promiseTopicOrder: PromiseTopic[] = [
   PromiseTopic.Environmental,
 ];
 
+const parseChartDataFromStatusPair = (statuses: StatusPair): ChartData[] =>
+  statuses
+    ? promiseStatusOrder.reduce<ChartData[]>(
+        (list, status) =>
+          status in statuses
+            ? [...list, { status, count: statuses[status] }]
+            : list,
+        []
+      )
+    : [];
+
 export const groupPromisesBy = (
-  groupBy: FilterType,
+  groupBy: FilterType.Party | FilterType.Status | FilterType.Topic,
   promises: TrackingPromise[]
 ): {
   max: number;
   total: number;
   charts: Chart[];
 } => {
-  const groupByKey = groupBy === FilterType.Party ? 'party' : 'topic';
-
   const groupedPromiseObject = promises.reduce<{
-    [key: string]: { count: number; statuses: { [status: string]: number } };
-  }>((obj, { status, ...rest }) => {
-    const group = rest[groupByKey];
+    [key: string]: { count: number; statuses: StatusPair };
+  }>((obj, promise) => {
+    const group = promise[groupBy];
 
     if (!(group in obj)) {
       obj[group] = {
@@ -50,10 +73,10 @@ export const groupPromisesBy = (
       obj[group].count++;
     }
 
-    if (!(status in obj[group].statuses)) {
-      obj[group].statuses[status] = 1;
+    if (!(promise.status in obj[group].statuses)) {
+      obj[group].statuses[promise.status] = 1;
     } else {
-      obj[group].statuses[status]++;
+      obj[group].statuses[promise.status]++;
     }
 
     return obj;
@@ -64,27 +87,28 @@ export const groupPromisesBy = (
       ? Object.entries(groupedPromiseObject)
           .map<Chart>(([label, { statuses }]) => ({
             label,
-            data: Object.entries(statuses).map(([status, count]) => ({
-              status: status as PromiseStatus,
-              count: count as number,
-            })),
+            icon: `party/${label}.jpg`,
+            data: parseChartDataFromStatusPair(statuses),
           }))
           .sort(
             (a, z) =>
               groupedPromiseObject[z.label].count -
               groupedPromiseObject[a.label].count
           )
-      : promiseTopicOrder.map<Chart>((topic) => ({
-          label: promiseTopicTextMap.get(topic)?.short as string,
-          data:
-            topic in groupedPromiseObject
-              ? Object.entries(groupedPromiseObject[topic].statuses).map(
-                  ([status, count]) => ({
-                    status: status as PromiseStatus,
-                    count: count as number,
-                  })
-                )
-              : [],
+      : groupBy === FilterType.Topic
+      ? promiseTopicOrder.map<Chart>((key) => ({
+          label: promiseTopicTextMap.get(key)?.short as string,
+          icon: `topic/${key}_small.png`,
+          data: parseChartDataFromStatusPair(
+            groupedPromiseObject[key]?.statuses
+          ),
+        }))
+      : promiseStatusOrder.map<Chart>((key) => ({
+          label: promiseStatusTextMap.get(key) as string,
+          icon: `status/${key}_small.png`,
+          data: parseChartDataFromStatusPair(
+            groupedPromiseObject[key]?.statuses
+          ),
         }));
 
   const groupCounts = Object.values(groupedPromiseObject).map(
