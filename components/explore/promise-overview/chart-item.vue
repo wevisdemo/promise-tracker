@@ -4,7 +4,7 @@
       <img
         v-if="icon"
         :src="`${$config.path.images}/${icon}`"
-        class="w-4 h-4"
+        class="w-4 h-4 rounded-full"
         :alt="label"
       />
       <p class="wv-u5 wv-font-semibold">{{ label }} ({{ count }})</p>

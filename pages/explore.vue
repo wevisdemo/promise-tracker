@@ -1,7 +1,9 @@
 <template>
   <div class="bg-black min-h-screen">
     <h1>Explore</h1>
-    <PromiseOverview :promises="promises" :filters="[]" />
+    <div class="max-w-screen-lg mx-auto">
+      <PromiseOverview :promises="promises" :filters="[]" />
+    </div>
     <div class="bg-gray">
       <SingleCard></SingleCard>
       <ExpandedCard></ExpandedCard>

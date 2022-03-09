@@ -1,17 +1,20 @@
 <template>
-  <div class="grid grid-cols-2">
-    <div />
-    <TabNavigation
-      :filters="filters"
-      :active-tab="activeTab"
-      @change="(type) => (activeTab = type)"
-    />
-    <ActiveFilters
-      :filters="filters"
-      :promises="promises"
-      @removefilter="(filter) => $emit('removefilter', filter)"
-    />
-    <TabBody :promises="promises" :group-by="activeTab" />
+  <div class="flex flex-col md:flex-row">
+    <div class="flex-1 flex items-end">
+      <ActiveFilters
+        :filters="filters"
+        :promises="promises"
+        @removefilter="(filter) => $emit('removefilter', filter)"
+      />
+    </div>
+    <div class="flex-1">
+      <TabNavigation
+        :filters="filters"
+        :active-tab="activeTab"
+        @change="(type) => (activeTab = type)"
+      />
+      <TabBody :promises="promises" :group-by="activeTab" />
+    </div>
   </div>
 </template>
 

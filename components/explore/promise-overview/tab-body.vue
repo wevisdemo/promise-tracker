@@ -1,6 +1,8 @@
 <template>
-  <div class="flex flex-col p-4 space-y-8 bg-ultramarine">
-    <div class="flex flex-col space-y-2 m-2">
+  <div
+    class="flex flex-col p-4 space-y-8 bg-ultramarine rounded-b-xl md:rounded-bl-none h-80"
+  >
+    <div class="flex-1 flex flex-col space-y-2 m-2">
       <ChartItem
         v-for="{ label, icon, data } in group.charts"
         :key="label"
