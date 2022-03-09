@@ -20,14 +20,8 @@
     />
     <ActiveFilters :promises="promises" />
     <ActiveFilters />
-    <ChartItem
-      label="ไม่พบข้อมูล"
-      icon="status/nodata.png"
-      :data="items"
-      :max="15"
-      :total="60"
-    />
     <TabNavigation active-tab="status" />
+    <TabBody :promises="promises" group-by="topic" />
     <div class="bg-gray">
       <SingleCard></SingleCard>
       <ExpandedCard></ExpandedCard>
@@ -38,8 +32,8 @@
 <script lang="ts">
 import Vue from 'vue';
 import ActiveFilters from '@/components/explore/promise-overview/active-filters.vue';
-import promises from '@/data/promises-example.json';
-import ChartItem from '@/components/explore/promise-overview/chart-item.vue';
+import promises from '@/data/promises.json';
+import TabBody from '@/components/explore/promise-overview/tab-body.vue';
 import { PromiseStatus } from '@/models/promise';
 import TabNavigation from '@/components/explore/promise-overview/tab-navigation.vue';
 import SingleCard from '@/components/promise-card/single-card.vue';
@@ -49,7 +43,7 @@ export default Vue.extend({
   name: 'ExplorePage',
   components: {
     ActiveFilters,
-    ChartItem,
+    TabBody,
     TabNavigation,
     SingleCard,
     ExpandedCard,
