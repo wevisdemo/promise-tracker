@@ -1,5 +1,7 @@
 module.exports = {
-  purge: [],
+  purge: {
+    content: ['./tailwind.safelist.txt'],
+  },
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
