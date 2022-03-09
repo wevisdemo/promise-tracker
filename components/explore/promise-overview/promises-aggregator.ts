@@ -53,7 +53,8 @@ const parseChartDataFromStatusPair = (statuses: StatusPair): ChartData[] =>
 
 export const groupPromisesBy = (
   groupBy: FilterType.Party | FilterType.Status | FilterType.Topic,
-  promises: TrackingPromise[]
+  promises: TrackingPromise[],
+  maxGroup = 7
 ): {
   max: number;
   total: number;
@@ -82,7 +83,7 @@ export const groupPromisesBy = (
     return obj;
   }, {});
 
-  const charts: Chart[] =
+  let charts: Chart[] =
     groupBy === FilterType.Party
       ? Object.entries(groupedPromiseObject)
           .map<Chart>(([label, { statuses }]) => ({
@@ -110,6 +111,28 @@ export const groupPromisesBy = (
             groupedPromiseObject[key]?.statuses
           ),
         }));
+
+  if (charts.length > maxGroup) {
+    const otherParties = charts.slice(maxGroup);
+
+    charts = [
+      ...charts.slice(0, maxGroup),
+      {
+        label: 'อื่นๆ',
+        icon: `other-group.png`,
+        data: promiseStatusOrder
+          .map<ChartData>((status) => ({
+            status,
+            count: otherParties.reduce(
+              (sum, { data }) =>
+                sum + (data.find((d) => d.status === status)?.count || 0),
+              0
+            ),
+          }))
+          .filter(({ count }) => count > 0),
+      },
+    ];
+  }
 
   const groupCounts = Object.values(groupedPromiseObject).map(
     ({ count }) => count

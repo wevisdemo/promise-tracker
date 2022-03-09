@@ -57,7 +57,8 @@ const promises: Partial<TrackingPromise>[] = [
 test('should be able to group by party', () => {
   const { max, total, charts } = groupPromisesBy(
     FilterType.Party,
-    promises as TrackingPromise[]
+    promises as TrackingPromise[],
+    5
   );
 
   const expectedCharts: Chart[] = [
@@ -90,8 +91,8 @@ test('should be able to group by party', () => {
       data: [{ status: PromiseStatus.Proposed, count: 1 }],
     },
     {
-      label: 'ชาติไทยพัฒนา',
-      icon: `party/ชาติไทยพัฒนา.jpg`,
+      label: 'อื่นๆ',
+      icon: `other-group.png`,
       data: [{ status: PromiseStatus.NoData, count: 1 }],
     },
   ];
