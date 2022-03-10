@@ -1,6 +1,10 @@
 <template>
   <div :id="`promise-card-${promise.id}`">
-    <SingleCard @readmore="handleReadClick($event)" :promise="promise" />
+    <SingleCard
+      :openState="openState"
+      @readmore="handleReadClick($event)"
+      :promise="promise"
+    />
     <ExpandedCard :expanded="readMoreState" :promise="promise" />
   </div>
 </template>
@@ -14,16 +18,20 @@ import { TrackingPromise } from '@/models/promise';
 export default Vue.extend({
   name: 'PromiseCard',
   components: { SingleCard, ExpandedCard },
-  data() {
-    return {
-      readMoreState: false,
-    };
-  },
   props: {
     promise: {
       type: Object as PropType<TrackingPromise>,
       default: () => ({}),
     },
+    openState: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      readMoreState: this.$props.openState,
+    };
   },
   methods: {
     handleReadClick(clickState: boolean) {

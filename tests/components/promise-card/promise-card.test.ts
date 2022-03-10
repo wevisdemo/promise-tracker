@@ -33,6 +33,7 @@ describe('Promise Card', () => {
     const wrapper = mount(PromiseCard);
 
     expect(wrapper.props().promise).toEqual({});
+    expect(wrapper.props().openState).toBe(false);
   });
 
   test('should render single card component alone by default', () => {
@@ -47,6 +48,19 @@ describe('Promise Card', () => {
 
     expect(singleCard.exists()).toBeTruthy();
     expect(expandedCard.html()).toBe('');
+  });
+
+  test('should render expanded card if openState is set to true', () => {
+    const wrapper = mount(PromiseCard, {
+      propsData: {
+        promise,
+        openState: true,
+      },
+    });
+
+    const expandedCard = wrapper.findComponent(ExpandedCard);
+
+    expect(expandedCard.html()).not.toBe('');
   });
 
   test('should render expanded card on readmore-click', async () => {

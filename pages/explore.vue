@@ -7,6 +7,7 @@
     <div class="bg-gray">
       <PromiseCard
         class="pt-2"
+        :openState="false"
         v-for="promise in promises.slice(93, 96)"
         :key="`promise-card-${promise.id}`"
         :promise="promise"
