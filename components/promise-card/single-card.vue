@@ -21,34 +21,6 @@
         <h2 class="wv-h10 wv-font-kondolar wv-font-black px-3 py-4">
           {{ promise.title }}
         </h2>
-        <div
-          class="flex divide-x-2 divide-gray pb-4 wv-font-anuphan wv-u4 wv-font-bold"
-        >
-          <div class="flex px-3">
-            <div class="w-4 mr-2">
-              <img
-                :id="`single-card-${promise.id}-topic-icon`"
-                :src="`${$config.path.images}/topic/${promise.topic}.png`"
-                :alt="`${promise.topic}`"
-              />
-            </div>
-            <p :id="`single-card-${promise.id}-topic-name`">
-              {{ getTopic(promise.topic) }}
-            </p>
-          </div>
-          <div class="flex px-3">
-            <div class="w-4 mr-2">
-              <img
-                :id="`single-card-${promise.id}-party-logo`"
-                :src="`${$config.path.images}/party/${promise.party}.jpg`"
-                :alt="`${promise.party}`"
-              />
-            </div>
-            <p :id="`single-card-${promise.id}-party-name`">
-              {{ promise.party }}
-            </p>
-          </div>
-        </div>
       </div>
       <div class="w-14 sm:w-16 md:w-20 flex-shrink-0 mr-3 mb-3">
         <img
@@ -57,6 +29,34 @@
           :src="`${$config.path.images}/party/dummy.jpg`"
           alt="dummy"
         />
+      </div>
+    </div>
+    <div
+      class="flex divide-x-2 divide-gray pb-4 wv-font-anuphan wv-u4 wv-font-bold"
+    >
+      <div class="flex px-3">
+        <div class="w-4 mr-2">
+          <img
+            :id="`single-card-${promise.id}-topic-icon`"
+            :src="`${$config.path.images}/topic/${promise.topic}.png`"
+            :alt="`${promise.topic}`"
+          />
+        </div>
+        <p :id="`single-card-${promise.id}-topic-name`">
+          {{ getTopic(promise.topic) }}
+        </p>
+      </div>
+      <div class="flex px-3">
+        <div class="w-4 mr-2">
+          <img
+            :id="`single-card-${promise.id}-party-logo`"
+            :src="`${$config.path.images}/party/${promise.party}.jpg`"
+            :alt="`${promise.party}`"
+          />
+        </div>
+        <p :id="`single-card-${promise.id}-party-name`">
+          {{ promise.party }}
+        </p>
       </div>
     </div>
     <div
