@@ -13,6 +13,15 @@
         :promise="promise"
       />
     </div>
+    <div class="bg-ultramarine">
+      <PromiseCard
+        class="pt-2"
+        :openState="true"
+        v-for="promise in promises.slice(96, 97)"
+        :key="`promise-card-${promise.id}`"
+        :promise="promise"
+      />
+    </div>
   </div>
 </template>
 
