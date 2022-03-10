@@ -29,6 +29,7 @@ describe('Single card', () => {
     const wrapper = mount(SingleCard);
 
     expect(wrapper.props().promise).toEqual({});
+    expect(wrapper.props().openState).toBe(false);
   });
 
   test('should render color according to status', () => {
@@ -125,10 +126,44 @@ describe('Single card', () => {
     expect(partyName.text()).toEqual(promise.party);
   });
 
-  test('should render readmore text', () => {
+  test('should render readmore text by default', () => {
     const readmore = wrapper.find(`#single-card-${promise.id}-readmore`);
 
     expect(readmore.text()).toEqual('อ่านเพิ่มเติม');
+  });
+
+  test('should render close text if openState is set to true', () => {
+    const wrapper = mount(SingleCard, {
+      propsData: {
+        promise,
+        openState: true,
+      },
+    });
+
+    const readmore = wrapper.find(`#single-card-${promise.id}-readmore`);
+
+    expect(readmore.text()).toEqual('ปิด');
+  });
+
+  test('should render close text after toggle', async () => {
+    const promise = {
+      id: 1,
+      status: 'nodata',
+      title: 'โครงการบ้านล้านหลังประชารัฐ',
+      topic: 'equality',
+      party: 'พลังประชารัฐ',
+    };
+    const wrapper = mount(SingleCard, {
+      propsData: {
+        promise,
+      },
+    });
+
+    const button = wrapper.find('button');
+    await button.trigger('click');
+    const readmore = wrapper.find(`#single-card-${promise.id}-readmore`);
+
+    expect(readmore.text()).toEqual('ปิด');
   });
 
   test('should render iconDown by default', () => {
@@ -139,18 +174,59 @@ describe('Single card', () => {
     expect(up.exists()).toBeFalsy();
   });
 
+  test('should render iconUp if openState is set to true', () => {
+    const wrapper = mount(SingleCard, {
+      propsData: {
+        promise,
+        openState: true,
+      },
+    });
+
+    const up = wrapper.findComponent(IconUp);
+    const down = wrapper.findComponent(IconDown);
+
+    expect(up.exists()).toBeTruthy();
+    expect(down.exists()).toBeFalsy();
+  });
+
   test('should emit event on click', async () => {
+    const promise = {
+      id: 1,
+      status: 'nodata',
+      title: 'โครงการบ้านล้านหลังประชารัฐ',
+      topic: 'equality',
+      party: 'พลังประชารัฐ',
+    };
+    const wrapper = mount(SingleCard, {
+      propsData: {
+        promise,
+      },
+    });
+
     const button = wrapper.find('button');
     await button.trigger('click');
 
     expect(wrapper.emitted('readmore')).toBeTruthy();
   });
 
-  test('should render iconUp after click', () => {
+  test('should render iconUp after click', async () => {
+    const promise = {
+      id: 1,
+      status: 'nodata',
+      title: 'โครงการบ้านล้านหลังประชารัฐ',
+      topic: 'equality',
+      party: 'พลังประชารัฐ',
+    };
+    const wrapper = mount(SingleCard, {
+      propsData: {
+        promise,
+      },
+    });
+
+    const button = wrapper.find('button');
+    await button.trigger('click');
     const up = wrapper.findComponent(IconUp);
     const down = wrapper.findComponent(IconDown);
-    const button = wrapper.find('button');
-    button.trigger('click');
 
     expect(up.exists()).toBeTruthy();
     expect(down.exists()).toBeFalsy();

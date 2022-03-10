@@ -63,7 +63,8 @@
       class="flex justify-between bg-black text-white wv-font-anuphan wv-u4 wv-font-bold px-1 py-2"
     >
       <div :id="`single-card-${promise.id}-readmore`" class="flex items-center">
-        <p class="px-3">อ่านเพิ่มเติม</p>
+        <p v-if="!clicked" class="px-3">อ่านเพิ่มเติม</p>
+        <p v-else class="px-3">ปิด</p>
         <button @click="onReadClick">
           <IconUp v-if="clicked" />
           <IconDown v-else />
@@ -105,10 +106,14 @@ export default Vue.extend({
       type: Object as PropType<TrackingPromise>,
       default: () => ({}),
     },
+    openState: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
-      clicked: false,
+      clicked: this.$props.openState,
     };
   },
   methods: {
