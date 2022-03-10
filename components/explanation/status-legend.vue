@@ -82,10 +82,10 @@ export default Vue.extend({
         return '';
       } else if (this.showDetail) {
         return 'mr-2 w-24 mb-2';
-      } else if (!this.showInline) {
-        return 'w-24';
-      } else {
+      } else if (this.showInline) {
         return 'mr-2';
+      } else {
+        return 'w-24';
       }
     },
     selectedLegend(): {} {

@@ -44,7 +44,7 @@ describe('Style handling', () => {
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
-  test('show all legends & showDetail is true', () => {
+  test('show detail', () => {
     const expectedClasses = ['mr-2', 'w-24', 'mb-2'];
     const wrapper = mount(StatusLegend, {
       propsData: { showDetail: true },
@@ -52,18 +52,18 @@ describe('Style handling', () => {
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
-  test('show all legends & showDetail = false & showInline = false', () => {
-    const expectedClasses = ['w-24'];
+  test('show inline without detail', () => {
+    const expectedClasses = ['mr-2'];
     const wrapper = mount(StatusLegend, {
-      propsData: { showInline: true },
+      propsData: { showDetail: false, showInline: true },
     });
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
-  test('show all legends & showDetail = false & showInline = true', () => {
-    const expectedClasses = ['mr-2'];
+  test('no inline, no detail', () => {
+    const expectedClasses = ['w-24'];
     const wrapper = mount(StatusLegend, {
-      propsData: { showDetail: false, showInline: true },
+      propsData: { showInline: true },
     });
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
