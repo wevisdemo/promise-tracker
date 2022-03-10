@@ -1,64 +1,71 @@
 <template>
   <div
-    class="grid sm:grid-cols-2 bg-white px-6 py-3 max-w-2xl rounded-lg overflow-hidden"
+    v-if="expanded"
+    :id="`expanded-card-${promise.id}`"
+    class="grid bg-white px-6 py-3 max-w-2xl rounded-lg overflow-hidden"
+    :class="promise.timelines.length > 0 ? 'sm:grid-cols-2' : 'sm:grid-cols-1'"
   >
     <div>
       <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">รายละเอียด</h2>
-      <p class="wv-font-baijamjuri wv-b5">
-        "เป็นโครงการที่ต่อยอดจากที่ทำไว้หนึ่งในโครง
-        การสำคัญของรัฐบาลพลเอกประยุทธ์ จันทร์ โอชา คือ โครงการ National
-        e-payment มี โครงการย่อย “โครงการ ลงทะเบียนเพื่อสวัสดิ การแห่งรัฐ”
-        เพื่อฐานข้อมูลสำหรับการจัดสวัสดิ
-        การของหน่วยงานภาครัฐให้กับผู้ที่มีรายได้น้อยที่ต้องการความช่วยเหลือจากภาครัฐ
-        เนื่องจาก มองว่าที่ผ่าน มาการจัด สวัสดิการสังคมและ การให้เงินช่วยเหลือ
-        ของภาครัฐยังมีข้อจำกัด โดยการจัดสรรเงินไม่ตรงกลุ่มเป้าหมายเพราะ ข้อมูล
-        ยังกระจัดกระจาย และไม่มีข้อมูลเชิงลึก ดังนั้นโครงการ
-        ขึ้นมาเพื่อเป็นฐานข้อมูลและให้ ความช่วยเหลือได้"
+      <p
+        :id="`expanded-card-${promise.id}-description`"
+        class="wv-font-baijamjuri wv-b5"
+      >
+        {{ promise.description }}
       </p>
-      <BoxContainer class="ultramarine-box wv-font-anuphan mt-3">
-        <p class="wv-u4 wv-font-bold">หมายเหตุ : โครงการต่อยอดจากรัฐบาลคสช.</p>
-        <p class="wv-u5 pt-2">
-          เป็นนโยบายหรือโครงการที่มีการดำเนินการมาอยู่แล้วตั้งแต ่สมัย
-          รัฐบาลคณะรักษาความสงบแห่งชาติ(คสช.) แล้วพรรค
-          การเมือง/รัฐบาลนำมาสานต่อทำต่อเนื่องมา ไม่ได้เริ่มทำ
-          เมื่อได้รับการแต่งตั้งเป็นรัฐบาล เมื่อวันที่ 10 กรกฎาคม พ.ศ. 2562
-        </p>
-      </BoxContainer>
-      <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">
-        ลิงก์ / ข้อมูลที่เกี่ยวข้อง
-      </h2>
-      <RelatedInfo></RelatedInfo>
+      <NCPO v-if="promise.isNCPO" />
+      <div v-if="promise.links.length > 0">
+        <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">
+          ลิงก์ / ข้อมูลที่เกี่ยวข้อง
+        </h2>
+        <BoxContainer class="border-black border-2 mb-3">
+          <img
+            :id="`expanded-card-${promise.id}-image`"
+            :src="`${$config.path.images}/party/dummy.jpg`"
+            alt="dummy"
+          />
+        </BoxContainer>
+        <Link
+          v-for="(link, index) in promise.links"
+          :key="`promise-${promise.id}-link-${index}`"
+          :link="link"
+        />
+      </div>
     </div>
-    <div class="sm:pl-6">
-      <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">ไทม์ไลน์</h2>
-      <Timeline />
+    <div v-if="promise.timelines.length > 0" class="sm:pl-6 pb-3">
+      <h2 class="timeline wv-h10 wv-font-kondolar wv-font-black py-4">
+        ไทม์ไลน์
+      </h2>
+      <Timeline
+        v-for="(timeline, index) in promise.timelines"
+        :key="`promise-${promise.id}-timeline-${index}`"
+        :timeline="timeline"
+        :is-last-item="index === promise.timelines.length - 1 ? true : false"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import BoxContainer from './box-container.vue';
-import RelatedInfo from './related-info.vue';
+import Link from './link.vue';
 import Timeline from './timeline.vue';
+import NCPO from './ncpo.vue';
+import { TrackingPromise } from '@/models/promise';
 
 export default Vue.extend({
   name: 'ExpandedCard',
-  components: { BoxContainer, RelatedInfo, Timeline },
+  components: { BoxContainer, Link, Timeline, NCPO },
   props: {
-    theme: {
-      type: String,
-      default: 'primary',
+    expanded: {
+      type: Boolean,
+      default: false,
+    },
+    promise: {
+      type: Object as PropType<TrackingPromise>,
+      default: () => ({}),
     },
   },
 });
 </script>
-
-<style>
-.ultramarine-box {
-  @apply bg-ultramarine text-white;
-}
-.border-box {
-  @apply border-black border-2;
-}
-</style>
