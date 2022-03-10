@@ -1,15 +1,25 @@
 <template>
   <div
+    :id="`single-card-${promise.id}`"
     class="flex flex-col bg-white max-w-2xl rounded-lg border-2 border-white overflow-hidden"
   >
-    <div class="bg-status-done h-2 mb-3" />
+    <div
+      :id="`single-card-${promise.id}-status-color`"
+      class="h-2 mb-3"
+      :class="`bg-status-${promise.status}`"
+    />
     <div class="flex justify-between">
       <div>
         <div class="bg-gray bg-opacity-10 rounded w-max p-2 ml-3">
-          <StatusLegend :show-detail="false" show-only="สำเร็จ" />
+          <StatusLegend
+            :show-detail="false"
+            :show-only="
+              promise.status ? getStatus(promise.status) : 'ไม่พบข้อมูล'
+            "
+          />
         </div>
         <h2 class="wv-h10 wv-font-kondolar wv-font-black px-3 py-4">
-          เงินเดือนปริญญาตรี 20,000 บาท เงินเดือน อาชีวะ 18,000 บาท
+          {{ promise.title }}
         </h2>
         <div
           class="flex divide-x-2 divide-gray pb-4 wv-font-anuphan wv-u4 wv-font-bold"
@@ -17,31 +27,42 @@
           <div class="flex px-3">
             <div class="w-4 mr-2">
               <img
-                :src="`${$config.path.images}/party/dummy.jpg`"
-                alt="dummy"
+                :id="`single-card-${promise.id}-topic-icon`"
+                :src="`${$config.path.images}/topic/${promise.topic}.png`"
+                :alt="`${promise.topic}`"
               />
             </div>
-            <p>คุณภาพชีวิต</p>
+            <p :id="`single-card-${promise.id}-topic-name`">
+              {{ getTopic(promise.topic) }}
+            </p>
           </div>
           <div class="flex px-3">
             <div class="w-4 mr-2">
               <img
-                :src="`${$config.path.images}/party/dummy.jpg`"
-                alt="dummy"
+                :id="`single-card-${promise.id}-party-logo`"
+                :src="`${$config.path.images}/party/${promise.party}.jpg`"
+                :alt="`${promise.party}`"
               />
             </div>
-            <p>พรรคพลังประชารัฐ</p>
+            <p :id="`single-card-${promise.id}-party-name`">
+              {{ promise.party }}
+            </p>
           </div>
         </div>
       </div>
       <div class="w-14 sm:w-16 md:w-20 flex-shrink-0 mr-3 mb-3">
-        <img :src="`${$config.path.images}/party/dummy.jpg`" alt="dummy" />
+        <img
+          :id="`single-card-${promise.id}-thumbnail`"
+          class="rounded-sm overflow-hidden"
+          :src="`${$config.path.images}/party/dummy.jpg`"
+          alt="dummy"
+        />
       </div>
     </div>
     <div
       class="flex justify-between bg-black text-white wv-font-anuphan wv-u4 wv-font-bold px-1 py-2"
     >
-      <div class="flex items-center">
+      <div :id="`single-card-${promise.id}-readmore`" class="flex items-center">
         <p class="px-3">อ่านเพิ่มเติม</p>
         <button @click="onReadClick">
           <IconUp v-if="clicked" />
@@ -63,19 +84,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
+import Vue, { PropType } from 'vue';
 import WvSharer from '@wevisdemo/ui/components/sharer.vue';
 import IconDown from './icon-down.vue';
 import IconUp from './icon-up.vue';
 import StatusLegend from '@/components/explanation/status-legend.vue';
+import {
+  TrackingPromise,
+  PromiseStatus,
+  promiseStatusTextMap,
+  PromiseTopic,
+  promiseTopicTextMap,
+} from '@/models/promise';
 
 export default Vue.extend({
   name: 'SingleCard',
   components: { StatusLegend, WvSharer, IconDown, IconUp },
   props: {
-    theme: {
-      type: String,
-      default: 'primary',
+    promise: {
+      type: Object as PropType<TrackingPromise>,
+      default: () => ({}),
     },
   },
   data() {
@@ -86,6 +114,13 @@ export default Vue.extend({
   methods: {
     onReadClick() {
       this.clicked = !this.clicked;
+      this.$emit('readmore', this.clicked);
+    },
+    getStatus(status: PromiseStatus) {
+      return promiseStatusTextMap.get(status as PromiseStatus);
+    },
+    getTopic(topic: PromiseTopic) {
+      return promiseTopicTextMap.get(topic as PromiseTopic)?.short;
     },
   },
 });
