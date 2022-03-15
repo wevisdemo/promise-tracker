@@ -33,9 +33,11 @@
       </Button>
       <Button theme="secondary-white">secondary-white</Button>
       <Button theme="secondary-blue">secondary-blue</Button>
+      <StatusAnimation />
+      <ScrollIcon class="text-white">ดูคำสัญญา</ScrollIcon>
       <LinkBanner
         theme="transparent-gray"
-        iconImage="topic/culture_small.png"
+        iconImage="article/article.png"
         titleText="วิธีตรวจสอบคำสัญญา"
         bodyText="หากนัก/พรรคการเมืองที่ได้เข้าไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา มีกระบวนการตรวจ สอบอย่างไรบ้าง"
         buttonText="อ่านเพิ่มเติม"
@@ -43,7 +45,7 @@
       />
       <LinkBanner
         theme="ultramarine"
-        iconImage="topic/culture_small.png"
+        iconImage="article/explore.png"
         titleText="PROMISE TRACKER"
         bodyText="สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?"
         buttonText="ดูคำสัญญา"
@@ -120,7 +122,8 @@ import { PromiseStatus } from '@/models/promise';
 import StatusExplanation from '@/components/explanation/status-explanation.vue';
 import StatusLegend from '@/components/explanation/status-legend.vue';
 import ExplanationContainer from '@/components/explanation/explanation-container.vue';
-
+import StatusAnimation from '@/components/status-animation.vue';
+import ScrollIcon from '@/components/scroll-icon.vue';
 export default Vue.extend({
   name: 'IndexPage',
   components: {
@@ -130,6 +133,8 @@ export default Vue.extend({
     StatusExplanation,
     StatusLegend,
     ExplanationContainer,
+    StatusAnimation,
+    ScrollIcon,
   },
   data() {
     return {
