@@ -18,7 +18,7 @@
         <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">
           ลิงก์ / ข้อมูลที่เกี่ยวข้อง
         </h2>
-        <BoxContainer class="border-black border-2 mb-3">
+        <BoxContainer class="border-black border mb-3">
           <img
             :id="`expanded-card-${promise.id}-image`"
             :src="`${$config.path.images}/party/dummy.jpg`"
