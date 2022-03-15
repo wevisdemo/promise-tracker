@@ -1,9 +1,9 @@
 <template>
-  <div :id="`promise-card-${promise.id}`">
+  <div :id="`promise-card-${promise.id}`" class="w-full max-w-2xl">
     <SingleCard
       :openState="openState"
-      @readmore="handleReadClick($event)"
       :promise="promise"
+      @readmore="handleReadClick($event)"
     />
     <ExpandedCard :expanded="readMoreState" :promise="promise" />
   </div>
