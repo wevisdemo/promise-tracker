@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`single-card-${promise.id}`"
-    class="flex flex-col bg-white max-w-2xl rounded-lg border-2 border-white overflow-hidden"
+    class="flex flex-col bg-white max-w-2xl rounded-lg border border-white overflow-hidden"
   >
     <div
       :id="`single-card-${promise.id}-status-color`"
@@ -67,17 +67,19 @@
         <p v-else class="px-3">ปิด</p>
         <button @click="onReadClick">
           <IconUp v-if="clicked" />
-          <IconDown v-else />
+          <IconUp v-else class="transform rotate-180" />
         </button>
       </div>
       <div class="flex items-center">
         <p class="hidden sm:block">แชร์คำสัญญา</p>
         <WvSharer
+          v-if="isMounted"
           class="mr-3"
           label=" "
           :allow-copy-link="true"
           :light="true"
           :outline="true"
+          :url="shareUrl"
         />
       </div>
     </div>
@@ -87,7 +89,6 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import WvSharer from '@wevisdemo/ui/components/sharer.vue';
-import IconDown from './icon-down.vue';
 import IconUp from './icon-up.vue';
 import StatusLegend from '@/components/explanation/status-legend.vue';
 import {
@@ -100,7 +101,7 @@ import {
 
 export default Vue.extend({
   name: 'SingleCard',
-  components: { StatusLegend, WvSharer, IconDown, IconUp },
+  components: { StatusLegend, WvSharer, IconUp },
   props: {
     promise: {
       type: Object as PropType<TrackingPromise>,
@@ -114,7 +115,13 @@ export default Vue.extend({
   data() {
     return {
       clicked: this.$props.openState,
+      isMounted: false,
+      shareUrl: '',
     };
+  },
+  mounted() {
+    this.shareUrl = `${location.origin}/promises/${this.$props.promise.id}`;
+    this.isMounted = true;
   },
   methods: {
     onReadClick() {

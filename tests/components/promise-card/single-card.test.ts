@@ -8,7 +8,6 @@ import {
 } from '@/models/promise';
 import SingleCard from '@/components/promise-card/single-card.vue';
 import StatusLegend from '@/components/explanation/status-legend.vue';
-import IconDown from '@/components/promise-card/icon-down.vue';
 import IconUp from '@/components/promise-card//icon-up.vue';
 
 describe('Single card', () => {
@@ -167,11 +166,10 @@ describe('Single card', () => {
   });
 
   test('should render iconDown by default', () => {
+    const EXPECTED_CLASS = ['transform', 'rotate-180'];
     const up = wrapper.findComponent(IconUp);
-    const down = wrapper.findComponent(IconDown);
 
-    expect(down.exists()).toBeTruthy();
-    expect(up.exists()).toBeFalsy();
+    expect(up.classes()).toEqual(expect.arrayContaining(EXPECTED_CLASS));
   });
 
   test('should render iconUp if openState is set to true', () => {
@@ -183,10 +181,8 @@ describe('Single card', () => {
     });
 
     const up = wrapper.findComponent(IconUp);
-    const down = wrapper.findComponent(IconDown);
 
-    expect(up.exists()).toBeTruthy();
-    expect(down.exists()).toBeFalsy();
+    expect(up.classes().length).toEqual(0);
   });
 
   test('should emit event on click', async () => {
@@ -226,10 +222,8 @@ describe('Single card', () => {
     const button = wrapper.find('button');
     await button.trigger('click');
     const up = wrapper.findComponent(IconUp);
-    const down = wrapper.findComponent(IconDown);
 
-    expect(up.exists()).toBeTruthy();
-    expect(down.exists()).toBeFalsy();
+    expect(up.classes().length).toEqual(0);
   });
 
   test('should render sharer', () => {
