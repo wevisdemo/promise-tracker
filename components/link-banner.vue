@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col max-w-4xl p-4 rounded-lg sm:flex-row"
+    class="flex flex-col w-full max-w-4xl p-4 rounded-lg sm:flex-row"
     :class="themeClasses"
     data-testid="theme"
   >
