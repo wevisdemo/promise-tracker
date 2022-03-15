@@ -1,14 +1,12 @@
 <template>
   <div class="flex flex-col items-center">
-    <BoxContainer class="border-black border-2 wv-font-anuphan mb-3">
-      <a
-        :href="link.url"
-        target="_blank"
-        rel="noopener noreferrer"
+    <BoxContainer class="border-black border wv-font-anuphan mb-3">
+      <ExternalLink
+        :url="link.url"
         class="wv-font-anuphan wv-font-bold wv-u4 text-ultramarine underline"
       >
         {{ link.name }}
-      </a>
+      </ExternalLink>
     </BoxContainer>
   </div>
 </template>
@@ -17,10 +15,11 @@
 import Vue, { PropType } from 'vue';
 import BoxContainer from './box-container.vue';
 import { PromiseLink } from '@/models/promise';
+import ExternalLink from '@/components/external-link.vue';
 
 export default Vue.extend({
   name: 'Link',
-  components: { BoxContainer },
+  components: { BoxContainer, ExternalLink },
   props: {
     link: {
       type: Object as PropType<PromiseLink>,

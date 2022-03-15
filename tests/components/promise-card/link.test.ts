@@ -1,6 +1,7 @@
 import { mount } from '@vue/test-utils';
 import Link from '@/components/promise-card/link.vue';
 import BoxContainer from '@/components/promise-card/box-container.vue';
+import ExternalLink from '@/components/external-link.vue';
 
 describe('Link Component', () => {
   const link = {
@@ -9,7 +10,7 @@ describe('Link Component', () => {
   };
 
   test('should have border container', () => {
-    const EXPECTED_CLASSES = ['border-black', 'border-2', 'wv-font-anuphan'];
+    const EXPECTED_CLASSES = ['border-black', 'border', 'wv-font-anuphan'];
     const wrapper = mount(Link, {
       propsData: {
         link,
@@ -52,6 +53,18 @@ describe('Link Component', () => {
     expect(atag.attributes('href')).toEqual(link.url);
   });
 
+  test('should contain ExternalLink', () => {
+    const wrapper = mount(Link, {
+      propsData: {
+        link,
+      },
+    });
+
+    const externalLink = wrapper.findComponent(ExternalLink);
+
+    expect(externalLink.exists()).toBeTruthy();
+  });
+
   test('should not render link name and url', () => {
     const wrapper = mount(Link, {
       propsData: {
@@ -62,6 +75,6 @@ describe('Link Component', () => {
     const atag = wrapper.find('a');
 
     expect(atag.text()).toEqual('');
-    expect(atag.attributes('href')).toEqual(undefined);
+    expect(atag.attributes('href')).toEqual('');
   });
 });
