@@ -71,24 +71,24 @@ describe('Style handling', () => {
 });
 
 describe('Selection handling', () => {
-  test('selects all', () => {
-    const expectedText = [
-      'ไม่พบข้อมูล',
-      'ถูกเสนอต่อสภา',
-      'ถูกระงับ',
-      'กำลังดำเนินการ',
-      'สำเร็จ',
-    ];
+  const expectedText = [
+    { id: 0, text: 'ไม่พบข้อมูล' },
+    { id: 1, text: 'ถูกเสนอต่อสภา' },
+    { id: 2, text: 'ถูกระงับ' },
+    { id: 3, text: 'กำลังดำเนินการ' },
+    { id: 4, text: 'สำเร็จ' },
+  ];
+
+  test.each(expectedText)('should render "$text"', ({ id, text }) => {
     const wrapper = mount(StatusLegend, {
       propsData: { showDetail: false },
     });
+
     const spans = wrapper.findAll('[data-testid="status-legend-text"]');
-    // console.log([...spans.wrappers.map((wrapper) => wrapper.html())]);
-    expect(spans.length).toEqual(expectedText.length);
-    spans.wrappers.forEach((span, index) => {
-      expect(span.text()).toBe(expectedText[index]);
-    });
+
+    expect(spans.at(id).text()).toEqual(text);
   });
+
   test('selects one', () => {
     const expectedText = ['ไม่พบข้อมูล'];
     const wrapper = mount(StatusLegend, {
