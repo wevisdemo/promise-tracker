@@ -1,6 +1,11 @@
 <template>
   <div>
-    <div class="blog-bg" />
+    <div
+      class="blog-bg"
+      :style="{
+        backgroundImage: `url(${$config.path.images}/background/blog_bg.png)`,
+      }"
+    />
     <div class="flex flex-col items-center z-10">
       <div class="blog-header wv-font-kondolar wv-h10">
         <img
@@ -171,7 +176,6 @@ export default Vue.extend({
 
 <style scoped>
 .blog-bg {
-  background-image: url('/images/background/blog_bg.png');
   height: 100vh;
   width: 100vw;
   object-fit: cover;
