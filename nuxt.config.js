@@ -1,3 +1,4 @@
+import promises from './data/promises.json';
 const BASE_PATH = process.env.BASE_PATH || '';
 
 export default {
@@ -48,5 +49,19 @@ export default {
 
   router: {
     base: BASE_PATH || '/',
+  },
+
+  generate: {
+    async routes() {
+      const promisesRoute = await Promise.all(
+        promises.map((promise) => ({
+          route: `/promises/${promise.id}`,
+          payload: {
+            promise,
+          },
+        }))
+      );
+      return [...promisesRoute];
+    },
   },
 };
