@@ -120,7 +120,7 @@ export default Vue.extend({
     };
   },
   mounted() {
-    this.shareUrl = `${location.origin}/promises/${this.$props.promise.id}`;
+    this.shareUrl = `${location.origin}${this.$config.path.base}/promises/${this.$props.promise.id}`;
     this.isMounted = true;
   },
   methods: {
