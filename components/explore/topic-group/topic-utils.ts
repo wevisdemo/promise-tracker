@@ -31,10 +31,12 @@ export const computedPromisePerPage = (
 };
 
 export const pageLength = (promiseLength: number, promisePerPage: number) => {
+  if (promisePerPage <= 0) return 0;
   return Math.ceil(promiseLength / promisePerPage);
 };
 
 export const pageNumberArray = (pageLength: number, currentPage: number) => {
+  if (currentPage > pageLength || pageLength < 0 || currentPage < 0) return [];
   const fullArray = Array.from({ length: pageLength }, (_, index) => index + 1);
   let returnedArray = [];
 
@@ -72,6 +74,7 @@ export const currentPagePromises = (
   currentPage: number,
   promisePerPage: number
 ) => {
+  if (currentPage < 1 || promisePerPage < 0) return [];
   const lastItemIndex: number = currentPage * promisePerPage;
   const firstItemIndex: number = lastItemIndex - promisePerPage;
   return promises.slice(firstItemIndex, lastItemIndex);
