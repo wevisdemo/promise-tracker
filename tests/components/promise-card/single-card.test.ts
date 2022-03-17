@@ -48,7 +48,7 @@ describe('Single card', () => {
   });
 
   test('should render title', () => {
-    const title = wrapper.find('h2');
+    const title = wrapper.find(`#single-card-${promise.id}-title`);
 
     expect(title.text()).toEqual(promise.title);
   });

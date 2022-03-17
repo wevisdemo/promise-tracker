@@ -18,7 +18,10 @@
             "
           />
         </div>
-        <h2 class="wv-h10 wv-font-kondolar wv-font-black px-3 py-4">
+        <h2
+          :id="`single-card-${promise.id}-title`"
+          class="wv-h10 wv-font-kondolar wv-font-black px-3 py-4"
+        >
           {{ promise.title }}
         </h2>
       </div>
