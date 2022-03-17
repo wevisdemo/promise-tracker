@@ -94,20 +94,19 @@ export default Vue.extend({
           content: this.promiseStatusInfo.description,
         },
         {
+          hid: 'og-title',
           property: 'og:title',
           content: this.promiseStatusInfo.title,
         },
         {
+          hid: 'og-description',
           property: 'og:description',
           content: this.promiseStatusInfo.description,
         },
         {
+          hid: 'og-image',
           property: 'og:image',
           content: this.promiseStatusInfo.image,
-        },
-        {
-          name: 'twitter:card',
-          content: 'summary_large_image',
         },
       ],
     };
