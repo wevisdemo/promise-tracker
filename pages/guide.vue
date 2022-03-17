@@ -212,5 +212,35 @@ export default Vue.extend({
     WvSharer,
     LinkBanner,
   },
+  head(): {} {
+    return {
+      title: 'วิธีตรวจสอบคำสัญญา',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content:
+            'หากพรรคการเมืองได้เข้าไปเป็นรัฐบาลแล้วไม่ทำตามสัญญา มีกระบวนการตรวจสอบอย่างไรบ้าง?',
+        },
+        {
+          hid: 'og-title',
+          property: 'og:title',
+          content: 'วิธีตรวจสอบคำสัญญา',
+        },
+        {
+          hid: 'og-description',
+          property: 'og:description',
+          content:
+            'หากพรรคการเมืองได้เข้าไปเป็นรัฐบาลแล้วไม่ทำตามสัญญา มีกระบวนการตรวจสอบอย่างไรบ้าง?',
+        },
+        {
+          hid: 'og-image',
+          property: 'og:image',
+          content:
+            'https://raw.githubusercontent.com/wevisdemo/promise-tracker/main/static/og/article.jpg',
+        },
+      ],
+    };
+  },
 });
 </script>
