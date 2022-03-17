@@ -43,22 +43,7 @@
           buttonText="อ่านเพิ่มเติม"
           buttonUrl="guide"
         />
-        <div class="mb-6 w-full">
-          <Button class="w-full justify-center"
-            ><span>แจ้งคำสัญญาที่อยากให้ติดตามเพิ่มเติม</span>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M-2.26862e-07 6.74994L-2.92429e-07 5.24994L9 5.24994L4.875 1.12494L5.94 0.0599401L11.88 5.99994L5.94 11.9399L4.875 10.8749L9 6.74994L-2.26862e-07 6.74994Z"
-              />
-            </svg>
-          </Button>
-        </div>
+        <FormLink />
       </div>
     </div>
   </div>
@@ -66,10 +51,16 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import {
+  matchedPromise,
+  titleText,
+  descriptionMap,
+  imageUrl,
+} from './meta-utils';
 import promises from '@/data/promises.json';
 import PromiseCard from '@/components/promise-card/promise-card.vue';
 import LinkBanner from '@/components/link-banner.vue';
-import Button from '@/components/button.vue';
+import FormLink from '@/components/form-link.vue';
 import { PromiseStatus, TrackingPromise } from '@/models/promise';
 
 export default Vue.extend({
@@ -77,7 +68,7 @@ export default Vue.extend({
   components: {
     PromiseCard,
     LinkBanner,
-    Button,
+    FormLink,
   },
   data() {
     return {
@@ -116,46 +107,17 @@ export default Vue.extend({
       return parseInt(this.slug.id, 10);
     },
     promise(): TrackingPromise | {} {
-      return this.matchedPromise(this.id);
+      return matchedPromise(promises as TrackingPromise[], this.id);
     },
     promiseStatusInfo() {
       const baseImageUrl = `https://raw.githubusercontent.com/wevisdemo/promise-tracker/main/static/og`;
       if (this.promise) {
         const promise = this.promise as TrackingPromise;
-        const titleInfo = `โครงการ${promise.title} โดยพรรค${promise.party}`;
-        switch (promise.status as PromiseStatus) {
-          case PromiseStatus.Proposed:
-            return {
-              title: `${titleInfo} ถูกเสนอต่อสภาแล้ว`,
-              description: `คำสัญญานี้ถูกเสนอต่อสภา ร่วมจับตา รอดูผล ของคำสัญญานี้...ว่าได้ไปต่อไหม ?`,
-              image: `${baseImageUrl}/${promise.status}.jpg`,
-            };
-          case PromiseStatus.Paused:
-            return {
-              title: `${titleInfo} ถูกระงับ`,
-              description: `น่าเศร้า !! คำสัญญานี้ถูกระงับไว้ ร่วมแชร์ให้คำสัญญาได้ไปต่อกัน`,
-              image: `${baseImageUrl}/${promise.status}.jpg`,
-            };
-          case PromiseStatus.Working:
-            return {
-              title: `${titleInfo} กำลังดำเนินการ`,
-              description: `คำสัญญานี้กำลังดำเนินการอยู่ บอกต่อให้ทุกคนมาลุ้นไปพร้อมๆกันว่าใกล้แล้ว!!`,
-              image: `${baseImageUrl}/${promise.status}.jpg`,
-            };
-          case PromiseStatus.Done:
-            return {
-              title: `${titleInfo} สำเร็จแล้ว`,
-              description: `คำสัญญานี้ทำได้สำเร็จ บอกต่อให้ทุกคนดู นี่คือคำสัญญาที่พูดแล้วทำจริง!!`,
-              image: `${baseImageUrl}/${promise.status}.jpg`,
-            };
-          case PromiseStatus.NoData:
-          default:
-            return {
-              title: `${titleInfo} ยังไม่พบข้อมูล`,
-              description: `คำสัญญานี้ยังไม่พบข้อมูล ขอ(ทวง)ถามพรรคการเมืองถึงข้อมูลและการดำเนินการเกี่ยวกับคำสัญญานี้`,
-              image: `${baseImageUrl}/${promise.status}.jpg`,
-            };
-        }
+        return {
+          title: titleText(promise.title, promise.party, promise.status),
+          description: descriptionMap.get(promise.status as PromiseStatus),
+          image: imageUrl(baseImageUrl, promise.status),
+        };
       } else {
         return {
           title: `Promise Tracker แพลตฟอร์มสำรวจคำสัญญาต่างๆของผู้นำ พรรคการเมือง ที่ให้คำสัญญาไว้`,
@@ -163,11 +125,6 @@ export default Vue.extend({
           image: `${baseImageUrl}/default.jpg`,
         };
       }
-    },
-  },
-  methods: {
-    matchedPromise(id: number) {
-      return promises.filter((promise) => promise.id === id)[0];
     },
   },
 });
