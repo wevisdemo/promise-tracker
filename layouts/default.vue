@@ -31,7 +31,7 @@ export default Vue.extend({
       routes: [
         { label: 'หน้าแรก', path: '/' },
         { label: 'ดูคำสัญญา', path: '/explore' },
-        { label: 'วิธีทวงสัญญา', path: '/guide' },
+        { label: 'วิธีตรวจสอบคำสัญญา', path: '/guide' },
         { label: 'เกี่ยวกับโครงการ', path: '/about' },
       ],
     };
