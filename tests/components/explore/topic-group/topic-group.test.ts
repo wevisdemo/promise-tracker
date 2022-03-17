@@ -2,6 +2,7 @@ import { config, mount } from '@vue/test-utils';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import {
   PromiseTopic,
+  PromiseStatus,
   promiseTopicTextMap,
   TrackingPromise,
 } from '@/models/promise';
@@ -13,14 +14,14 @@ import PromiseCard from '@/components/promise-card/promise-card.vue';
 import Button from '@/components/button.vue';
 
 describe('Topic Group', () => {
-  const promises = [
+  const promises: TrackingPromise[] = [
     {
       id: 1,
       isActive: false,
       party: 'พลังประชารัฐ',
       title: 'ต่อยอดบัตรสวัสดิการแห่งรัฐ',
-      topic: 'culture',
-      status: 'done',
+      topic: 'culture' as PromiseTopic,
+      status: 'done' as PromiseStatus,
       description: 'เป็นโครงการที่ต่อยอด',
       isNCPO: true,
       imageFileName: 'พลังประชารัฐ_7',
@@ -43,8 +44,8 @@ describe('Topic Group', () => {
       isActive: false,
       party: 'พลังประชารวย',
       title: 'ต่อยอดซัมติง',
-      topic: 'culture',
-      status: 'nodata',
+      topic: 'culture' as PromiseTopic,
+      status: 'nodata' as PromiseStatus,
       description: 'เป็นโครงการที่ต่อยอด',
       isNCPO: true,
       imageFileName: 'พลังประชารัฐ_7',
@@ -67,8 +68,8 @@ describe('Topic Group', () => {
       isActive: false,
       party: 'รวมพลังประชาชาติไทย',
       title: 'มีสำนักงานตำรวจที่ขึ้นกับจังหวัดและประชาชนในพื้นที่ ',
-      topic: 'culture',
-      status: 'nodata',
+      topic: 'culture' as PromiseTopic,
+      status: 'nodata' as PromiseStatus,
       description:
         'เป็นนโยบายกระจายอำนาจการบริหารงาน การจัดสรรงบประมาณและกำลังคนของตำรวจลงสู่จังหวัด ให้แต่ละจังหวัดมีสำนักงานตำรวจที่ขึ้นกับจังหวัดและประชาชนในพื้นที่\n\nโดยเฉพาะให้มีตำรวจที่มีหน้าที่จัดการแก้ปัญหายาเสพติดระดับจังหวัดขึ้นเป็นการเฉพาะ ซึ่งมีขีดความสามารถในการป้องกันและปราบปรามยาเสพติด กำกับ ควบคุมโดยประชาชนในจังหวัด\n\nซึ่งไม่พบข้อมูล',
       isNCPO: false,
@@ -105,8 +106,8 @@ describe('Topic Group', () => {
       party: 'ไทรักธรรม',
       title:
         'มีอาชีพเสริมเพิ่มรายได้จากอาชีพหลักพร้อมจัดหาการตลาดให้อันนำไปสู่การลดภาระหนี้สิน',
-      topic: 'culture',
-      status: 'nodata',
+      topic: 'culture' as PromiseTopic,
+      status: 'nodata' as PromiseStatus,
       description:
         'เป็นนโยบายที่ให้ประชาชนมีรายได้เสริม เพิ่มรายได้จากอาชีพหลักพร้อมทำการตลาดให้ \n\nซึ่งไม่พบข้อมูลอย่างเป็นรูปธรรม แต่พบว่าการสร้างอาชีพเสริมรายได้ ขณะนั้นคือ การทำดอกไม้จันทน์ สามารถทำได้ทันที ไม่ได้จูงใจด้วยทรัพย์สินอื่นใดให้เข้ามาเป็นสมาชิกพรรค \n\nโดยก่อนประกาศผลการเลือกตั้ง กกต. ได้รับรายงานกรณีมีเหตุอันควรสงสัยว่า นายพีระวิทย์ เรื่องลือดลภาค หัวหน้าพรรค กับพวกซึ่งเป็นผู้สมัคร ส.ส.แบบแบ่ง และสมาชิกพรรคไทรักธรรม  ในพื้นที่จังหวัดพิจิตร รวม 10 ราย กระทำการฝ่าฝืน พระราชบัญญัติประกอบรัฐธรรมนูญ (พ.ร.ป.) ว่าด้วยพรรคการเมือง พ.ศ.2560 มาตรา 30 กรณีเสนอว่าจะให้ หรือสัญญาว่าจะให้เงิน ทรัพย์สิน หรือประโยชน์อื่นใดไม่ว่าโดยทางตรงหรือทางอ้อม เพื่อจูงใจให้บุคคลหนึ่งบุคคลใดสมัครเข้าเป็นสมาชิกพรรคไทรักธรรม ทำให้กกต.ยื่นร้องขอให้ยุบพรรคต่อศาลรัฐธรรมนูญ เมื่อวันที่ 7 มกราคม พ.ศ. 2565',
       isNCPO: false,
@@ -123,6 +124,47 @@ describe('Topic Group', () => {
         {
           name: 'กกต.ยื่นยุบ"ไทรักธรรม"ปมจูงใจสมัครสมาชิก - PPTV online',
           url: 'https://www.pptvhd36.com/news/%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87/164059',
+        },
+      ],
+      timelines: [
+        {
+          label: 'หาเสียงประกาศนโยบาย',
+          from: '2019-01',
+          to: '2019-03',
+        },
+        {
+          label: 'แต่งตั้งรัฐบาล',
+          from: '2019-07-10',
+        },
+        {
+          label: 'แถลงนโยบายต่อรัฐสภา',
+          from: '2019-07-25',
+        },
+      ],
+    },
+    {
+      id: 5,
+      isActive: false,
+      party: 'รวมพลังประชาชาติไทย',
+      title: 'ยกฐานะทุกจังหวัดเป็นองค์กรปกครองท้องถิ่นรูปแบบพิเศษ',
+      topic: 'administration' as PromiseTopic,
+      status: 'nodata' as PromiseStatus,
+      description:
+        'นโยบายยกฐานะทุกจังหวัดเป็นองค์กรปกครองท้องถิ่นรูปแบบพิเศษ รวมบรรดาหน่วยราชการส่วนกลาง ส่วนภูมิภาคและส่วนท้องถิ่นในพื้นที่จังหวัดหนึ่งๆ เข้ามาไว้ด้วยกัน จึงทำให้จังหวัดรูปแบบใหม่ จะมีขีดความสามารถเพิ่มขึ้นอย่างมหาศาล ประหยัดงบประมาณและกำลังคนในภาครัฐ เพราะได้รับการจัดสรรงบประมาณจากรัฐโดยตรง ไม่ผ่านกระทรวงและกรม นายกรัฐมนตรีจะกำกับดูแลและส่งเสริมการบริหารและการพัฒนาของจังหวัดผ่านการประชุมระหว่างนายกรัฐมนตรีและผู้ว่าราชการจังหวัดเป็นประจำเดือนละ 1 ครั้ง จังหวัดของประชาชน จะสามารถบริหารจัดการทุกอย่างในพื้นที่ได้เอง ยกเว้นเรื่องความมั่นคง การต่างประเทศ\n\nซึ่งไม่พบข้อมูล และรูปแบบการบริหารราชการแผ่นดิน ยังคงยึดตามพ.ร.บ. ระเบียบบริหารราชการแผ่นดิน 2534 และแก้ไขเพิ่มเติมฉ. 8 พ.ศ.2553',
+      isNCPO: false,
+      imageFileName: 'รวมพลังประชาชาติไทย_2',
+      links: [
+        {
+          name: 'เว็บไซต์พรรครวมพลังประชาชาติไทย',
+          url: 'https://act-party.org/',
+        },
+        {
+          name: "กาง 10 นโยบายพรรค'รวมพลังประชาชาติไทย'เพื่ออนาคต ของประเทศ  - ไทยโพสต์",
+          url: 'https://www.thaipost.net/main/detail/32014',
+        },
+        {
+          name: 'พระราชบัญญัติระเบียบบริหารราชการแผ่นดิน พ.ศ.2534',
+          url: 'http://www.krisdika.go.th/librarian/get?sysid=640806&ext=htm',
         },
       ],
       timelines: [
@@ -269,7 +311,12 @@ describe('Topic Group', () => {
 
     const promiseCards = wrapper.findAllComponents(PromiseCard);
 
-    expect(promiseCards.length).toEqual(promises.length);
+    expect(promiseCards.length).toEqual(
+      filteredPromise(
+        noPromisePerPageProps.promises,
+        noPromisePerPageProps.topic
+      ).length
+    );
   });
 
   test('should render PromiseCards within the page', () => {
@@ -301,5 +348,56 @@ describe('Topic Group', () => {
     await button.trigger('click');
 
     expect(wrapper.emitted('viewTopic')).toBeTruthy();
+  });
+
+  test('should render promise cards according to the selected page', async () => {
+    const wrapper = mount(TopicGroup, {
+      propsData: promisePerPagePropsFull,
+    });
+
+    let promiseCards = wrapper.findAllComponents(PromiseCard);
+    expect(promiseCards.length).toEqual(3);
+
+    const page = wrapper.find('#culture-page-2-key-1');
+    const pageButton = page.find('button');
+    await pageButton.trigger('click');
+    promiseCards = wrapper.findAllComponents(PromiseCard);
+
+    expect(promiseCards.length).toEqual(1);
+  });
+
+  test('should render next set of promise cards on next page click', async () => {
+    const wrapper = mount(TopicGroup, {
+      propsData: promisePerPagePropsFull,
+    });
+
+    let promiseCards = wrapper.findAllComponents(PromiseCard);
+    expect(promiseCards.length).toEqual(3);
+
+    const nextPageButton = wrapper.find('#culture-right-navigation-button');
+    await nextPageButton.trigger('click');
+    promiseCards = wrapper.findAllComponents(PromiseCard);
+
+    expect(promiseCards.length).toEqual(1);
+  });
+
+  test('should render previous set of promise cards on previous page click', async () => {
+    const wrapper = mount(TopicGroup, {
+      propsData: promisePerPagePropsFull,
+      data() {
+        return {
+          currentPage: 2,
+        };
+      },
+    });
+
+    let promiseCards = wrapper.findAllComponents(PromiseCard);
+    expect(promiseCards.length).toEqual(1);
+
+    const previousPageButton = wrapper.find('#culture-left-navigation-button');
+    await previousPageButton.trigger('click');
+    promiseCards = wrapper.findAllComponents(PromiseCard);
+
+    expect(promiseCards.length).toEqual(3);
   });
 });

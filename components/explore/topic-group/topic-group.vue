@@ -27,6 +27,7 @@
     >
       <div class="flex items-center">
         <button
+          :id="`${topic}-left-navigation-button`"
           class="transform rotate-180 navigation-button mr-1"
           :class="currentPage > 1 ? 'border border-white' : ''"
           @click="currentPage > 1 ? (currentPage -= 1) : null"
@@ -35,6 +36,7 @@
         </button>
         <div
           v-for="(pageNumber, index) in pageNumberArray"
+          :id="`${topic}-page-${pageNumber}-key-${index}`"
           :key="`${topic}-page-${pageNumber}-key-${index}`"
           class="mr-1"
         >
@@ -53,6 +55,7 @@
           </button>
         </div>
         <button
+          :id="`${topic}-right-navigation-button`"
           class="navigation-button"
           :class="currentPage < pageLength ? 'border border-white' : ''"
           @click="currentPage < pageLength ? (currentPage += 1) : null"
