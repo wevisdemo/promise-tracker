@@ -10,9 +10,9 @@
         <h3 class="wv-h8 wv-font-bold">PROMISE TRACKER</h3>
         <h1 class="wv-h2 wv-font-bold">วิธีตรวจสอบคำสัญญา</h1>
         <h4 class="wv-h9">
-          หากนัก/พรรคการเมืองที่ได้เข้า`ไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา
+          หากนัก/พรรคการเมืองได้เข้าไปเป็นรัฐบาลแล้วไม่ทำตามสัญญา
           <br class="hidden sm:block" />
-          มีกระบวนการตรวจสอบอย่างไรบ้าง
+          มีกระบวนการตรวจสอบอย่างไรบ้าง ?
         </h4>
         <img
           :src="`${$config.path.images}/guide/section-01.png`"
