@@ -109,6 +109,7 @@
           หรือเข้าสู่กระบวนการตามอำนาจหน้าที่ที่พวกเขาทำได้
         </p>
       </ExplanationContainer>
+      <FormLink />
     </div>
   </div>
 </template>
@@ -124,6 +125,7 @@ import StatusLegend from '@/components/explanation/status-legend.vue';
 import ExplanationContainer from '@/components/explanation/explanation-container.vue';
 import StatusAnimation from '@/components/status-animation.vue';
 import ScrollIcon from '@/components/scroll-icon.vue';
+import FormLink from '@/components/form-link.vue';
 export default Vue.extend({
   name: 'IndexPage',
   components: {
@@ -135,6 +137,7 @@ export default Vue.extend({
     ExplanationContainer,
     StatusAnimation,
     ScrollIcon,
+    FormLink,
   },
   data() {
     return {
