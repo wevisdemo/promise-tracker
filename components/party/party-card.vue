@@ -1,54 +1,60 @@
 <template>
   <div
-    class="flex flex-col bg-white w-max px-4 py-3 rounded-sm items-center sm:flex-row gap-6"
+    class="flex bg-white w-full px-4 py-3 rounded-sm flex-row gap-3 text-black"
   >
-    <div class="flex gap-1">
+    <div>
       <img
         v-if="partyLogo"
-        class="w-9 h-9 rounded shadow"
+        class="w-10 h-10 md:w-9 md:h-9 rounded-full shadow"
         :src="`${$config.path.images}/${partyLogo}`"
         :alt="partyName"
       />
       <img
         v-else
-        class="w-9 h-9 rounded shadow"
+        class="w-10 h-10 md:w-9 md:h-9 rounded-full shadow"
         :src="`${$config.path.images}/party/dummy.jpg`"
         alt="Dummy Party Logo"
       />
-      <div class="w-40">
+    </div>
+    <div
+      class="flex flex-col md:flex-row items-start md:items-center gap-3 w-full"
+    >
+      <div class="w-full">
         <div class="h11 wv-font-black">{{ partyName }}</div>
         <div>
-          <span id="promise-sum">{{ sumPartyPromises }}</span>
+          <span class="promise-sum">{{ sumPartyPromises }}</span>
           <span> คำสัญญา</span>
         </div>
       </div>
-    </div>
-    <div class="w-44">
-      <span class="flex h-4 overflow-hidden">
-        <span
-          v-for="(item, i) in promises"
-          :key="i"
-          :style="`width:${item.countPercentage}%;`"
-          :class="`bg-status-${bgColor[i]}`"
-          :title="item.status"
-        ></span>
-      </span>
-    </div>
-    <div>
-      <Button theme="primary-blue" class="h-10">
-        <NuxtLink :to="buttonUrl">ดูคำสัญญา</NuxtLink>
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 12"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M-2.26862e-07 6.74994L-2.92429e-07 5.24994L9 5.24994L4.875 1.12494L5.94 0.0599401L11.88 5.99994L5.94 11.9399L4.875 10.8749L9 6.74994L-2.26862e-07 6.74994Z"
-          />
-        </svg>
-      </Button>
+      <div class="w-full">
+        <span class="flex h-4 overflow-hidden">
+          <span
+            v-for="(item, i) in promises"
+            :key="i"
+            :style="`width:${item.countPercentage}%;`"
+            :class="`bg-status-${bgColor[i]}`"
+            :title="item.status"
+          ></span>
+        </span>
+      </div>
+      <div>
+        <NuxtLink :to="buttonUrl">
+          <Button theme="primary-blue" class="h-10 w-full sm:w-max">
+            <span>ดูคำสัญญา</span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="currentColor"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M-2.26862e-07 6.74994L-2.92429e-07 5.24994L9 5.24994L4.875 1.12494L5.94 0.0599401L11.88 5.99994L5.94 11.9399L4.875 10.8749L9 6.74994L-2.26862e-07 6.74994Z"
+              />
+            </svg>
+          </Button>
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>

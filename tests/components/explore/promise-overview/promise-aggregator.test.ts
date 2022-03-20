@@ -65,11 +65,13 @@ test('should be able to group by party', () => {
     {
       label: 'พลังไทยรักไทย',
       icon: `party/พลังไทยรักไทย.jpg`,
+      isNCPO: false,
       data: [{ status: PromiseStatus.Done, count: 2 }],
     },
     {
       label: 'อนาคตใหม่',
       icon: `party/อนาคตใหม่.jpg`,
+      isNCPO: false,
       data: [
         { status: PromiseStatus.NoData, count: 1 },
         { status: PromiseStatus.Paused, count: 1 },
@@ -78,16 +80,19 @@ test('should be able to group by party', () => {
     {
       label: 'เพื่อไทย',
       icon: `party/เพื่อไทย.jpg`,
+      isNCPO: false,
       data: [{ status: PromiseStatus.Done, count: 1 }],
     },
     {
       label: 'ประชาธิปัติ',
       icon: `party/ประชาธิปัติ.jpg`,
+      isNCPO: false,
       data: [{ status: PromiseStatus.Working, count: 1 }],
     },
     {
       label: 'พลังประชารัฐ',
       icon: `party/พลังประชารัฐ.jpg`,
+      isNCPO: false,
       data: [{ status: PromiseStatus.Proposed, count: 1 }],
     },
     {

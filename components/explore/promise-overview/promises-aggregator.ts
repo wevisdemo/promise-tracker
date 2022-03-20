@@ -15,6 +15,7 @@ export interface ChartData {
 export interface Chart {
   label: string;
   icon?: string;
+  isNCPO?: boolean;
   data: ChartData[];
 }
 
@@ -61,12 +62,13 @@ export const groupPromisesBy = (
   charts: Chart[];
 } => {
   const groupedPromiseObject = promises.reduce<{
-    [key: string]: { count: number; statuses: StatusPair };
+    [key: string]: { isNCPO: boolean; count: number; statuses: StatusPair };
   }>((obj, promise) => {
     const group = promise[groupBy];
 
     if (!(group in obj)) {
       obj[group] = {
+        isNCPO: false,
         count: 1,
         statuses: {},
       };
@@ -80,16 +82,21 @@ export const groupPromisesBy = (
       obj[group].statuses[promise.status]++;
     }
 
+    if (promise.isNCPO === true) {
+      obj[group].isNCPO = true;
+    }
+
     return obj;
   }, {});
 
   let charts: Chart[] =
     groupBy === FilterType.Party
       ? Object.entries(groupedPromiseObject)
-          .map<Chart>(([label, { statuses }]) => ({
+          .map<Chart>(([label, group]) => ({
             label,
             icon: `party/${label}.jpg`,
-            data: parseChartDataFromStatusPair(statuses),
+            isNCPO: group.isNCPO,
+            data: parseChartDataFromStatusPair(group.statuses),
           }))
           .sort(
             (a, z) =>

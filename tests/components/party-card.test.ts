@@ -1,5 +1,5 @@
 import { mount, config } from '@vue/test-utils';
-import PartyCard from '../../components/party-card.vue';
+import PartyCard from '../../components/party/party-card.vue';
 import { PromiseStatus } from '@/models/promise';
 
 const data = [
@@ -64,7 +64,7 @@ describe('party card', () => {
     const PROMISES_COUNT = '28';
     await wrapper.setProps({ partyPromises: data });
 
-    const sumPromises = wrapper.get('#promise-sum');
+    const sumPromises = wrapper.get('.promise-sum');
 
     expect(sumPromises.text()).toBe(PROMISES_COUNT);
   });

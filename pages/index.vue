@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <h1>Index</h1>
-
-    <div class="p-2 bg-gray space-y-2">
+  <div class="bg-gradient-to-b from-ultramarine to-black text-white">
+    <div class="p-2 space-y-2">
       <Button
         ><span>primary-white (default)</span>
         <svg
@@ -51,27 +49,7 @@
         buttonText="ดูคำสัญญา"
         buttonUrl="explore"
       />
-      <div class="flex flex-col gap-1">
-        <PartyCard
-          partyLogo="party/รวมพลังประชาชาติไทย.jpg"
-          partyName="รวมพลังประชาชาติไทย"
-          :partyPromises="chartData"
-          buttonUrl="explore"
-        />
-        <PartyCard
-          partyLogo="party/ก้าวไกล.jpg"
-          partyName="ก้าวไกล"
-          :partyPromises="chartData"
-          buttonUrl="explore"
-        />
-        <PartyCard
-          partyLogo="party/เครือข่ายชาวนาแห่งประเทศไทย.jpg"
-          partyName="เครือข่ายชาวนาแห่งประเทศไทย"
-          :partyPromises="chartData"
-          buttonUrl="explore"
-        />
-        <PartyCard partyName="Dummy party" />
-      </div>
+      <PartyPromise />
       <div class="grid grid-cols-1 gap-4">
         <StatusLegend
           class="text-white"
@@ -118,37 +96,26 @@
 import Vue from 'vue';
 import Button from '@/components/button.vue';
 import LinkBanner from '@/components/link-banner.vue';
-import PartyCard from '@/components/party-card.vue';
-import { PromiseStatus } from '@/models/promise';
 import StatusExplanation from '@/components/explanation/status-explanation.vue';
 import StatusLegend from '@/components/explanation/status-legend.vue';
 import ExplanationContainer from '@/components/explanation/explanation-container.vue';
 import StatusAnimation from '@/components/status-animation.vue';
 import ScrollIcon from '@/components/scroll-icon.vue';
 import FormLink from '@/components/form-link.vue';
+import PartyPromise from '~/components/party/party-promise.vue';
+
 export default Vue.extend({
   name: 'IndexPage',
   components: {
     Button,
     LinkBanner,
-    PartyCard,
     StatusExplanation,
     StatusLegend,
     ExplanationContainer,
     StatusAnimation,
     ScrollIcon,
     FormLink,
-  },
-  data() {
-    return {
-      chartData: [
-        { status: PromiseStatus.NoData, count: 20 },
-        { status: PromiseStatus.Proposed, count: 10 },
-        { status: PromiseStatus.Paused, count: 5 },
-        { status: PromiseStatus.Working, count: 6 },
-        { status: PromiseStatus.Done, count: 4 },
-      ],
-    };
+    PartyPromise,
   },
 });
 </script>
