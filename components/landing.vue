@@ -6,9 +6,11 @@
       class="absolute m-auto opacity-95 overflow-hidden max-w-none sm:max-w-full -top-16 sm:top-0"
       :src="`${$config.path.images}/background/landing_bg.png`"
       alt="landing_bg"
-      style="z-index: -1; left: 50%; transform: translateX(-50%)"
+      style="z-index: 1; left: 50%; transform: translateX(-50%)"
     />
-    <div class="flex flex-col items-center text-center pt-16 sm:pt-32 pb-20">
+    <div
+      class="flex flex-col relative z-10 items-center text-center pt-16 sm:pt-32 pb-20"
+    >
       <StatusAnimation />
       <h3 class="wv-h8 wv-font-bold wv-font-kondolar py-4">PROMISE TRACKER</h3>
       <h1 class="wv-h4 wv-font-bold wv-font-kondolar pb-4">

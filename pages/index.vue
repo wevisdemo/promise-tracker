@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center text-white sm:px-6">
     <div class="gradient-background" />
     <Landing />
-    <div class="bg-ultramarine w-screen h-20 fixed bottom-0">
+    <div class="bg-ultramarine w-screen z-30 h-20 fixed bottom-0">
       <NuxtLink to="explore">
         <ScrollIcon class="text-white">ดูคำสัญญา</ScrollIcon>
       </NuxtLink>
@@ -85,8 +85,7 @@ export default Vue.extend({
 
 <style scoped>
 .gradient-background {
-  z-index: -1;
-  margin-top: -100vh;
-  @apply w-screen h-screen sticky top-0 bg-gradient-to-b from-ultramarine to-black;
+  z-index: -5;
+  @apply w-screen h-screen fixed top-0 bg-gradient-to-b from-ultramarine to-black;
 }
 </style>
