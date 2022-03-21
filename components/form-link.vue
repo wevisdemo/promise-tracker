@@ -39,6 +39,7 @@ export default Vue.extend({
   methods: {
     handleFormLink() {
       (this.$refs.form as HTMLElement).click();
+      this.$emit('tagClicked', true);
     },
   },
 });
