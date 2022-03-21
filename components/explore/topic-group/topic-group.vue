@@ -1,14 +1,20 @@
 <template>
   <div class="mb-6">
-    <div :id="`topic-${topic}-header`" class="topic-header">
+    <div
+      :id="`group-${groupBy.where}-header`"
+      class="group-header"
+      :class="
+        groupBy.by === 'topic' ? 'bg-ultramarine' : `bg-status-${groupBy.where}`
+      "
+    >
       <div class="flex items-center">
         <img
           class="w-8 my-2 ml-6 mr-2"
-          :src="`${$config.path.images}/topic/${topic}.png`"
-          :alt="topic"
+          :src="`${$config.path.images}/${groupBy.by}/${groupBy.where}.png`"
+          :alt="groupBy.where"
         />
         <p class="wv-h10 wv-font-bold wv-font-kondolar pl-2">
-          ประเด็น{{ getTopic(topic) }}
+          {{ groupTitle }}
         </p>
       </div>
       <p class="flex flex-shrink-0 wv-u4 wv-font-semibold wv-font-anuphan pr-4">
@@ -17,7 +23,7 @@
     </div>
     <PromiseCard
       v-for="promise in currentPagePromises"
-      :key="`${topic}-group-promise-card-${promise.id}`"
+      :key="`${groupBy.where}-group-promise-card-${promise.id}`"
       class="pb-2"
       :promise="promise"
     />
@@ -27,7 +33,7 @@
     >
       <div class="flex items-center">
         <button
-          :id="`${topic}-left-navigation-button`"
+          :id="`${groupBy.where}-left-navigation-button`"
           class="transform rotate-180 navigation-button mr-1"
           :class="currentPage > 1 ? 'border border-white' : ''"
           @click="currentPage > 1 ? (currentPage -= 1) : null"
@@ -36,8 +42,8 @@
         </button>
         <div
           v-for="(pageNumber, index) in pageNumberArray"
-          :id="`${topic}-page-${pageNumber}-key-${index}`"
-          :key="`${topic}-page-${pageNumber}-key-${index}`"
+          :id="`${groupBy.where}-page-${pageNumber}-key-${index}`"
+          :key="`${groupBy.where}-page-${pageNumber}-key-${index}`"
           class="mr-1"
         >
           <button
@@ -55,7 +61,7 @@
           </button>
         </div>
         <button
-          :id="`${topic}-right-navigation-button`"
+          :id="`${groupBy.where}-right-navigation-button`"
           class="navigation-button"
           :class="currentPage < pageLength ? 'border border-white' : ''"
           @click="currentPage < pageLength ? (currentPage += 1) : null"
@@ -74,17 +80,19 @@
 import Vue, { PropType } from 'vue';
 import IconRight from './icon-right.vue';
 import {
+  Group,
+  groupBy,
+  getGroupTitle,
   filteredPromise,
   computedPromisePerPage,
   pageLength,
   pageNumberArray,
   currentPagePromises,
   getPromisesLength,
-  getTopic,
 } from './topic-utils';
 import PromiseCard from '@/components/promise-card/promise-card.vue';
 import Button from '@/components/button.vue';
-import { TrackingPromise, PromiseTopic } from '@/models/promise';
+import { TrackingPromise, PromiseTopic, PromiseStatus } from '@/models/promise';
 
 export default Vue.extend({
   name: 'TopicGroup',
@@ -92,6 +100,10 @@ export default Vue.extend({
   props: {
     topic: {
       type: String as PropType<PromiseTopic>,
+      default: '',
+    },
+    status: {
+      type: String as PropType<PromiseStatus>,
       default: '',
     },
     promises: {
@@ -109,8 +121,18 @@ export default Vue.extend({
     };
   },
   computed: {
-    filteredPromise() {
-      return filteredPromise(this.$props.promises, this.$props.topic);
+    groupBy(): Group {
+      return groupBy(this.$props.topic, this.$props.status);
+    },
+    groupTitle(): string | undefined {
+      return getGroupTitle(this.groupBy.by, this.groupBy.where);
+    },
+    filteredPromise(): TrackingPromise[] {
+      return filteredPromise(
+        this.$props.promises,
+        this.groupBy.by,
+        this.groupBy.where
+      );
     },
     computedPromisePerPage(): number {
       return computedPromisePerPage(
@@ -136,23 +158,20 @@ export default Vue.extend({
     },
   },
   methods: {
-    getTopic(topic: PromiseTopic) {
-      return getTopic(topic);
-    },
     getPromisesLength() {
       return getPromisesLength(this.filteredPromise);
     },
     viewAll() {
       this.currentPage = 1;
-      this.$emit('viewTopic', this.$props.topic);
+      this.$emit('viewGroup', this.groupBy.where);
     },
   },
 });
 </script>
 
 <style scoped>
-.topic-header {
-  @apply flex items-center justify-between bg-ultramarine rounded-xl border border-white text-white overflow-hidden max-w-2xl mb-6;
+.group-header {
+  @apply flex items-center justify-between rounded-xl border border-white text-white overflow-hidden max-w-2xl mb-6;
 }
 .navigation-button {
   @apply w-6 h-6 flex justify-center items-center rounded-sm;

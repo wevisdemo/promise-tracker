@@ -22,20 +22,43 @@
         :promise="promise"
       />
     </div>
-    <div class="bg-gray">
+    <div class="bg-status-done">
+      <button class="border border-black p-2 mt-2" @click="groupBy = 'topic'">
+        ตามประเด็น
+      </button>
+      <button class="border border-black p-2 mt-2" @click="groupBy = 'status'">
+        ตามสถานะ
+      </button>
+      {{ groupBy }}
+    </div>
+    <div v-if="groupBy === 'topic'" class="bg-gray">
       <div v-for="topic in topics" :key="`topic-${topic}`">
         <TopicGroup
-          v-if="filteredTopic === '' || filteredTopic === topic"
+          v-if="filteredGroup === '' || filteredGroup === topic"
           :topic="topic"
           :promises="promises"
-          :promisePerPage="filteredTopic === topic ? 0 : 3"
-          @viewTopic="setTopicFilter($event)"
+          :promisePerPage="filteredGroup === topic ? 0 : 3"
+          @viewGroup="setGroupFilter($event)"
         />
       </div>
-      <button class="border border-black p-2 mt-2" @click="filteredTopic = ''">
-        Remove Topic Filter: {{ filteredTopic }}
-      </button>
     </div>
+    <div v-else class="bg-gray">
+      <div v-for="status in statuses" :key="`group-${status}`">
+        <TopicGroup
+          v-if="filteredGroup === '' || filteredGroup === status"
+          :status="status"
+          :promises="promises"
+          :promisePerPage="filteredGroup === status ? 0 : 3"
+          @viewGroup="setGroupFilter($event)"
+        />
+      </div>
+    </div>
+    <button
+      class="border bg-white border-black p-2 mt-2"
+      @click="filteredGroup = ''"
+    >
+      Remove Group Filter: {{ filteredGroup }}
+    </button>
   </div>
 </template>
 
@@ -45,7 +68,7 @@ import PromiseOverview from '@/components/explore/promise-overview/promise-overv
 import promises from '@/data/promises.json';
 import PromiseCard from '@/components/promise-card/promise-card.vue';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
-import { PromiseTopic } from '@/models/promise';
+import { PromiseTopic, PromiseStatus } from '@/models/promise';
 
 export default Vue.extend({
   name: 'ExplorePage',
@@ -67,12 +90,20 @@ export default Vue.extend({
         PromiseTopic.Economics,
         PromiseTopic.Environmental,
       ],
-      filteredTopic: '',
+      statuses: [
+        PromiseStatus.NoData,
+        PromiseStatus.Proposed,
+        PromiseStatus.Paused,
+        PromiseStatus.Working,
+        PromiseStatus.Done,
+      ],
+      groupBy: 'topic',
+      filteredGroup: '',
     };
   },
   methods: {
-    setTopicFilter(topic: PromiseTopic) {
-      this.filteredTopic = topic;
+    setGroupFilter(group: PromiseTopic | PromiseStatus) {
+      this.filteredGroup = group;
     },
   },
 });

@@ -5,6 +5,7 @@ import {
   PromiseStatus,
   promiseTopicTextMap,
   TrackingPromise,
+  promiseStatusTextMap,
 } from '@/models/promise';
 import {
   filteredPromise,
@@ -187,17 +188,27 @@ describe('Topic Group', () => {
 
   const promisesSmall = promises.filter((promise) => promise.id < 3);
 
-  const promisePerPagePropsSmall = {
+  const promisesTopicSmall = {
     topic: PromiseTopic.Culture,
     promises: promisesSmall,
     promisePerPage: 3,
   };
-  const promisePerPagePropsFull = {
+  const promisesStatusSmall = {
+    status: PromiseStatus.NoData,
+    promises: promisesSmall,
+    promisePerPage: 3,
+  };
+  const promisesTopicFull = {
     topic: PromiseTopic.Culture,
     promises,
     promisePerPage: 3,
   };
-  const noPromisePerPageProps = {
+  const promisesStatusFull = {
+    status: PromiseStatus.NoData,
+    promises,
+    promisePerPage: 3,
+  };
+  const noPromisePerPage = {
     topic: PromiseTopic.Culture,
     promises,
     promisePerPage: 0,
@@ -212,33 +223,53 @@ describe('Topic Group', () => {
   });
 
   test('should render topic header box', () => {
+    const EXPECTED_CLASSES = ['group-header', 'bg-ultramarine'];
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsSmall,
+      propsData: promisesTopicSmall,
     });
 
-    const header = wrapper.find(
-      `#topic-${promisePerPagePropsSmall.topic}-header`
-    );
+    const header = wrapper.find(`#group-${promisesTopicSmall.topic}-header`);
 
-    expect(header.classes()).toEqual(['topic-header']);
+    expect(header.classes()).toEqual(expect.arrayContaining(EXPECTED_CLASSES));
+  });
+
+  test('should render status header box', () => {
+    const EXPECTED_CLASSES = ['group-header', 'bg-status-nodata'];
+    const wrapper = mount(TopicGroup, {
+      propsData: promisesStatusSmall,
+    });
+
+    const header = wrapper.find(`#group-${promisesStatusSmall.status}-header`);
+
+    expect(header.classes()).toEqual(expect.arrayContaining(EXPECTED_CLASSES));
   });
 
   test('should render topic header icon', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsSmall,
+      propsData: promisesTopicSmall,
     });
 
-    const header = wrapper.find(
-      `#topic-${promisePerPagePropsSmall.topic}-header`
-    );
+    const header = wrapper.find(`#group-${promisesTopicSmall.topic}-header`);
     const headerImage = header.find('img');
 
     expect(headerImage.attributes('src')).toEqual(
-      `/images/topic/${promisePerPagePropsSmall.topic}.png`
+      `/images/topic/${promisesTopicSmall.topic}.png`
     );
-    expect(headerImage.attributes('alt')).toEqual(
-      promisePerPagePropsSmall.topic
+    expect(headerImage.attributes('alt')).toEqual(promisesTopicSmall.topic);
+  });
+
+  test('should render status header icon', () => {
+    const wrapper = mount(TopicGroup, {
+      propsData: promisesStatusSmall,
+    });
+
+    const header = wrapper.find(`#group-${promisesStatusSmall.status}-header`);
+    const headerImage = header.find('img');
+
+    expect(headerImage.attributes('src')).toEqual(
+      `/images/status/${promisesStatusSmall.status}.png`
     );
+    expect(headerImage.attributes('alt')).toEqual(promisesStatusSmall.status);
   });
 
   test('should render topic header icon from config path', () => {
@@ -250,45 +281,94 @@ describe('Topic Group', () => {
       },
     };
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsSmall,
+      propsData: promisesTopicSmall,
     });
 
-    const header = wrapper.find(
-      `#topic-${promisePerPagePropsSmall.topic}-header`
-    );
+    const header = wrapper.find(`#group-${promisesTopicSmall.topic}-header`);
     const headerImage = header.find('img');
 
     expect(headerImage.attributes('src')).toEqual(
-      `${CONFIG_PATH}/topic/${promisePerPagePropsSmall.topic}.png`
+      `${CONFIG_PATH}/topic/${promisesTopicSmall.topic}.png`
+    );
+  });
+
+  test('should render status header icon from config path', () => {
+    const CONFIG_PATH = '/test';
+    config.mocks.$config = {
+      path: {
+        base: '',
+        images: CONFIG_PATH,
+      },
+    };
+    const wrapper = mount(TopicGroup, {
+      propsData: promisesStatusSmall,
+    });
+
+    const header = wrapper.find(`#group-${promisesStatusSmall.status}-header`);
+    const headerImage = header.find('img');
+
+    expect(headerImage.attributes('src')).toEqual(
+      `${CONFIG_PATH}/status/${promisesStatusSmall.status}.png`
     );
   });
 
   test('should render topic header title', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsSmall,
+      propsData: promisesTopicSmall,
     });
 
-    const header = wrapper.find(
-      `#topic-${promisePerPagePropsSmall.topic}-header`
-    );
+    const header = wrapper.find(`#group-${promisesTopicSmall.topic}-header`);
     const p = header.findAll('p');
 
     expect(p.at(0).text()).toEqual(
-      `ประเด็น${promiseTopicTextMap.get(promisePerPagePropsSmall.topic)?.long}`
+      `ประเด็น${promiseTopicTextMap.get(promisesTopicSmall.topic)?.long}`
+    );
+  });
+
+  test('should render status header title', () => {
+    const wrapper = mount(TopicGroup, {
+      propsData: promisesStatusSmall,
+    });
+
+    const header = wrapper.find(`#group-${promisesStatusSmall.status}-header`);
+    const p = header.findAll('p');
+
+    expect(p.at(0).text()).toEqual(
+      `สถานะ: ${promiseStatusTextMap.get(promisesStatusSmall.status)}`
     );
   });
 
   test('should render topic header promise count', () => {
     const LENGTH = getPromisesLength(
-      filteredPromise(promises as TrackingPromise[], PromiseTopic.Culture)
+      filteredPromise(
+        promises as TrackingPromise[],
+        'topic',
+        PromiseTopic.Culture
+      )
     );
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
-    const header = wrapper.find(
-      `#topic-${promisePerPagePropsFull.topic}-header`
+    const header = wrapper.find(`#group-${promisesTopicFull.topic}-header`);
+    const p = header.findAll('p');
+
+    expect(p.at(1).text()).toEqual(`${LENGTH} คำสัญญา`);
+  });
+
+  test('should render status header promise count', () => {
+    const LENGTH = getPromisesLength(
+      filteredPromise(
+        promises as TrackingPromise[],
+        'status',
+        PromiseStatus.NoData
+      )
     );
+    const wrapper = mount(TopicGroup, {
+      propsData: promisesStatusFull,
+    });
+
+    const header = wrapper.find(`#group-${promisesStatusFull.status}-header`);
     const p = header.findAll('p');
 
     expect(p.at(1).text()).toEqual(`${LENGTH} คำสัญญา`);
@@ -296,7 +376,7 @@ describe('Topic Group', () => {
 
   test('should render all PromiseCards if the amount of cards are less than the promise per page', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsSmall,
+      propsData: promisesTopicSmall,
     });
 
     const promiseCards = wrapper.findAllComponents(PromiseCard);
@@ -306,32 +386,33 @@ describe('Topic Group', () => {
 
   test('should render all available PromiseCards', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: noPromisePerPageProps,
+      propsData: noPromisePerPage,
     });
 
     const promiseCards = wrapper.findAllComponents(PromiseCard);
 
     expect(promiseCards.length).toEqual(
       filteredPromise(
-        noPromisePerPageProps.promises,
-        noPromisePerPageProps.topic
+        noPromisePerPage.promises,
+        'topic',
+        noPromisePerPage.topic
       ).length
     );
   });
 
   test('should render PromiseCards within the page', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
     const promiseCards = wrapper.findAllComponents(PromiseCard);
 
-    expect(promiseCards.length).toEqual(promisePerPagePropsFull.promisePerPage);
+    expect(promiseCards.length).toEqual(promisesTopicFull.promisePerPage);
   });
 
   test('should render viewAll button', () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
     const button = wrapper.findComponent(Button);
@@ -341,18 +422,18 @@ describe('Topic Group', () => {
 
   test('should emit event on viewAll', async () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
     const button = wrapper.findComponent(Button);
     await button.trigger('click');
 
-    expect(wrapper.emitted('viewTopic')).toBeTruthy();
+    expect(wrapper.emitted('viewGroup')).toBeTruthy();
   });
 
   test('should render promise cards according to the selected page', async () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
     let promiseCards = wrapper.findAllComponents(PromiseCard);
@@ -368,7 +449,7 @@ describe('Topic Group', () => {
 
   test('should render next set of promise cards on next page click', async () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
     });
 
     let promiseCards = wrapper.findAllComponents(PromiseCard);
@@ -383,7 +464,7 @@ describe('Topic Group', () => {
 
   test('should render previous set of promise cards on previous page click', async () => {
     const wrapper = mount(TopicGroup, {
-      propsData: promisePerPagePropsFull,
+      propsData: promisesTopicFull,
       data() {
         return {
           currentPage: 2,
