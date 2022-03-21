@@ -2,21 +2,76 @@ import {
   TrackingPromise,
   PromiseTopic,
   promiseTopicTextMap,
+  promiseStatusTextMap,
+  PromiseStatus,
 } from '@/models/promise';
+
+export interface Group {
+  by: string;
+  where: PromiseTopic | PromiseStatus | string;
+}
+
+export const groupBy = (topic: String, status: String) => {
+  if (topic !== '' && status === '') {
+    return { by: 'topic', where: topic as PromiseTopic };
+  } else if (topic === '' && status !== '') {
+    return { by: 'status', where: status as PromiseStatus };
+  } else {
+    return { by: '', where: '' };
+  }
+};
 
 export const filteredPromise = (
   promises: TrackingPromise[],
-  topic: PromiseTopic
+  by: String,
+  where: PromiseTopic | PromiseStatus | String
 ): TrackingPromise[] => {
-  return promises.filter((promise: TrackingPromise) => promise.topic === topic);
+  if (by === 'topic') {
+    return promises.filter(
+      (promise: TrackingPromise) => promise.topic === (where as PromiseTopic)
+    );
+  } else if (by === 'status') {
+    return promises.filter(
+      (promise: TrackingPromise) => promise.status === (where as PromiseStatus)
+    );
+  } else {
+    return promises;
+  }
 };
 
 export const getPromisesLength = (promises: TrackingPromise[]): number => {
   return promises.length;
 };
 
-export const getTopic = (topic: PromiseTopic): string | undefined => {
-  return promiseTopicTextMap.get(topic as PromiseTopic)?.long;
+const getTopicTitle = (topic: PromiseTopic): string | undefined => {
+  return promiseTopicTextMap.get(topic)?.long;
+};
+
+const getStatusTitle = (status: PromiseStatus): string | undefined => {
+  return promiseStatusTextMap.get(status);
+};
+
+export const getGroupTitle = (
+  by: string,
+  where: string
+): string | undefined => {
+  if (by === 'topic') {
+    const title = getTopicTitle(where as PromiseTopic);
+    if (title) {
+      return 'ประเด็น' + getTopicTitle(where as PromiseTopic);
+    } else {
+      return '';
+    }
+  } else if (by === 'status') {
+    const title = getStatusTitle(where as PromiseStatus);
+    if (title) {
+      return 'สถานะ: ' + getStatusTitle(where as PromiseStatus);
+    } else {
+      return '';
+    }
+  } else {
+    return '';
+  }
 };
 
 export const computedPromisePerPage = (
