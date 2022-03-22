@@ -3,18 +3,20 @@
     class="flex bg-white w-full px-4 py-3 rounded-sm flex-row gap-3 text-black"
   >
     <div>
-      <img
-        v-if="partyLogo"
-        class="w-10 h-10 md:w-9 md:h-9 rounded-full shadow"
-        :src="`${$config.path.images}/${partyLogo}`"
-        :alt="partyName"
-      />
-      <img
-        v-else
-        class="w-10 h-10 md:w-9 md:h-9 rounded-full shadow"
-        :src="`${$config.path.images}/party/dummy.jpg`"
-        alt="Dummy Party Logo"
-      />
+      <div class="w-10 h-10 md:w-9 md:h-9">
+        <img
+          v-if="partyLogo"
+          class="w-full h-full rounded-full shadow"
+          :src="`${$config.path.images}/${partyLogo}`"
+          :alt="partyName"
+        />
+        <img
+          v-else
+          class="w-full h-full rounded-full shadow"
+          :src="`${$config.path.images}/party/dummy.jpg`"
+          alt="Dummy Party Logo"
+        />
+      </div>
     </div>
     <div
       class="flex flex-col md:flex-row items-start md:items-center gap-3 w-full"
@@ -32,8 +34,7 @@
             v-for="(item, i) in promises"
             :key="i"
             :style="`width:${item.countPercentage}%;`"
-            :class="`bg-status-${bgColor[i]}`"
-            :title="item.status"
+            :class="`bg-status-${item.status}`"
           ></span>
         </span>
       </div>
@@ -102,6 +103,7 @@ export default Vue.extend({
     },
     promises() {
       const promiseStatus = this.partyPromises as Array<any>;
+      // console.log(promiseStatus);
       if (promiseStatus.length > 0) {
         const chart = promiseStatus.map((a: any) => {
           const status = a.status;
