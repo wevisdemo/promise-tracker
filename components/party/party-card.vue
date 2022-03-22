@@ -35,6 +35,7 @@
             :key="i"
             :style="`width:${item.countPercentage}%;`"
             :class="`bg-status-${item.status}`"
+            :title="`${item.status}: ${item.count}`"
           ></span>
         </span>
       </div>
@@ -85,11 +86,6 @@ export default Vue.extend({
       default: '',
     },
   },
-  data() {
-    return {
-      bgColor: ['nodata', 'proposed', 'paused', 'working', 'done'],
-    };
-  },
   computed: {
     sumPartyPromises() {
       const promiseStatus = this.partyPromises as Array<any>;
@@ -107,11 +103,12 @@ export default Vue.extend({
       if (promiseStatus.length > 0) {
         const chart = promiseStatus.map((a: any) => {
           const status = a.status;
+          const count = a.count;
           const countPercentage = (
             (a.count / (this as any).sumPartyPromises) *
             100
           ).toFixed(2);
-          return { status, countPercentage };
+          return { status, count, countPercentage };
         });
         return chart;
       } else {
