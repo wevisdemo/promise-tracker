@@ -12,7 +12,8 @@ describe('Promise Card', () => {
     status: 'done',
     description: 'เป็นโครงการที่ต่อยอด',
     isNCPO: true,
-    imageFileName: 'พลังประชารัฐ_7',
+    imageUrl:
+      'https://spreadsheet.wevis.info/dl/promise_tracker_9tvh/db/nc_9tvh__promises/image_0C6onm_ก้าวไกล_9.jpg',
     links: [
       {
         name: 'ตรวจสอบสิทธิ์สวัสดิการแห่งรัฐ ',

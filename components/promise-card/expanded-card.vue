@@ -14,17 +14,17 @@
         {{ promise.description }}
       </p>
       <NCPO v-if="promise.isNCPO" />
+      <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">
+        ลิงก์ / ข้อมูลที่เกี่ยวข้อง
+      </h2>
+      <BoxContainer class="border-black border mb-3">
+        <img
+          :id="`expanded-card-${promise.id}-image`"
+          :src="promise.imageUrl"
+          :alt="`image-${promise.id}`"
+        />
+      </BoxContainer>
       <div v-if="promise.links.length > 0">
-        <h2 class="wv-h10 wv-font-kondolar wv-font-black py-4">
-          ลิงก์ / ข้อมูลที่เกี่ยวข้อง
-        </h2>
-        <BoxContainer class="border-black border mb-3">
-          <img
-            :id="`expanded-card-${promise.id}-image`"
-            :src="`${$config.path.images}/party/dummy.jpg`"
-            alt="dummy"
-          />
-        </BoxContainer>
         <Link
           v-for="(link, index) in promise.links"
           :key="`promise-${promise.id}-link-${index}`"

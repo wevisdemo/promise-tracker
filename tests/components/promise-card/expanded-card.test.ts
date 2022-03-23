@@ -182,9 +182,26 @@ describe('Expanded Card', () => {
     expect(timelineText.exists()).toBeTruthy();
   });
 
-  //   test('should display image', () => {
-  //       const img = wrapper.find(`#expanded-card-${promise.id}-image`)
+  test('should display image and alt', () => {
+    const promise = {
+      id: 1,
+      description: 'เป็นโครงการที่ต่อยอดจากโครงการสำคัญของรัฐบาลพลเอกประยุทธ์',
+      isNCPO: true,
+      imageUrl:
+        'https://spreadsheet.wevis.info/dl/promise_tracker_9tvh/db/nc_9tvh__promises/image_0C6onm_ก้าวไกล_9.jpg',
+      links: [],
+      timelines: [],
+    };
+    const wrapper = mount(ExpandedCard, {
+      propsData: {
+        promise,
+        expanded: true,
+      },
+    });
 
-  //       expect(img.attributes('src')).toEqual()
-  //   })
+    const img = wrapper.find(`#expanded-card-${promise.id}-image`);
+
+    expect(img.attributes('src')).toEqual(promise.imageUrl);
+    expect(img.attributes('alt')).toEqual(`image-${promise.id}`);
+  });
 });

@@ -17,6 +17,8 @@ describe('Single card', () => {
     title: 'โครงการบ้านล้านหลังประชารัฐ',
     topic: 'equality',
     party: 'พลังประชารัฐ',
+    imageUrl:
+      'https://spreadsheet.wevis.info/dl/promise_tracker_9tvh/db/nc_9tvh__promises/image_0C6onm_ก้าวไกล_9.jpg',
   };
   const wrapper = mount(SingleCard, {
     propsData: {
@@ -232,9 +234,10 @@ describe('Single card', () => {
     expect(status).toBeTruthy();
   });
 
-  //   test('should display thumbnail image', () => {
-  //       const thumbnail = wrapper.find(`#single-card-${promise.id}-thumbnail`)
+  test('should display thumbnail image and alt', () => {
+    const thumbnail = wrapper.find(`#single-card-${promise.id}-thumbnail`);
 
-  //       expect(thumbnail.attributes('src')).toEqual()
-  //   })
+    expect(thumbnail.attributes('src')).toEqual(promise.imageUrl);
+    expect(thumbnail.attributes('alt')).toEqual(`thumbnail-${promise.id}`);
+  });
 });
