@@ -6,7 +6,6 @@ import ExpandedCard from '@/components/promise-card/expanded-card.vue';
 describe('Promise Card', () => {
   const promise = {
     id: 94,
-    isActive: false,
     party: 'พลังประชารัฐ',
     title: 'ต่อยอดบัตรสวัสดิการแห่งรัฐ',
     topic: 'equality',

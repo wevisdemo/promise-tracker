@@ -29,7 +29,6 @@ export interface PromiseTimeline {
 
 export interface TrackingPromise {
   id: number;
-  isActive: boolean;
   party: string;
   title: string;
   topic: PromiseTopic;

@@ -12,7 +12,6 @@ import { PromiseTopic, PromiseStatus, TrackingPromise } from '@/models/promise';
 const promises: TrackingPromise[] = [
   {
     id: 1,
-    isActive: false,
     party: 'พลังประชารัฐ',
     title: 'ต่อยอดบัตรสวัสดิการแห่งรัฐ',
     topic: 'culture' as PromiseTopic,
@@ -25,7 +24,6 @@ const promises: TrackingPromise[] = [
   },
   {
     id: 2,
-    isActive: false,
     party: 'พลังประชารวย',
     title: 'ต่อยอดซัมติง',
     topic: 'culture' as PromiseTopic,
@@ -38,7 +36,6 @@ const promises: TrackingPromise[] = [
   },
   {
     id: 3,
-    isActive: false,
     party: 'รวมพลังประชาชาติไทย',
     title: 'มีสำนักงานตำรวจที่ขึ้นกับจังหวัดและประชาชนในพื้นที่ ',
     topic: 'culture' as PromiseTopic,
@@ -52,7 +49,6 @@ const promises: TrackingPromise[] = [
   },
   {
     id: 4,
-    isActive: false,
     party: 'ไทรักธรรม',
     title:
       'มีอาชีพเสริมเพิ่มรายได้จากอาชีพหลักพร้อมจัดหาการตลาดให้อันนำไปสู่การลดภาระหนี้สิน',
@@ -67,7 +63,6 @@ const promises: TrackingPromise[] = [
   },
   {
     id: 5,
-    isActive: false,
     party: 'รวมพลังประชาชาติไทย',
     title: 'ยกฐานะทุกจังหวัดเป็นองค์กรปกครองท้องถิ่นรูปแบบพิเศษ',
     topic: 'administration' as PromiseTopic,

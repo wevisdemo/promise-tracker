@@ -29,7 +29,6 @@ export function transformToTrackingPromises(
 
       return {
         id: r.promiseId,
-        isActive: false,
         party: r.party,
         title: r.promiseTitle,
         topic,
