@@ -36,6 +36,7 @@ export function transformToTrackingPromises(
         status,
         description: r.explain,
         isNCPO: r.isNCPO,
+        imageUrl: r.images[0]?.url,
         links: r.links,
         timelines,
       };

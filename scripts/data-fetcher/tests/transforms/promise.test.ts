@@ -74,6 +74,34 @@ describe('transformToTrackingPromises', () => {
     });
   });
 
+  describe('transform image url', () => {
+    test('first image found', () => {
+      const EXPECTED_URL = 'http://path/to/image';
+      const rawPromises = [
+        rawPromiseStub({
+          images: [
+            {
+              url: EXPECTED_URL,
+              title: '',
+              mimetype: 'image/jpg',
+              size: 1,
+            },
+          ],
+        }),
+      ];
+
+      const promises = transformToTrackingPromises(rawPromises, []);
+
+      expect(promises[0].imageUrl).toEqual(EXPECTED_URL);
+    });
+
+    test('no image found', () => {
+      const rawPromises = [rawPromiseStub({ images: [] })];
+      const promises = transformToTrackingPromises(rawPromises, []);
+      expect(promises[0].imageUrl).toEqual(undefined);
+    });
+  });
+
   test('should directly transform raw links to tracking promise links', () => {
     const rawLinks: RawLink[] = [
       { name: 'name1', url: 'url1' },
