@@ -11,7 +11,6 @@ describe('transformToTrackingPromises', () => {
       promiseTitle: 'mock_title',
       explain: 'mock_description',
       isNCPO: true,
-      refPicture: 'mock_fileName',
     });
     const promises = transformToTrackingPromises([raw], []);
     expect(promises[0]).toEqual(
@@ -21,7 +20,6 @@ describe('transformToTrackingPromises', () => {
         title: raw.promiseTitle,
         description: raw.explain,
         isNCPO: raw.isNCPO,
-        imageFileName: raw.refPicture,
       })
     );
   });
@@ -208,8 +206,7 @@ describe('transformToTrackingPromises', () => {
         status: 'nodata',
         explain: '',
         isNCPO: true,
-        refPicture: '',
-        picturesDrive: '',
+        images: [],
         vdo: null,
         links: [],
       },

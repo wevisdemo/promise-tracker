@@ -1,10 +1,15 @@
-import { parse } from 'papaparse';
-import fetch from 'node-fetch';
-import { guardEmptiness, transformBoolean } from './helpers';
+import { fetchNocoDB } from './helpers';
 
 export interface RawLink {
   name: string;
   url: string;
+}
+
+export interface RawImage {
+  url: string;
+  title: string;
+  mimetype: string;
+  size: number;
 }
 
 export interface RawPromise {
@@ -15,19 +20,15 @@ export interface RawPromise {
   status: string;
   explain: string;
   isNCPO: boolean;
-  refPicture: string;
-  picturesDrive: string;
+  images: RawImage[];
   vdo: string | null;
   links: RawLink[];
 }
 
 const NAME_LINK_PREFIX = 'nameLink';
 
-export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
-  const content = await (await fetch(csvUrl)).text();
-  const parsed = await parse<{ [key: string]: string }>(content, {
-    header: true,
-  }).data;
+export async function getRawPromises(): Promise<RawPromise[]> {
+  const parsed = await fetchNocoDB('/promises');
 
   const mapped = parsed.map((e): RawPromise => {
     const linkKeys = Object.keys(e).filter(
@@ -36,15 +37,14 @@ export async function getRawPromises(csvUrl: string): Promise<RawPromise[]> {
     const links: RawLink[] = linkKeys.map(createRawLink(e));
 
     return {
-      promiseId: Number(e.promiseId),
+      promiseId: Number(e.id),
       party: e.party,
       topic: e.topic,
       promiseTitle: e.promiseTitle,
       status: e.status,
       explain: e.explain,
-      isNCPO: transformBoolean(e.isNCPO),
-      refPicture: e.refPicture,
-      picturesDrive: e.picturesDrive,
+      isNCPO: e.isNCPO,
+      images: JSON.parse(e.images),
       vdo: guardEmptiness(e.vdo),
       links,
     };
@@ -60,4 +60,9 @@ function createRawLink(data: {
     name: data[key],
     url: data[`urlLink${key.replace(NAME_LINK_PREFIX, '')}`],
   });
+}
+
+export function guardEmptiness(value: string): string | null {
+  if (value === '-' || value === '') return null;
+  return value;
 }

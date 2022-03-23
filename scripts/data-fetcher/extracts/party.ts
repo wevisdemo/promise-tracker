@@ -6,5 +6,5 @@ export interface RawParty {
 }
 
 export async function getRawParties(): Promise<RawParty[]> {
-  return await fetchNocoDB<RawParty[]>('/parties');
+  return (await fetchNocoDB('/parties')) as RawParty[];
 }

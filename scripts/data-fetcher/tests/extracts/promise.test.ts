@@ -1,116 +1,137 @@
-import fetch from 'node-fetch';
 import { getRawPromises } from '../../extracts/promise';
+import { fetchNocoDB } from '../../extracts/helpers';
 
-jest.mock('node-fetch', () => jest.fn());
+jest.mock('../../extracts/helpers');
+
 describe('getRawPromises', () => {
-  let mockFetch: {
-    text: jest.Mock<any, any>;
-  };
-
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    (fetch as unknown as any).mockResolvedValue(mockFetch);
+    jest.resetAllMocks();
   });
 
-  const HEADER_ROW = `promiseId,party,topic,promiseTitle,status,explain,isNCPO,refPicture,picturesDrive,vdo,nameLink1,urlLink1,nameLink2,urlLink2,nameLink3,urlLink3,nameLink4,urlLink4`;
+  test('should fetch promises from NocoDB API', async () => {
+    mockResolvedFetchNocoDB([]);
+    const RESOURCE_PATH = '/promises';
 
-  test('should fetch remote csv from given URL', async () => {
-    const CSV_URL = 'https://path/to/promises.csv';
-    await getRawPromises(CSV_URL);
-    expect(fetch).toBeCalledWith(CSV_URL);
+    await getRawPromises();
+
+    expect(fetchNocoDB).toBeCalledWith(RESOURCE_PATH);
   });
 
   test('should extract simple string properties properly', async () => {
-    const DATA_ROW = `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,รถเมล์ร้อน - กรุงเทพธุรกิจ,https://www.bangkokbiznews.com/politics/981586,,`;
-    mockFetch.text = jest.fn().mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+    mockResolvedFetchNocoDB([
+      {
+        id: 171,
+        party: 'พลังประชารัฐ',
+        topic: 'economics',
+        promiseTitle: 'เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า',
+        status: 'nodata',
+        explain: 'เพื่อให้เป็นไปตามนโยบายสีเขียว ...',
+        isNCPO: false,
+        images: '[]',
+        vdo: '',
+        nameLink1: '',
+        urlLink1: '',
+        nameLink2: '',
+        urlLink2: '',
+        nameLink3: '',
+        urlLink3: '',
+        nameLink4: '',
+        urlLink4: '',
+      },
+    ]);
 
-    const promises = await getRawPromises('http://path/to/promises.csv');
+    const promises = await getRawPromises();
 
     expect(promises[0]).toEqual(
       expect.objectContaining({
         party: 'พลังประชารัฐ',
-        topic: 'สิ่งแวดล้อม',
+        topic: 'economics',
         promiseTitle: 'เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า',
         status: 'nodata',
         explain: 'เพื่อให้เป็นไปตามนโยบายสีเขียว ...',
-        refPicture: 'พลังประชารัฐ_13',
-        picturesDrive: 'https://drive.google.com/drive/folders/EXAMPLE',
+        isNCPO: false,
       })
     );
   });
 
   test('should transform promiseId to number', async () => {
-    const DATA_ROW = `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,รถเมล์ร้อน - กรุงเทพธุรกิจ,https://www.bangkokbiznews.com/politics/981586,,`;
-    mockFetch.text = jest.fn().mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
-
-    const promises = await getRawPromises('http://path/to/promises.csv');
+    mockResolvedFetchNocoDB([
+      {
+        ...getStubJSONPromise(),
+        id: 171,
+      },
+    ]);
+    const promises = await getRawPromises();
 
     expect(promises[0].promiseId).toBe(171);
   });
 
-  describe('extract isNCPO', () => {
-    const DATA_ROW = (rawIsNCPO: string) =>
-      `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,${rawIsNCPO},พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,รถเมล์ร้อน - กรุงเทพธุรกิจ,https://www.bangkokbiznews.com/politics/981586,,`;
+  test('should extract image to its own interface', async () => {
+    mockResolvedFetchNocoDB([
+      {
+        ...getStubJSONPromise(),
+        images:
+          '[{"url":"https://path/to/image","title":"title.jpg","mimetype":"image/jpg","size":10}]',
+      },
+    ]);
 
-    test('should be false', async () => {
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW('FALSE')}`);
-      const promises = await getRawPromises('http://path/to/promises.csv');
-      expect(promises[0].isNCPO).toBe(false);
-    });
+    const promises = await getRawPromises();
 
-    test('should be true', async () => {
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW('TRUE')}`);
-      const promises = await getRawPromises('http://path/to/promises.csv');
-      expect(promises[0].isNCPO).toBe(true);
-    });
+    expect(promises[0].images[0].url).toBe('https://path/to/image');
+    expect(promises[0].images[0].title).toBe('title.jpg');
+    expect(promises[0].images[0].mimetype).toBe('image/jpg');
+    expect(promises[0].images[0].size).toBe(10);
   });
 
   describe('extract vdo', () => {
-    const DATA_ROW = (rawVdo: string) =>
-      `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,${rawVdo},ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,รถเมล์ร้อน - กรุงเทพธุรกิจ,https://www.bangkokbiznews.com/politics/981586,,`;
-
     test('should be null when it is marked with dash (-)', async () => {
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW('-')}`);
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          vdo: '-',
+        },
+      ]);
+      const promises = await getRawPromises();
       expect(promises[0].vdo).toBe(null);
     });
 
     test('should be null when it is an empty string', async () => {
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW('')}`);
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          vdo: '',
+        },
+      ]);
+      const promises = await getRawPromises();
       expect(promises[0].vdo).toBe(null);
     });
 
     test('should be as original when it is anything else', async () => {
-      const vdo = 'ANYTHING';
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW(vdo)}`);
+      const MOCK_VDO = 'anything';
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          vdo: MOCK_VDO,
+        },
+      ]);
 
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      const promises = await getRawPromises();
 
-      expect(promises[0].vdo).toBe(vdo);
+      expect(promises[0].vdo).toBe(MOCK_VDO);
     });
   });
 
   describe('extract links', () => {
     test('single link', async () => {
-      const DATA_ROW = `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,,,,,`;
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          nameLink1: 'ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai',
+          urlLink1: 'https://news.mthai.com/politics-news/789439.html',
+        },
+      ]);
 
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      const promises = await getRawPromises();
 
       expect(promises[0].links).toEqual([
         {
@@ -121,12 +142,18 @@ describe('getRawPromises', () => {
     });
 
     test('2 links', async () => {
-      const DATA_ROW = `171,พลังประชารัฐ,สิ่งแวดล้อม,เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า,nodata,เพื่อให้เป็นไปตามนโยบายสีเขียว ...,FALSE,พลังประชารัฐ_13,https://drive.google.com/drive/folders/EXAMPLE,-,ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai,https://news.mthai.com/politics-news/789439.html,คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online,https://mgronline.com/business/detail/9630000126371,,,,`;
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          nameLink1: 'ส.ส.พลังประชารัฐ เสนอใช้รถเมล์ไฟฟ้าลด PM 2.5 - Mthai',
+          urlLink1: 'https://news.mthai.com/politics-news/789439.html',
+          nameLink2:
+            'คมนาคมตั้งเป้าเปลี่ยนรถสาธารณะเป็นไฟฟ้าใน 20 ปี-นำร่อง 6 จังหวัด - MGR online',
+          urlLink2: 'https://mgronline.com/business/detail/9630000126371',
+        },
+      ]);
 
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      const promises = await getRawPromises();
 
       expect(promises[0].links).toEqual([
         {
@@ -141,14 +168,22 @@ describe('getRawPromises', () => {
     });
 
     test('be able to handle dynamic number of links according to headers', async () => {
-      const HEADER_ROW_WITH_5_LINKS =
-        'promiseId,party,topic,promiseTitle,status,explain,isNCPO,refPicture,picturesDrive,vdo,nameLink1,urlLink1,nameLink2,urlLink2,nameLink3,urlLink3,nameLink4,urlLink4,nameLink5,urlLink5';
-      const DATA_ROW = `,,,,,,,,,,name1,http://link/1,name2,http://link/2,name3,http://link/3,name4,http://link/4,name5,http://link/5`;
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW_WITH_5_LINKS}\n${DATA_ROW}`);
-
-      const promises = await getRawPromises('http://path/to/promises.csv');
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONPromise(),
+          nameLink1: 'name1',
+          urlLink1: 'http://link/1',
+          nameLink2: 'name2',
+          urlLink2: 'http://link/2',
+          nameLink3: 'name3',
+          urlLink3: 'http://link/3',
+          nameLink4: 'name4',
+          urlLink4: 'http://link/4',
+          nameLink5: 'name5',
+          urlLink5: 'http://link/5',
+        },
+      ]);
+      const promises = await getRawPromises();
 
       expect(promises[0].links).toEqual([
         {
@@ -174,4 +209,33 @@ describe('getRawPromises', () => {
       ]);
     });
   });
+
+  function getStubJSONPromise() {
+    return {
+      id: 171,
+      party: 'พลังประชารัฐ',
+      topic: 'economics',
+      promiseTitle: 'เปลี่ยนรถโดยสาร เป็นรถเมล์ไฟฟ้า',
+      status: 'nodata',
+      explain: 'เพื่อให้เป็นไปตามนโยบายสีเขียว ...',
+      isNCPO: false,
+      images:
+        '[{"url":"https://path/to/image","title":"title.jpg","mimetype":"image/jpg","size":10}]',
+      vdo: '',
+      nameLink1: '',
+      urlLink1: '',
+      nameLink2: '',
+      urlLink2: '',
+      nameLink3: '',
+      urlLink3: '',
+      nameLink4: '',
+      urlLink4: '',
+    };
+  }
+
+  function mockResolvedFetchNocoDB(
+    raw: { [key: string]: string | number | boolean }[]
+  ): void {
+    (fetchNocoDB as unknown as any).mockResolvedValue(raw);
+  }
 });
