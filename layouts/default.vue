@@ -1,6 +1,7 @@
 <template>
   <div class="flex flex-col min-h-screen wv-font-anuphan wv-b5">
     <WvNavbar
+      class="z-20"
       title="PROMISE TRACKER"
       :logo-addon-src="`${$config.path.images}/logo-addon.png`"
     >
