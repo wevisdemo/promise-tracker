@@ -1,48 +1,45 @@
-import fetch from 'node-fetch';
 import { getRawPromiseTimelines } from '../../extracts/timeline';
+import { fetchNocoDB } from '../../extracts/helpers';
 
-jest.mock('node-fetch', () => jest.fn());
+jest.mock('../../extracts/helpers');
 describe('getRawPromiseTimelines', () => {
-  let mockFetch: {
-    text: jest.Mock<any, any>;
-  };
-
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    (fetch as unknown as any).mockResolvedValue(mockFetch);
+    jest.resetAllMocks();
   });
 
-  const HEADER_ROW = `promiseId,name1,timeline1,name2,timeline2`;
+  test('should fetch timelines from NocoDB API', async () => {
+    const RESOURCE_PATH = '/timelines';
+    mockResolvedFetchNocoDB([]);
 
-  test('should fetch remote csv from given URL', async () => {
-    const CSV_URL = 'https://path/to/timeline.csv';
-    await getRawPromiseTimelines(CSV_URL);
-    expect(fetch).toBeCalledWith(CSV_URL);
+    await getRawPromiseTimelines();
+
+    expect(fetchNocoDB).toBeCalledWith(RESOURCE_PATH);
   });
 
   test('should extract promiseId as number', async () => {
-    const DATA_ROW = '10,,,,';
-    mockFetch.text = jest.fn().mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+    mockResolvedFetchNocoDB([
+      {
+        ...getStubJSONTimeline(),
+        promiseId: 10,
+      },
+    ]);
 
-    const timelines = await getRawPromiseTimelines(
-      'http://path/to/timelines.csv'
-    );
+    const timelines = await getRawPromiseTimelines();
 
     expect(timelines[0].promiseId).toBe(10);
   });
 
   describe('extract timelines', () => {
     test('single timeline', async () => {
-      const DATA_ROW = '0,name1,range1,,';
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONTimeline(),
+          name1: 'name1',
+          timeline1: 'range1',
+        },
+      ]);
 
-      const timelines = await getRawPromiseTimelines(
-        'http://path/to/timelines.csv'
-      );
+      const timelines = await getRawPromiseTimelines();
 
       expect(timelines[0].timelines).toEqual([
         {
@@ -53,14 +50,17 @@ describe('getRawPromiseTimelines', () => {
     });
 
     test('2 timelines', async () => {
-      const DATA_ROW = '0,name1,range1,name2,range2';
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONTimeline(),
+          name1: 'name1',
+          timeline1: 'range1',
+          name2: 'name2',
+          timeline2: 'range2',
+        },
+      ]);
 
-      const timelines = await getRawPromiseTimelines(
-        'http://path/to/timelines.csv'
-      );
+      const timelines = await getRawPromiseTimelines();
 
       expect(timelines[0].timelines).toEqual([
         {
@@ -75,15 +75,21 @@ describe('getRawPromiseTimelines', () => {
     });
 
     test('be able to handle dynamic number of timelines according to headers', async () => {
-      const HEADER_ROW_WITH_4_TIMELINES = `promiseId,name1,timeline1,name2,timeline2,name3,timeline3,name4,timeline4`;
-      const DATA_ROW = '0,name1,range1,name2,range2,name3,range3,name4,range4';
-      mockFetch.text = jest
-        .fn()
-        .mockResolvedValue(`${HEADER_ROW_WITH_4_TIMELINES}\n${DATA_ROW}`);
+      mockResolvedFetchNocoDB([
+        {
+          ...getStubJSONTimeline(),
+          name1: 'name1',
+          timeline1: 'range1',
+          name2: 'name2',
+          timeline2: 'range2',
+          name3: 'name3',
+          timeline3: 'range3',
+          name4: 'name4',
+          timeline4: 'range4',
+        },
+      ]);
 
-      const timelines = await getRawPromiseTimelines(
-        'http://path/to/timelines.csv'
-      );
+      const timelines = await getRawPromiseTimelines();
 
       expect(timelines[0].timelines).toEqual([
         {
@@ -105,4 +111,16 @@ describe('getRawPromiseTimelines', () => {
       ]);
     });
   });
+
+  function getStubJSONTimeline() {
+    return {
+      promiseId: 0,
+    };
+  }
+
+  function mockResolvedFetchNocoDB(
+    raw: { [key: string]: string | number }[]
+  ): void {
+    (fetchNocoDB as unknown as any).mockResolvedValue(raw);
+  }
 });

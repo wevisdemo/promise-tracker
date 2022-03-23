@@ -1,5 +1,4 @@
-import { parse } from 'papaparse';
-import fetch from 'node-fetch';
+import { fetchNocoDB } from './helpers';
 
 export interface RawTimeline {
   name: string;
@@ -13,13 +12,8 @@ export interface RawPromiseTimeline {
 
 const NAME_PREFIX = 'name';
 
-export async function getRawPromiseTimelines(
-  csvUrl: string
-): Promise<RawPromiseTimeline[]> {
-  const content = await (await fetch(csvUrl)).text();
-  const parsed = await parse<{ [key: string]: string }>(content, {
-    header: true,
-  }).data;
+export async function getRawPromiseTimelines(): Promise<RawPromiseTimeline[]> {
+  const parsed = await fetchNocoDB('/timelines');
 
   const mapped = parsed.map((e): RawPromiseTimeline => {
     const linkKeys = Object.keys(e).filter(
