@@ -1,36 +1,31 @@
-import fetch from 'node-fetch';
-import { getRawParties } from '../../extracts/party';
+import { getRawParties, RawParty } from '../../extracts/party';
+import { fetchNocoDB } from '../../extracts/helpers';
 
-jest.mock('node-fetch', () => jest.fn());
+jest.mock('../../extracts/helpers');
+
 describe('getRawParties', () => {
-  let mockFetch: {
-    text: jest.Mock<any, any>;
-  };
-
   beforeEach(() => {
-    mockFetch = {
-      text: jest.fn().mockResolvedValue(''),
-    };
-    (fetch as unknown as any).mockResolvedValue(mockFetch);
+    jest.resetAllMocks();
   });
 
-  const HEADER_ROW = `name,side`;
-
-  test('should fetch remote csv from given URL', async () => {
-    const CSV_URL = 'https://path/to/timeline.csv';
-    await getRawParties(CSV_URL);
-    expect(fetch).toBeCalledWith(CSV_URL);
+  test('should fetch parties from NocoDB API', async () => {
+    const RESOURCE_PATH = '/parties';
+    await getRawParties();
+    expect(fetchNocoDB).toBeCalledWith(RESOURCE_PATH);
   });
 
   test('should extract name and side for raw party', async () => {
-    const DATA_ROW = 'ก้าวไกล,opposition';
-    mockFetch.text = jest.fn().mockResolvedValue(`${HEADER_ROW}\n${DATA_ROW}`);
+    mockResolvedFetchNocoDB([{ name: 'ก้าวไกล', side: 'opposition' }]);
 
-    const parties = await getRawParties('http://path/to/parties.csv');
+    const parties = await getRawParties();
 
     expect(parties[0]).toEqual({
       name: 'ก้าวไกล',
       side: 'opposition',
     });
   });
+
+  function mockResolvedFetchNocoDB(raw: RawParty[]): void {
+    (fetchNocoDB as unknown as any).mockResolvedValue(raw);
+  }
 });
