@@ -36,7 +36,7 @@ export interface TrackingPromise {
   status: PromiseStatus;
   description: string;
   isNCPO: boolean;
-  imageFileName?: string;
+  imageUrl?: string;
   links: PromiseLink[];
   timelines: PromiseTimeline[];
 }
