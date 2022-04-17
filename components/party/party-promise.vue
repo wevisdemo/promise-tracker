@@ -3,8 +3,8 @@
     class="grid grid-cols-6 gap-4 p-4 sm:p-6 max-w-4xl bg-gray bg-opacity-10 rounded-xl"
   >
     <div class="col-span-6 sm:col-span-2">
-      <h5 class="wv-h5 font-kondolar wv-font-bold">สำรวจคำสัญญา</h5>
-      <h5 class="wv-h5 font-kondolar wv-font-bold pb-6">ตามพรรค</h5>
+      <h5 class="wv-h5 wv-font-kondolar wv-font-bold">สำรวจคำสัญญา</h5>
+      <h5 class="wv-h5 wv-font-kondolar wv-font-bold pb-6">ตามพรรค</h5>
       <StatusLegend class="text-white" :showDetail="false" />
     </div>
     <div class="col-span-6 sm:col-span-4">
