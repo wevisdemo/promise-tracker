@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-1 md:h-80 bg-white flex flex-row p-8 space-x-8 items-center justify-center rounded-t-xl md:rounded-bl-xl md:rounded-tr-none"
+    class="flex-1 md:h-80 bg-white flex flex-row p-8 space-x-8 items-center justify-center rounded-t-xl"
   >
     <div class="flex flex-col -space-y-4">
       <img

@@ -2,12 +2,17 @@
   <div class="flex flex-col md:flex-row">
     <div class="flex-1 flex items-end">
       <ActiveFilters
-        :filters="filters"
+        :class="
+          promises.length === 0
+            ? 'md:rounded-xl bg-gray bg-opacity-10 text-white'
+            : 'md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl'
+        "
+        :filters="[{ type: 'party', value: 'พลังประชารัฐ' }]"
         :promises="promises"
         @removefilter="(filter) => $emit('removefilter', filter)"
       />
     </div>
-    <div class="flex-1">
+    <div v-if="promises.length !== 0" class="flex-1">
       <TabNavigation
         :filters="filters"
         :active-tab="activeTab"
@@ -43,6 +48,10 @@ export default Vue.extend({
     return {
       activeTab: FilterType.Status,
     };
+  },
+  mounted() {
+    console.log(this.promises.length);
+    console.log(this.filters);
   },
 });
 </script>
