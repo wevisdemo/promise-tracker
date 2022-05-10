@@ -6,9 +6,9 @@
       <img
         v-for="({ type, value, src }, i) in filterImages"
         :key="type"
-        class="rounded-full shadow-xl"
+        class="rounded-full shadow-xl active-image"
         :class="filterImages.length > 1 ? 'w-24' : 'w-32'"
-        :style="{ zIndex: -i }"
+        :style="{ zIndex: -i + filterImages.length }"
         :src="`${$config.path.images}/${src}`"
         :alt="value"
       />
@@ -89,9 +89,9 @@ export default Vue.extend({
             .map(({ type, value }) => ({
               type,
               value,
-              src: `${type}/${value}${
-                type === FilterType.Topic ? '_small' : ''
-              }.${type === FilterType.Party ? 'jpg' : 'png'}`,
+              src: `${type}/${value}.${
+                type === FilterType.Party ? 'jpg' : 'png'
+              }`,
             }));
     },
   },

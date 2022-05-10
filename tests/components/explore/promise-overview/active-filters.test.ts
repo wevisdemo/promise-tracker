@@ -61,7 +61,7 @@ test('should render images from given filters, except keyword', () => {
 
   const wrapper = mount(ActiveFilters, { propsData: { promises, filters } });
 
-  const images = wrapper.findAll('img');
+  const images = wrapper.findAll('.active-image');
 
   expect(images.length).toBe(filters.length - 1);
 });

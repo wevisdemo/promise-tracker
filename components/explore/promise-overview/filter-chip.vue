@@ -70,7 +70,7 @@ export default Vue.extend({
         case FilterType.Party:
           return `${value}.jpg`;
         case FilterType.Status:
-          return `${value}.png`;
+          return `${value}_small.png`;
         case FilterType.Topic:
           return `${value}_small.png`;
         default:
