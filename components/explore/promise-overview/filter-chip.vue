@@ -1,7 +1,13 @@
 <template>
-  <div
-    class="flex flex-row py-1 px-2 bg-gray bg-opacity-10 text-ultramarine space-x-2"
-  >
+  <div class="flex flex-row py-1 px-2 text-ultramarine space-x-2">
+    <div class="flex items-center">
+      <img
+        v-if="topic !== 'keyword'"
+        class="h-4 rounded-full shadow-xl"
+        :src="`${$config.path.images}/${topic}/${icon}`"
+        :alt="text"
+      />
+    </div>
     <span class="wv-u4 wv-font-semibold">{{ text }}</span>
     <button @click="$emit('remove')">
       <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
@@ -35,6 +41,10 @@ export default Vue.extend({
     },
   },
   computed: {
+    topic() {
+      const { type } = this.filter as Filter;
+      return type;
+    },
     text() {
       const { type, value } = this.filter as Filter;
 
@@ -49,6 +59,20 @@ export default Vue.extend({
           return `ประเด็น${
             promiseTopicTextMap.get(value as PromiseTopic)?.short
           }`;
+        default:
+          return '';
+      }
+    },
+    icon() {
+      const { type, value } = this.filter as Filter;
+
+      switch (type) {
+        case FilterType.Party:
+          return `${value}.jpg`;
+        case FilterType.Status:
+          return `${value}.png`;
+        case FilterType.Topic:
+          return `${value}_small.png`;
         default:
           return '';
       }

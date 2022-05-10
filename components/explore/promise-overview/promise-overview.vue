@@ -7,7 +7,7 @@
             ? 'md:rounded-xl bg-gray bg-opacity-10 text-white'
             : 'md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl'
         "
-        :filters="[{ type: 'party', value: 'พลังประชารัฐ' }]"
+        :filters="filters"
         :promises="promises"
         @removefilter="(filter) => $emit('removefilter', filter)"
       />
