@@ -15,6 +15,10 @@
       {{ groupBy }}
     </div>
 
+    <div>
+      <FilterPanel />
+    </div>
+
     <div v-if="groupBy === 'topic'" class="bg-gray">
       <div v-for="topic in topics" :key="`topic-${topic}`">
         <TopicGroup
@@ -51,6 +55,7 @@ import Vue from 'vue';
 import PromiseOverview from '@/components/explore/promise-overview/promise-overview.vue';
 import promises from '@/data/promises.json';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
+import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
 import { PromiseTopic, PromiseStatus } from '@/models/promise';
 
 export default Vue.extend({
@@ -58,6 +63,7 @@ export default Vue.extend({
   components: {
     PromiseOverview,
     TopicGroup,
+    FilterPanel,
   },
   data() {
     return {
