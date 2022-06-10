@@ -1,6 +1,6 @@
 <template>
-  <div
-    class="flex border px-2 py-1.5 space-x-1 items-center border-white rounded-sm wv-font-anuphan wv-font-semibold wv-u5 cursor-pointer"
+  <button
+    class="flex border px-2 py-1.5 space-x-1 items-center border-white rounded-sm wv-font-anuphan wv-font-semibold wv-u5"
     :class="selected ? 'bg-white text-black' : 'bg-ultramarine text-white'"
     @click="clickItem"
   >
@@ -40,7 +40,7 @@
       :class="option.colorClass"
     ></div>
     <label class="cursor-pointer">{{ option.label }}</label>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">

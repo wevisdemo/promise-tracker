@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div
+    <button
       id="select-box"
-      class="flex space-x-1 justify-between items-center py-2.5 px-2 rounded-sm wv-font-anuphan wv-font-semibold wv-u5 cursor-pointer border-white border"
+      class="flex w-full space-x-1 justify-between items-center py-2.5 px-2 rounded-sm wv-font-anuphan wv-font-semibold wv-u5 border-white border"
       :class="selectClasses"
       @click="toggleSelecting"
     >
-      <div v-if="selected" class="flex items-center">
+      <div v-if="value" class="flex items-center">
         <img
           v-if="options"
           class="w-5 h-5 rounded-full border border-gray border-opacity-10 mr-1"
@@ -20,7 +20,7 @@
         :theme="selecting ? 'white' : 'black'"
         :class="selecting ? 'transform rotate-180' : null"
       />
-    </div>
+    </button>
     <div
       v-if="selecting"
       id="item-list"
@@ -29,7 +29,7 @@
       <div class="flex flex-col bg-gray bg-opacity-20 space-y-0.5">
         <DropdownItem
           v-for="option in options"
-          :key="option.label"
+          :key="option.value"
           :option="option"
           @click="select($event)"
         />
@@ -46,6 +46,7 @@ import DropdownItem from './dropdown-item.vue';
 export interface Option {
   isHeader?: boolean;
   label: string;
+  value: string;
   iconUrl?: string;
 }
 
@@ -53,7 +54,7 @@ export default Vue.extend({
   name: 'DropdownSelect',
   components: { DropdownIcon, DropdownItem },
   props: {
-    selected: {
+    value: {
       type: String,
       default: '',
     },
@@ -83,15 +84,15 @@ export default Vue.extend({
       return 'bg-white';
     },
     selectedOption() {
-      return this.options.find((o) => o.label === this.selected);
+      return this.options.find((o) => o.value === this.value);
     },
   },
   methods: {
     toggleSelecting() {
       this.selecting = !this.selecting;
     },
-    select(optionLabel: string) {
-      this.$emit('select', optionLabel);
+    select(value: string) {
+      this.$emit('input', value);
       this.toggleSelecting();
     },
   },

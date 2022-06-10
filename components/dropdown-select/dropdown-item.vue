@@ -1,5 +1,5 @@
 <template>
-  <div
+  <button
     class="bg-white items-center py-2.5 px-2 wv-font-anuphan wv-u4"
     :class="optionClasses(option)"
     @click.stop="click"
@@ -10,7 +10,7 @@
       :src="`${$config.path.images}${option.iconUrl}`"
     />
     <span>{{ option.label }}</span>
-  </div>
+  </button>
 </template>
 
 <script lang="ts">
@@ -36,7 +36,7 @@ export default Vue.extend({
       if (this.option?.isHeader) {
         return;
       }
-      this.$emit('click', this.option.label);
+      this.$emit('click', this.option.value);
     },
   },
 });

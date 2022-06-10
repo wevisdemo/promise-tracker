@@ -2,25 +2,22 @@
   <div class="flex flex-col p-5 bg-ultramarine space-y-2 wv-font-anuphan wv-u5">
     <p class="text-white wv-font-semibold">คัดกรองคำสัญญา</p>
     <DropdownSelect
+      v-model="selectedParty"
       :options="partyOptions"
-      :placeholder="'ทุกพรรคที่ให้คำสัญญา'"
-      :placeholder-selecting="'เลือกพรรค'"
-      :selected="selectedParty"
-      @select="selectParty($event)"
+      placeholder="ทุกพรรคที่ให้คำสัญญา"
+      placeholder-selecting="เลือกพรรค"
     />
     <DropdownSelect
+      v-model="selectedTopic"
       :options="topicOptions"
-      :placeholder="'ทุกประเด็นคำสัญญา'"
-      :placeholder-selecting="'เลือกประเด็น'"
+      placeholder="ทุกประเด็นคำสัญญา"
+      placeholder-selecting="เลือกประเด็น"
       :selected="selectedTopic"
-      @select="selectTopic($event)"
     />
+
     <p class="text-white wv-font-semibold">เลือกดูคำสัญญาตามสถานะ</p>
-    <ToggleList
-      :options="statusOptions"
-      :selected="selectedStatus"
-      @select="selectStatus($event)"
-    />
+    <ToggleList v-model="selectedStatus" :options="statusOptions" />
+
     <p class="text-white wv-font-semibold">ค้นหาตามคีย์เวิร์ด</p>
     <div class="flex flex-row p-1 rounded-sm bg-white space-x-1">
       <div class="bg-ultramarine rounded p-1.5">
@@ -62,11 +59,14 @@ import {
   promiseTopicTextMap,
 } from '~/models/promise';
 
+const ALL_STATUS_VALUE = 'all';
+
 const [governmentParties, oppositionParties] = parties.reduce<
   [Option[], Option[]]
 >(
   ([government, opposition], { side, name }) => {
     const option: Option = {
+      value: name,
       label: name,
       iconUrl: `/party/${name}.jpg`,
     };
@@ -102,35 +102,26 @@ export default Vue.extend({
         ...oppositionParties.sort((a, z) => a.label.localeCompare(z.label)),
       ] as Option[],
       topicOptions: promiseTopicOrder.map((topic) => ({
+        value: topic,
         label: promiseTopicTextMap.get(topic)?.short,
         iconUrl: `/topic/${topic}_small.png`,
       })) as Option[],
       statusOptions: [
         {
+          value: ALL_STATUS_VALUE,
           label: 'ทุกสถานะคำสัญญา',
         },
         ...promiseStatusOrder.map((status) => ({
+          value: status,
           label: promiseStatusTextMap.get(status),
           colorClass: `bg-status-${status}`,
         })),
       ] as ListOption[],
       selectedParty: '',
       selectedTopic: '',
-      selectedStatus: 'ทุกสถานะคำสัญญา',
+      selectedStatus: ALL_STATUS_VALUE,
       keyword: '',
     };
-  },
-  computed: {},
-  methods: {
-    selectParty(optionLabel: string) {
-      this.selectedParty = optionLabel;
-    },
-    selectTopic(optionLabel: string) {
-      this.selectedTopic = optionLabel;
-    },
-    selectStatus(toggleItemLabel: string) {
-      this.selectedStatus = toggleItemLabel;
-    },
   },
 });
 </script>
