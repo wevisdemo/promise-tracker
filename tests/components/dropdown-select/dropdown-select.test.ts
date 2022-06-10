@@ -106,8 +106,8 @@ describe('selected state', () => {
   });
 });
 
-test('should emit select event select on selectable item', async () => {
-  const OPTION = { label: 'party1' };
+test('should emit input event when select on selectable item', async () => {
+  const OPTION = { label: 'party1', value: 'p1' };
   const wrapper = mount(DropdownSelect, {
     propsData: {
       options: [OPTION],
@@ -117,7 +117,7 @@ test('should emit select event select on selectable item', async () => {
   await wrapper.find('#select-box').trigger('click');
   await wrapper.findComponent(DropdownItem).trigger('click');
 
-  expect(wrapper.emitted().select![0]).toEqual([OPTION.label]);
+  expect(wrapper.emitted().input![0]).toEqual([OPTION.value]);
 });
 
 test('should NOT display items when select on item', async () => {

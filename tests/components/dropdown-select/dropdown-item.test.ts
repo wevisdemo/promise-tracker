@@ -55,7 +55,7 @@ describe('header item', () => {
       },
     });
 
-    wrapper.find('div').trigger('click');
+    wrapper.find('button').trigger('click');
 
     expect(wrapper.emitted().click?.length).toBeFalsy();
   });
@@ -65,6 +65,7 @@ describe('non-header item', () => {
   const OPTION = {
     isHeader: false,
     label: 'ประชาธิปัตย์',
+    value: 'ประชาธิปัตย์',
   };
 
   test('should have cursor as pointer when item is NOT a header', () => {
@@ -84,8 +85,8 @@ describe('non-header item', () => {
       },
     });
 
-    wrapper.find('div').trigger('click');
+    wrapper.find('button').trigger('click');
 
-    expect(wrapper.emitted().click![0]).toEqual([OPTION.label]);
+    expect(wrapper.emitted().click![0]).toEqual([OPTION.value]);
   });
 });
