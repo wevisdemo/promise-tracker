@@ -2,7 +2,7 @@
   <div class="bg-black min-h-screen">
     <h1>Explore</h1>
     <div class="max-w-screen-lg mx-auto">
-      <PromiseOverview :promises="promises" :filters="[]" />
+      <PromiseOverview :promises="promises" :filters="filters" />
     </div>
 
     <div class="bg-status-done">
@@ -16,7 +16,7 @@
     </div>
 
     <div>
-      <FilterPanel />
+      <FilterPanel v-model="filters" />
     </div>
 
     <div v-if="groupBy === 'topic'" class="bg-gray">
@@ -25,7 +25,7 @@
           v-if="filteredGroup === '' || filteredGroup === topic"
           :topic="topic"
           :promises="promises"
-          :promisePerPage="filteredGroup === topic ? 0 : 3"
+          :promise-per-page="filteredGroup === topic ? 0 : 3"
           @viewGroup="setGroupFilter($event)"
         />
       </div>
@@ -36,7 +36,7 @@
           v-if="filteredGroup === '' || filteredGroup === status"
           :status="status"
           :promises="promises"
-          :promisePerPage="filteredGroup === status ? 0 : 3"
+          :promise-per-page="filteredGroup === status ? 0 : 3"
           @viewGroup="setGroupFilter($event)"
         />
       </div>
@@ -57,6 +57,7 @@ import promises from '@/data/promises.json';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
 import { PromiseTopic, PromiseStatus } from '@/models/promise';
+import { Filter } from '~/models/filter';
 
 export default Vue.extend({
   name: 'ExplorePage',
@@ -87,6 +88,7 @@ export default Vue.extend({
       ],
       groupBy: 'topic',
       filteredGroup: '',
+      filters: [] as Filter[],
     };
   },
   methods: {
