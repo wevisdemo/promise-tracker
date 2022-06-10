@@ -35,6 +35,29 @@ import DropdownSelect, {
 } from '@/components/dropdown-select/dropdown-select.vue';
 import ToggleList, { ListOption } from '@/components/toggle/toggle-list.vue';
 import { Filter } from '@/models/filter';
+import parties from '@/data/parties.json';
+import {
+  promiseStatusOrder,
+  promiseStatusTextMap,
+  promiseTopicOrder,
+  promiseTopicTextMap,
+} from '~/models/promise';
+
+const [governmentParties, oppositionParties] = parties.reduce<
+  [Option[], Option[]]
+>(
+  ([government, opposition], { side, name }) => {
+    const option: Option = {
+      label: name,
+      iconUrl: `/party/${name}.jpg`,
+    };
+
+    return side === 'government'
+      ? [[...government, option], opposition]
+      : [government, [...opposition, option]];
+  },
+  [[], []]
+);
 
 export default Vue.extend({
   name: 'FilterPanel',
@@ -52,41 +75,25 @@ export default Vue.extend({
           isHeader: true,
           label: 'พรรคร่วมรัฐบาล',
         },
+        ...governmentParties.sort((a, z) => a.label.localeCompare(z.label)),
         {
-          label: 'พลังประชารัฐ',
-          iconUrl: '/party/พลังประชารัฐ.jpg',
+          isHeader: true,
+          label: 'พรรคฝ่ายค้าน',
         },
+        ...oppositionParties.sort((a, z) => a.label.localeCompare(z.label)),
       ] as Option[],
-      topicOptions: [
-        {
-          label: 'ความเท่าเทียม/คุณภาพชีวิต',
-          iconUrl: '/topic/equality_small.png',
-        },
-      ] as Option[],
+      topicOptions: promiseTopicOrder.map((topic) => ({
+        label: promiseTopicTextMap.get(topic)?.short,
+        iconUrl: `/topic/${topic}_small.png`,
+      })) as Option[],
       statusOptions: [
         {
           label: 'ทุกสถานะคำสัญญา',
         },
-        {
-          label: 'ไม่พบข้อมูล',
-          color: '#8F8F8F',
-        },
-        {
-          label: 'ถูกเสนอต่อสภา',
-          color: '#FD9154',
-        },
-        {
-          label: 'ถูกระงับไว้ก่อน',
-          color: '#E91E63',
-        },
-        {
-          label: 'กำลังดำเนินการ',
-          color: '#F4C51F',
-        },
-        {
-          label: 'สำเร็จ',
-          color: '#48DBDB',
-        },
+        ...promiseStatusOrder.map((status) => ({
+          label: promiseStatusTextMap.get(status),
+          colorClass: `bg-status-${status}`,
+        })),
       ] as ListOption[],
       selectedParty: '',
       selectedTopic: '',

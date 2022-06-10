@@ -40,6 +40,24 @@ export interface TrackingPromise {
   timelines: PromiseTimeline[];
 }
 
+export const promiseStatusOrder: PromiseStatus[] = [
+  PromiseStatus.NoData,
+  PromiseStatus.Proposed,
+  PromiseStatus.Paused,
+  PromiseStatus.Working,
+  PromiseStatus.Done,
+];
+
+export const promiseTopicOrder: PromiseTopic[] = [
+  PromiseTopic.Equality,
+  PromiseTopic.Security,
+  PromiseTopic.Foreign,
+  PromiseTopic.Administration,
+  PromiseTopic.Culture,
+  PromiseTopic.Economics,
+  PromiseTopic.Environmental,
+];
+
 export const promiseTopicTextMap = new Map<
   PromiseTopic,
   { long: string; short: string }

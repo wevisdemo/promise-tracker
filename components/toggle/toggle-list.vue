@@ -16,7 +16,7 @@ import ToggleItem from './toggle-item.vue';
 
 export interface ListOption {
   label: string;
-  color?: string;
+  colorClass?: string;
 }
 
 export default Vue.extend({

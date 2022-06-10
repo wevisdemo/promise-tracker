@@ -35,9 +35,9 @@
       />
     </svg>
     <div
-      v-if="option.color"
+      v-if="option.colorClass"
       class="rounded-full w-2.5 h-2.5"
-      :style="{ backgroundColor: option.color }"
+      :class="option.colorClass"
     ></div>
     <label class="cursor-pointer">{{ option.label }}</label>
   </div>

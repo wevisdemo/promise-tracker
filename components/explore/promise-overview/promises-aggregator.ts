@@ -2,9 +2,10 @@ import { FilterType } from '~/models/filter';
 import {
   TrackingPromise,
   PromiseStatus,
-  PromiseTopic,
   promiseTopicTextMap,
   promiseStatusTextMap,
+  promiseStatusOrder,
+  promiseTopicOrder,
 } from '~/models/promise';
 
 export interface ChartData {
@@ -22,24 +23,6 @@ export interface Chart {
 interface StatusPair {
   [status: string]: number;
 }
-
-const promiseStatusOrder: PromiseStatus[] = [
-  PromiseStatus.NoData,
-  PromiseStatus.Proposed,
-  PromiseStatus.Paused,
-  PromiseStatus.Working,
-  PromiseStatus.Done,
-];
-
-const promiseTopicOrder: PromiseTopic[] = [
-  PromiseTopic.Equality,
-  PromiseTopic.Security,
-  PromiseTopic.Foreign,
-  PromiseTopic.Administration,
-  PromiseTopic.Culture,
-  PromiseTopic.Economics,
-  PromiseTopic.Environmental,
-];
 
 const parseChartDataFromStatusPair = (statuses: StatusPair): ChartData[] =>
   statuses
