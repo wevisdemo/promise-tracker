@@ -1,8 +1,6 @@
 <template>
-  <div class="flex flex-col p-5 bg-ultramarine space-y-2">
-    <p class="text-white wv-font-anuphan wv-font-semibold wv-u5">
-      คัดกรองคำสัญญา
-    </p>
+  <div class="flex flex-col p-5 bg-ultramarine space-y-2 wv-font-anuphan wv-u5">
+    <p class="text-white wv-font-semibold">คัดกรองคำสัญญา</p>
     <DropdownSelect
       :options="partyOptions"
       :placeholder="'ทุกพรรคที่ให้คำสัญญา'"
@@ -17,14 +15,35 @@
       :selected="selectedTopic"
       @select="selectTopic($event)"
     />
-    <p class="text-white wv-font-anuphan wv-font-semibold wv-u5">
-      เลือกดูคำสัญญาตามสถานะ
-    </p>
+    <p class="text-white wv-font-semibold">เลือกดูคำสัญญาตามสถานะ</p>
     <ToggleList
       :options="statusOptions"
       :selected="selectedStatus"
       @select="selectStatus($event)"
     />
+    <p class="text-white wv-font-semibold">ค้นหาตามคีย์เวิร์ด</p>
+    <div class="flex flex-row p-1 rounded-sm bg-white space-x-1">
+      <div class="bg-ultramarine rounded p-1.5">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M11.0748 7.05784C11.0748 9.30714 9.25899 11.1157 7.0374 11.1157C4.8158 11.1157 3 9.30714 3 7.05784C3 4.80855 4.8158 3 7.0374 3C9.25899 3 11.0748 4.80855 11.0748 7.05784ZM10.81 13.0169C9.71969 13.7126 8.42547 14.1157 7.0374 14.1157C3.15075 14.1157 0 10.9558 0 7.05784C0 3.1599 3.15075 0 7.0374 0C10.924 0 14.0748 3.1599 14.0748 7.05784C14.0748 8.47643 13.6575 9.79727 12.9393 10.9036L17.5006 15.4967L15.3867 17.6254L10.81 13.0169Z"
+            fill="white"
+          />
+        </svg>
+      </div>
+      <input
+        v-model="keyword"
+        class="flex-1 px-1"
+        type="text"
+        placeholder="พิมพ์คำเพื่อค้นหาสัญญา"
+      />
+    </div>
+    <p class="text-white wv-font-semibold">
+      พิมพ์คำ , โครงการ , ชื่อสัญญา เช่น เกษตร , โฉนด , เงินเดือนปริญญาตรี
+      20,000
+    </p>
   </div>
 </template>
 
@@ -98,6 +117,7 @@ export default Vue.extend({
       selectedParty: '',
       selectedTopic: '',
       selectedStatus: 'ทุกสถานะคำสัญญา',
+      keyword: '',
     };
   },
   computed: {},
