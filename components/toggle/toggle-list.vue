@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col space-y-1">
+  <div class="flex gap-1" :class="alignmentClass">
     <ToggleItem
       v-for="option in options"
       :key="option.value"
@@ -13,6 +13,11 @@
 <script lang="ts">
 import Vue, { PropType } from 'vue';
 import ToggleItem from './toggle-item.vue';
+
+enum Alignment {
+  Vertical = 'vertical',
+  Horizontal = 'horizontal',
+}
 
 export interface ListOption {
   label: string;
@@ -31,6 +36,15 @@ export default Vue.extend({
     options: {
       type: Array as PropType<ListOption[]>,
       default: () => [],
+    },
+    align: {
+      type: () => Alignment,
+      default: Alignment.Vertical,
+    },
+  },
+  computed: {
+    alignmentClass() {
+      return this.align === Alignment.Vertical ? 'flex-col' : 'flex-row';
     },
   },
 });
