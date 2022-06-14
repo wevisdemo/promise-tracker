@@ -1,52 +1,50 @@
 <template>
-  <div class="bg-black min-h-screen">
-    <h1>Explore</h1>
-    <div class="max-w-screen-lg mx-auto">
-      <PromiseOverview :promises="promises" :filters="filters" />
-    </div>
+  <div class="flex flex-row justify-center bg-black min-h-screen px-6 py-12">
+    <div class="flex flex-row space-x-12">
+      <div>
+        <FilterPanel v-model="filters" class="w-80" />
+      </div>
 
-    <div class="bg-status-done">
-      <button class="border border-black p-2 mt-2" @click="groupBy = 'topic'">
-        ตามประเด็น
-      </button>
-      <button class="border border-black p-2 mt-2" @click="groupBy = 'status'">
-        ตามสถานะ
-      </button>
-      {{ groupBy }}
-    </div>
-
-    <div>
-      <FilterPanel v-model="filters" />
-    </div>
-
-    <div v-if="groupBy === 'topic'" class="bg-gray">
-      <div v-for="topic in topics" :key="`topic-${topic}`">
-        <TopicGroup
-          v-if="filteredGroup === '' || filteredGroup === topic"
-          :topic="topic"
+      <div class="w-full max-w-3xl flex flex-col items-center">
+        <PromiseOverview
           :promises="promises"
-          :promise-per-page="filteredGroup === topic ? 0 : 3"
-          @viewGroup="setGroupFilter($event)"
+          :filters="filters"
+          class="max-w-screen-lg mx-auto"
         />
+
+        <ToggleList
+          v-model="groupBy"
+          :options="groupByOptions"
+          align="horizontal"
+          class="my-6"
+        />
+
+        <div class="px-6">
+          <template v-if="groupBy === 'topic'">
+            <div v-for="topic in topics" :key="`topic-${topic}`">
+              <TopicGroup
+                v-if="filteredGroup === '' || filteredGroup === topic"
+                :topic="topic"
+                :promises="promises"
+                :promise-per-page="filteredGroup === topic ? 0 : 3"
+                @viewGroup="setGroupFilter($event)"
+              />
+            </div>
+          </template>
+          <template v-else>
+            <div v-for="status in statuses" :key="`group-${status}`">
+              <TopicGroup
+                v-if="filteredGroup === '' || filteredGroup === status"
+                :status="status"
+                :promises="promises"
+                :promise-per-page="filteredGroup === status ? 0 : 3"
+                @viewGroup="setGroupFilter($event)"
+              />
+            </div>
+          </template>
+        </div>
       </div>
     </div>
-    <div v-else class="bg-gray">
-      <div v-for="status in statuses" :key="`group-${status}`">
-        <TopicGroup
-          v-if="filteredGroup === '' || filteredGroup === status"
-          :status="status"
-          :promises="promises"
-          :promise-per-page="filteredGroup === status ? 0 : 3"
-          @viewGroup="setGroupFilter($event)"
-        />
-      </div>
-    </div>
-    <button
-      class="border bg-white border-black p-2 mt-2"
-      @click="filteredGroup = ''"
-    >
-      Remove Group Filter: {{ filteredGroup }}
-    </button>
   </div>
 </template>
 
@@ -56,8 +54,14 @@ import PromiseOverview from '@/components/explore/promise-overview/promise-overv
 import promises from '@/data/promises.json';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
+import ToggleList, { ListOption } from '@/components/toggle/toggle-list.vue';
 import { PromiseTopic, PromiseStatus } from '@/models/promise';
 import { Filter } from '~/models/filter';
+
+enum GroupBy {
+  Topic = 'topic',
+  Status = 'status',
+}
 
 export default Vue.extend({
   name: 'ExplorePage',
@@ -65,6 +69,7 @@ export default Vue.extend({
     PromiseOverview,
     TopicGroup,
     FilterPanel,
+    ToggleList,
   },
   data() {
     return {
@@ -86,9 +91,19 @@ export default Vue.extend({
         PromiseStatus.Working,
         PromiseStatus.Done,
       ],
-      groupBy: 'topic',
+      groupBy: GroupBy.Topic as GroupBy,
       filteredGroup: '',
       filters: [] as Filter[],
+      groupByOptions: [
+        {
+          label: 'ตามประเด็น',
+          value: GroupBy.Topic,
+        },
+        {
+          label: 'ตามสถานะ',
+          value: GroupBy.Status,
+        },
+      ] as ListOption[],
     };
   },
   methods: {
