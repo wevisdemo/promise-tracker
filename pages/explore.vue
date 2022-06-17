@@ -13,12 +13,30 @@
           @removefilter="removeFilter($event)"
         />
 
-        <ToggleList
-          v-model="groupBy"
-          :options="groupByOptions"
-          align="horizontal"
-          class="my-8"
-        />
+        <div class="flex flex-col md:flex-row my-8 gap-2 md:gap-6 items-center">
+          <div class="flex flex-row space-x-2">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              stroke="white"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4.5 9H13.5" />
+              <path d="M1.6875 5.625H16.3125" />
+              <path d="M7.3125 12.375H10.6875" />
+            </svg>
+            <p class="wv-font-condolar wv-h11 text-white">เรียงคำสัญญาตาม</p>
+          </div>
+
+          <ToggleList
+            v-model="groupBy"
+            :options="groupByOptions"
+            align="horizontal"
+          />
+        </div>
 
         <div class="w-full flex flex-col md:px-6">
           <TopicGroup
