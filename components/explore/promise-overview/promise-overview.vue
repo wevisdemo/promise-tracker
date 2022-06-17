@@ -49,9 +49,5 @@ export default Vue.extend({
       activeTab: FilterType.Status,
     };
   },
-  mounted() {
-    console.log(this.promises.length);
-    console.log(this.filters);
-  },
 });
 </script>

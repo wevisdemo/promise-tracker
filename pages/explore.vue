@@ -10,6 +10,7 @@
           :promises="filteredPromises"
           :filters="filters"
           class="max-w-screen-lg mx-auto"
+          @removefilter="removeFilter($event)"
         />
 
         <ToggleList
@@ -134,6 +135,9 @@ export default Vue.extend({
     },
   },
   methods: {
+    removeFilter(filter: Filter) {
+      this.filters = this.filters.filter(({ type }) => filter.type !== type);
+    },
     setGroupFilter(group: PromiseTopic | PromiseStatus) {
       this.filteredGroup = group;
     },

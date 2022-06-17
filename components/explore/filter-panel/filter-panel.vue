@@ -172,6 +172,16 @@ export default Vue.extend({
       keyword: '',
     };
   },
+  watch: {
+    value(newFilters: Filter[]) {
+      this.selectedParty = '';
+      this.selectedTopic = '';
+      this.selectedStatus = '';
+      this.keyword = '';
+
+      newFilters.forEach(this.updateInputFromFilter);
+    },
+  },
   methods: {
     apply() {
       const filters = [
@@ -202,6 +212,21 @@ export default Vue.extend({
       this.keyword = '';
 
       this.$emit('input', []);
+    },
+    updateInputFromFilter({ type, value }: Filter) {
+      switch (type) {
+        case FilterType.Party:
+          this.selectedParty = value;
+          break;
+        case FilterType.Status:
+          this.selectedStatus = value as PromiseStatus;
+          break;
+        case FilterType.Topic:
+          this.selectedTopic = value as PromiseTopic;
+          break;
+        case FilterType.Keyword:
+          this.keyword = value;
+      }
     },
   },
 });
