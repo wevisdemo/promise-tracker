@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <button
       id="select-box"
       class="flex w-full space-x-1 justify-between items-center py-2.5 px-2 rounded-sm wv-font-anuphan wv-font-semibold wv-u5 border-white border"
@@ -21,20 +21,27 @@
         :class="selecting ? 'transform rotate-180' : null"
       />
     </button>
-    <div
-      v-if="selecting"
-      id="item-list"
-      class="mt-1 bg-white rounded overflow-hidden"
-    >
-      <div class="flex flex-col bg-gray bg-opacity-20 space-y-0.5">
-        <DropdownItem
-          v-for="option in options"
-          :key="option.value"
-          :option="option"
-          @click="select($event)"
-        />
+    <template v-if="selecting">
+      <div class="fixed inset-0" @click="selecting = false" />
+
+      <div
+        id="item-list"
+        class="md:absolute inset-x-0 top-full z-10 md:max-h-64 overflow-y-scroll mt-1 bg-white rounded overflow-hidden"
+      >
+        <div class="flex flex-col bg-gray bg-opacity-20 space-y-0.5">
+          <DropdownItem
+            :option="{ label: placeholder, value: '' }"
+            @click="select($event)"
+          />
+          <DropdownItem
+            v-for="option in options"
+            :key="option.value"
+            :option="option"
+            @click="select($event)"
+          />
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 
