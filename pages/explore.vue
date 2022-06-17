@@ -37,11 +37,11 @@
       </div>
 
       <Button
-        class="fixed md:sticky self-end top-3 md:bottom-4 right-3"
+        class="fixed lg:sticky self-end top-3 lg:bottom-4 right-3"
         @click="scrollToTop"
       >
-        <div class="flex flex-row -mx-2 -my-1 md:m-0">
-          <span class="hidden md:block mr-1">กลับด้านบน</span
+        <div class="flex flex-row -mx-2 -my-1 lg:m-0">
+          <span class="hidden xl:block mr-1">กลับด้านบน</span
           ><svg width="18" height="18" viewBox="0 0 18 18" class="fill-current">
             <path
               d="M9.74994 15L8.24994 15L8.24994 6L4.12494 10.125L3.05994 9.06L8.99994 3.12L14.9399 9.06L13.8749 10.125L9.74994 6L9.74994 15Z"

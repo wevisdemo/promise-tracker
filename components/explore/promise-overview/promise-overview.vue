@@ -1,11 +1,11 @@
 <template>
-  <div class="w-full flex flex-col md:flex-row">
+  <div class="w-full flex flex-col lg:flex-row">
     <div class="flex-1 flex items-end">
       <ActiveFilters
         :class="
           promises.length === 0
-            ? 'md:rounded-xl bg-gray bg-opacity-10 text-white'
-            : 'md:rounded-tr-none md:rounded-br-none md:rounded-bl-xl'
+            ? 'lg:rounded-xl bg-gray bg-opacity-10 text-white'
+            : 'lg:rounded-tr-none lg:rounded-br-none lg:rounded-bl-xl'
         "
         :filters="filters"
         :promises="promises"
