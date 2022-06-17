@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-row py-1 px-2 text-ultramarine space-x-2">
+  <div
+    class="flex flex-row py-1 px-2 text-ultramarine space-x-2 bg-gray rounded-sm bg-opacity-10"
+  >
     <div class="flex items-center">
       <img
         v-if="topic !== 'keyword'"
