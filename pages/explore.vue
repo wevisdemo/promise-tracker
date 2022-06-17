@@ -21,28 +21,17 @@
         />
 
         <div class="px-6">
-          <template v-if="groupBy === 'topic'">
-            <div v-for="topic in topics" :key="`topic-${topic}`">
-              <TopicGroup
-                v-if="filteredGroup === '' || filteredGroup === topic"
-                :topic="topic"
-                :promises="filteredPromises"
-                :promise-per-page="filteredGroup === topic ? 0 : 3"
-                @viewGroup="setGroupFilter($event)"
-              />
-            </div>
-          </template>
-          <template v-else>
-            <div v-for="status in statuses" :key="`group-${status}`">
-              <TopicGroup
-                v-if="filteredGroup === '' || filteredGroup === status"
-                :status="status"
-                :promises="filteredPromises"
-                :promise-per-page="filteredGroup === status ? 0 : 3"
-                @viewGroup="setGroupFilter($event)"
-              />
-            </div>
-          </template>
+          <TopicGroup
+            v-for="group in groupBy === 'topic' ? topics : statuses"
+            :key="`${groupBy}-${group}`"
+            :topic="groupBy === 'topic' ? group : undefined"
+            :status="groupBy === 'status' ? group : undefined"
+            :promises="filteredPromises"
+            :promise-per-page="
+              filters.find(({ type }) => type === groupBy) ? 0 : 3
+            "
+            @viewGroup="setGroupFilter(groupBy, group)"
+          />
         </div>
       </div>
     </div>
@@ -109,7 +98,6 @@ export default Vue.extend({
         PromiseStatus.Done,
       ],
       filters: [] as Filter[],
-      filteredGroup: '',
       groupBy: GroupBy.Topic as GroupBy,
       groupByOptions: [
         {
@@ -134,12 +122,40 @@ export default Vue.extend({
         : (promises as TrackingPromise[]);
     },
   },
+  watch: {
+    filters(filters: Filter[]) {
+      const query = filters.reduce(
+        (q, { type, value }) => ({ ...q, [type]: value }),
+        {}
+      );
+
+      this.$router.push({ query });
+    },
+  },
+  mounted() {
+    this.filters = Object.entries(this.$router.currentRoute.query).map(
+      ([type, value]) => ({ type, value } as Filter)
+    );
+  },
   methods: {
     removeFilter(filter: Filter) {
       this.filters = this.filters.filter(({ type }) => filter.type !== type);
     },
-    setGroupFilter(group: PromiseTopic | PromiseStatus) {
-      this.filteredGroup = group;
+    setGroupFilter(
+      type: FilterType.Status | FilterType.Topic,
+      value: PromiseStatus | PromiseTopic
+    ) {
+      const existingFilter = this.filters.find(
+        (filter) => filter.type === type
+      );
+
+      if (existingFilter?.value === value) return;
+
+      this.filters = existingFilter
+        ? this.filters.map((filter) =>
+            filter.value === value ? ({ type, value } as Filter) : filter
+          )
+        : [...this.filters, { type, value } as Filter];
     },
   },
 });

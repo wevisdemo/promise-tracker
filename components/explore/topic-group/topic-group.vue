@@ -163,7 +163,7 @@ export default Vue.extend({
     },
     viewAll() {
       this.currentPage = 1;
-      this.$emit('viewGroup', this.groupBy.where);
+      this.$emit('viewGroup');
     },
   },
 });

@@ -5,7 +5,7 @@
     <div class="col-span-6 sm:col-span-2">
       <h5 class="wv-h5 wv-font-kondolar wv-font-bold">สำรวจคำสัญญา</h5>
       <h5 class="wv-h5 wv-font-kondolar wv-font-bold pb-6">ตามพรรค</h5>
-      <StatusLegend class="text-white" :showDetail="false" />
+      <StatusLegend class="text-white" :show-detail="false" />
     </div>
     <div class="col-span-6 sm:col-span-4">
       <div class="flex flex-col gap-4">
@@ -16,10 +16,10 @@
           <PartyCard
             v-for="{ label, icon, data } in NCPOParty"
             :key="label"
-            :partyLogo="icon"
-            :partyName="label"
-            :partyPromises="data"
-            buttonUrl="explore"
+            :party-logo="icon"
+            :party-name="label"
+            :party-promises="data"
+            button-url="explore"
           />
         </div>
         <span class="wv-h8 wv-font-kondolar wv-font-bold">
@@ -29,10 +29,10 @@
           <PartyCard
             v-for="{ label, icon, data } in nonNCPOParty"
             :key="label"
-            :partyLogo="icon"
-            :partyName="label"
-            :partyPromises="data"
-            buttonUrl="explore"
+            :party-logo="icon"
+            :party-name="label"
+            :party-promises="data"
+            :button-url="`explore?party=${label}`"
           />
         </div>
       </div>
