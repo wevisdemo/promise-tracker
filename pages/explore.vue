@@ -5,7 +5,7 @@
     <div class="relative flex flex-row w-full max-w-7xl">
       <FilterPanel v-model="filters" />
 
-      <div class="w-full flex-1 flex flex-col items-center">
+      <div class="w-full flex-1 flex flex-col items-center space-y-8">
         <PromiseOverview
           :promises="filteredPromises"
           :filters="filters"
@@ -13,7 +13,7 @@
           @removefilter="removeFilter($event)"
         />
 
-        <div class="flex flex-col md:flex-row my-8 gap-2 md:gap-6 items-center">
+        <div class="flex flex-col md:flex-row gap-2 md:gap-6 items-center">
           <div class="flex flex-row space-x-2">
             <svg
               width="18"
@@ -52,6 +52,20 @@
             @viewGroup="setGroupFilter(groupBy, group)"
           />
         </div>
+
+        <div class="block w-full border-b border-white border-dashed h-0" />
+
+        <div class="flex flex-col space-y-6 px-1">
+          <LinkBanner
+            theme="transparent-gray"
+            icon-image="article/article.png"
+            title-text="วิธีตรวจสอบคำสัญญา"
+            body-text="หากนัก/พรรคการเมืองที่ได้เข้าไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา มีกระบวนการตรวจ สอบอย่างไรบ้าง"
+            button-text="อ่านเพิ่มเติม"
+            button-url="guide"
+          />
+          <FormLink />
+        </div>
       </div>
 
       <Button
@@ -79,6 +93,8 @@ import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
 import ToggleList, { ListOption } from '@/components/toggle/toggle-list.vue';
 import Button from '@/components/button.vue';
+import LinkBanner from '@/components/link-banner.vue';
+import FormLink from '@/components/form-link.vue';
 import { PromiseTopic, PromiseStatus, TrackingPromise } from '@/models/promise';
 import { Filter, FilterType } from '~/models/filter';
 
@@ -113,6 +129,8 @@ export default Vue.extend({
     FilterPanel,
     ToggleList,
     Button,
+    LinkBanner,
+    FormLink,
   },
   data() {
     return {

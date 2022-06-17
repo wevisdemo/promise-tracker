@@ -1,13 +1,13 @@
 <template>
-  <div class="mb-6 w-full">
-    <a
-      ref="form"
-      class="hidden"
-      :href="formUrl"
-      target="_blank"
-      rel="noopener noreferrer"
-    />
-    <Button class="w-full justify-center" @click="handleFormLink"
+  <a
+    ref="form"
+    class="w-full mb-6"
+    href="https://docs.google.com/forms/d/e/1FAIpQLSc288kwduqZ5SJvq4osroZPN-MVpoSLzgSjFcEoXLV5YqWZMg/viewform?usp=sf_link"
+    target="_blank"
+    rel="noopener noreferrer"
+    @click="$emit('tagClicked', true)"
+  >
+    <Button class="w-full justify-center"
       ><span>แจ้งคำสัญญาที่อยากให้ติดตามเพิ่มเติม</span>
       <svg
         width="12"
@@ -21,7 +21,7 @@
         />
       </svg>
     </Button>
-  </div>
+  </a>
 </template>
 
 <script lang="ts">
@@ -30,17 +30,5 @@ import Button from '@/components/button.vue';
 export default Vue.extend({
   name: 'FormLink',
   components: { Button },
-  data() {
-    return {
-      formUrl:
-        'https://docs.google.com/forms/d/e/1FAIpQLSc288kwduqZ5SJvq4osroZPN-MVpoSLzgSjFcEoXLV5YqWZMg/viewform?usp=sf_link',
-    };
-  },
-  methods: {
-    handleFormLink() {
-      (this.$refs.form as HTMLElement).click();
-      this.$emit('tagClicked', true);
-    },
-  },
 });
 </script>
