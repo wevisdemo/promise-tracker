@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-row justify-center bg-black min-h-screen px-6 py-12">
-    <div class="relative flex flex-row space-x-12 w-full max-w-6xl">
-      <FilterPanel v-model="filters" class="w-80 self-start sticky top-10" />
+    <div class="relative flex flex-row w-full max-w-7xl">
+      <FilterPanel
+        v-model="filters"
+        class="w-80 self-start sticky top-10 mr-12"
+      />
 
       <div class="w-full flex-1 flex flex-col items-center">
         <PromiseOverview
@@ -33,6 +36,15 @@
           />
         </div>
       </div>
+
+      <Button class="sticky self-end bottom-4" @click="scrollToTop"
+        ><span>กลับด้านบน</span
+        ><svg width="18" height="18" viewBox="0 0 18 18" fill="currentColor">
+          <path
+            d="M9.74994 15L8.24994 15L8.24994 6L4.12494 10.125L3.05994 9.06L8.99994 3.12L14.9399 9.06L13.8749 10.125L9.74994 6L9.74994 15Z"
+          />
+        </svg>
+      </Button>
     </div>
   </div>
 </template>
@@ -44,6 +56,7 @@ import promises from '@/data/promises.json';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
 import ToggleList, { ListOption } from '@/components/toggle/toggle-list.vue';
+import Button from '@/components/button.vue';
 import { PromiseTopic, PromiseStatus, TrackingPromise } from '@/models/promise';
 import { Filter, FilterType } from '~/models/filter';
 
@@ -77,6 +90,7 @@ export default Vue.extend({
     TopicGroup,
     FilterPanel,
     ToggleList,
+    Button,
   },
   data() {
     return {
@@ -129,6 +143,7 @@ export default Vue.extend({
       );
 
       this.$router.push({ query });
+      this.scrollToTop();
     },
   },
   mounted() {
@@ -155,6 +170,9 @@ export default Vue.extend({
             filter.value === value ? ({ type, value } as Filter) : filter
           )
         : [...this.filters, { type, value } as Filter];
+    },
+    scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     },
   },
 });
