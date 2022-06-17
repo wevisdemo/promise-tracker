@@ -2,7 +2,7 @@
   <div
     v-if="expanded"
     :id="`expanded-card-${promise.id}`"
-    class="grid bg-white px-6 py-3 max-w-2xl rounded-lg overflow-hidden"
+    class="grid bg-white px-6 py-3 rounded-lg overflow-hidden"
     :class="promise.timelines.length > 0 ? 'sm:grid-cols-2' : 'sm:grid-cols-1'"
   >
     <div>

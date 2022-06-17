@@ -1,7 +1,7 @@
 <template>
   <div
     :id="`single-card-${promise.id}`"
-    class="flex flex-col bg-white max-w-2xl rounded-lg border border-white overflow-hidden"
+    class="flex flex-col bg-white rounded-lg border border-white overflow-hidden"
   >
     <div
       :id="`single-card-${promise.id}-status-color`"

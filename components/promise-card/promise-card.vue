@@ -1,5 +1,5 @@
 <template>
-  <div :id="`promise-card-${promise.id}`" class="w-full max-w-2xl">
+  <div :id="`promise-card-${promise.id}`" class="w-full">
     <SingleCard
       :openState="openState"
       :promise="promise"

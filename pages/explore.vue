@@ -1,11 +1,9 @@
 <template>
   <div class="flex flex-row justify-center bg-black min-h-screen px-6 py-12">
-    <div class="flex flex-row space-x-12">
-      <div>
-        <FilterPanel v-model="filters" class="w-80" />
-      </div>
+    <div class="relative flex flex-row space-x-12 w-full max-w-6xl">
+      <FilterPanel v-model="filters" class="w-80 self-start sticky top-10" />
 
-      <div class="w-full max-w-3xl flex flex-col items-center">
+      <div class="w-full flex-1 flex flex-col items-center">
         <PromiseOverview
           :promises="filteredPromises"
           :filters="filters"
@@ -17,13 +15,14 @@
           v-model="groupBy"
           :options="groupByOptions"
           align="horizontal"
-          class="my-6"
+          class="my-8"
         />
 
-        <div class="px-6">
+        <div class="w-full flex flex-col px-6">
           <TopicGroup
             v-for="group in groupBy === 'topic' ? topics : statuses"
             :key="`${groupBy}-${group}`"
+            class=""
             :topic="groupBy === 'topic' ? group : undefined"
             :status="groupBy === 'status' ? group : undefined"
             :promises="filteredPromises"

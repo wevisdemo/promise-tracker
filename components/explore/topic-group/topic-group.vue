@@ -1,5 +1,5 @@
 <template>
-  <div v-if="promisesLength > 0" class="mb-6">
+  <div v-if="promisesLength > 0" class="mb-8">
     <div
       :id="`group-${groupBy.where}-header`"
       class="group-header"
@@ -29,7 +29,7 @@
     />
     <div
       v-if="promisesLength > 0 && promisePerPage > 0"
-      class="flex justify-between max-w-2xl items-center"
+      class="flex justify-between items-center"
     >
       <div class="flex items-center">
         <button
@@ -171,7 +171,7 @@ export default Vue.extend({
 
 <style scoped>
 .group-header {
-  @apply flex items-center justify-between rounded-xl border border-white text-white overflow-hidden max-w-2xl mb-6;
+  @apply flex items-center justify-between rounded-xl border border-white text-white overflow-hidden mb-6;
 }
 .navigation-button {
   @apply w-6 h-6 flex justify-center items-center rounded-sm;
