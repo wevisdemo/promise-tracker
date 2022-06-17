@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-6">
+  <div v-if="promisesLength > 0" class="mb-6">
     <div
       :id="`group-${groupBy.where}-header`"
       class="group-header"
@@ -18,7 +18,7 @@
         </p>
       </div>
       <p class="flex flex-shrink-0 wv-u4 wv-font-semibold wv-font-anuphan pr-4">
-        {{ getPromisesLength() }} คำสัญญา
+        {{ promisesLength }} คำสัญญา
       </p>
     </div>
     <PromiseCard
@@ -28,7 +28,7 @@
       :promise="promise"
     />
     <div
-      v-if="getPromisesLength() > 0 && promisePerPage > 0"
+      v-if="promisesLength > 0 && promisePerPage > 0"
       class="flex justify-between max-w-2xl items-center"
     >
       <div class="flex items-center">
@@ -156,11 +156,11 @@ export default Vue.extend({
         this.computedPromisePerPage
       );
     },
-  },
-  methods: {
-    getPromisesLength() {
+    promisesLength(): number {
       return getPromisesLength(this.filteredPromise);
     },
+  },
+  methods: {
     viewAll() {
       this.currentPage = 1;
       this.$emit('viewGroup');
