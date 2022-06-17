@@ -7,7 +7,7 @@
 
       <div class="w-full max-w-3xl flex flex-col items-center">
         <PromiseOverview
-          :promises="promises"
+          :promises="filteredPromises"
           :filters="filters"
           class="max-w-screen-lg mx-auto"
         />
@@ -25,7 +25,7 @@
               <TopicGroup
                 v-if="filteredGroup === '' || filteredGroup === topic"
                 :topic="topic"
-                :promises="promises"
+                :promises="filteredPromises"
                 :promise-per-page="filteredGroup === topic ? 0 : 3"
                 @viewGroup="setGroupFilter($event)"
               />
@@ -36,7 +36,7 @@
               <TopicGroup
                 v-if="filteredGroup === '' || filteredGroup === status"
                 :status="status"
-                :promises="promises"
+                :promises="filteredPromises"
                 :promise-per-page="filteredGroup === status ? 0 : 3"
                 @viewGroup="setGroupFilter($event)"
               />
@@ -55,13 +55,31 @@ import promises from '@/data/promises.json';
 import TopicGroup from '@/components/explore/topic-group/topic-group.vue';
 import FilterPanel from '@/components/explore/filter-panel/filter-panel.vue';
 import ToggleList, { ListOption } from '@/components/toggle/toggle-list.vue';
-import { PromiseTopic, PromiseStatus } from '@/models/promise';
-import { Filter } from '~/models/filter';
+import { PromiseTopic, PromiseStatus, TrackingPromise } from '@/models/promise';
+import { Filter, FilterType } from '~/models/filter';
 
 enum GroupBy {
   Topic = 'topic',
   Status = 'status',
 }
+
+const checkFilterOnPromise = (
+  { type, value }: Filter,
+  promise: TrackingPromise
+): boolean => {
+  switch (type) {
+    case FilterType.Party:
+      return promise.party === value;
+    case FilterType.Status:
+      return promise.status === value;
+    case FilterType.Topic:
+      return promise.topic === value;
+    case FilterType.Keyword:
+      return promise.title.includes(value);
+    default:
+      return false;
+  }
+};
 
 export default Vue.extend({
   name: 'ExplorePage',
@@ -73,8 +91,6 @@ export default Vue.extend({
   },
   data() {
     return {
-      promises,
-      PromiseTopic,
       topics: [
         PromiseTopic.Equality,
         PromiseTopic.Security,
@@ -91,9 +107,9 @@ export default Vue.extend({
         PromiseStatus.Working,
         PromiseStatus.Done,
       ],
-      groupBy: GroupBy.Topic as GroupBy,
-      filteredGroup: '',
       filters: [] as Filter[],
+      filteredGroup: '',
+      groupBy: GroupBy.Topic as GroupBy,
       groupByOptions: [
         {
           label: 'ตามประเด็น',
@@ -105,6 +121,17 @@ export default Vue.extend({
         },
       ] as ListOption[],
     };
+  },
+  computed: {
+    filteredPromises(): TrackingPromise[] {
+      return this.filters.length > 0
+        ? (promises as TrackingPromise[]).filter((promise) =>
+            this.filters.every((filter: Filter) =>
+              checkFilterOnPromise(filter, promise)
+            )
+          )
+        : (promises as TrackingPromise[]);
+    },
   },
   methods: {
     setGroupFilter(group: PromiseTopic | PromiseStatus) {
