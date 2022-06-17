@@ -52,7 +52,7 @@ describe('selecting state', () => {
     expect(selectBox.classes()).toContain('bg-transparent');
   });
 
-  test('should show items', async () => {
+  test('should show items with default option', async () => {
     const OPTIONS = [{ label: 'party1' }, { label: 'party2' }];
     const wrapper = mount(DropdownSelect, {
       propsData: {
@@ -63,7 +63,7 @@ describe('selecting state', () => {
     await wrapper.find('#select-box').trigger('click');
 
     const items = wrapper.findAllComponents(DropdownItem);
-    expect(items.length).toBe(OPTIONS.length);
+    expect(items.length).toBe(OPTIONS.length + 1);
   });
 
   test('should show selecting placeholder instead of normal placeholder', async () => {
@@ -80,7 +80,6 @@ describe('selecting state', () => {
     await wrapper.find('#select-box').trigger('click');
 
     expect(wrapper.html()).toContain(SELECTING_PLACEHOLDER);
-    expect(wrapper.html()).not.toContain(PLACEHOLDER);
   });
 });
 
@@ -115,7 +114,7 @@ test('should emit input event when select on selectable item', async () => {
   });
 
   await wrapper.find('#select-box').trigger('click');
-  await wrapper.findComponent(DropdownItem).trigger('click');
+  await wrapper.findAllComponents(DropdownItem).at(1).trigger('click');
 
   expect(wrapper.emitted().input![0]).toEqual([OPTION.value]);
 });
