@@ -38,7 +38,7 @@ export default Vue.extend({
       default: () => [],
     },
     align: {
-      type: () => Alignment,
+      type: String,
       default: Alignment.Vertical,
     },
   },
