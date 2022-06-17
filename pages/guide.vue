@@ -35,7 +35,7 @@
           <GuideArrow class="mx-2 mt-2 transform sm:-rotate-90" />
         </div>
         <BoxContainer class="grid gap-3 bg-ultramarine">
-          <h8 class="wv-h8 wv-font-kondolar wv-font-bold">ANSWER</h8>
+          <h6 class="wv-h8 wv-font-kondolar wv-font-bold">ANSWER</h6>
           <p class="wv-h9 wv-font-kondolar">
             แม้ไม่มีกฎหมายระบุไว้เป็นความผิดที่ชัดเจน
             <span class="wv-font-bold">แต่ผิด!</span>
@@ -57,7 +57,7 @@
           class="grid md:grid-cols-2 gap-3 bg-ultramarine text-white"
         >
           <div class="grid gap-3">
-            <h8 class="wv-h8 wv-font-kondolar wv-font-bold">ANSWER</h8>
+            <h6 class="wv-h8 wv-font-kondolar wv-font-bold">ANSWER</h6>
             <p class="wv-h9 wv-font-kondolar">
               <span class="wv-font-bold"> “การเปิดอภิปรายไม่ไว้วางใจ”</span>
               เป็นกลไกสำคัญของการถ่วงดุล ที่รัฐสภา (ฝ่ายนิติบัญญัติ)
