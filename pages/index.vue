@@ -10,24 +10,6 @@
     <div class="mt-6 mb-10 space-y-8 px-2">
       <StatusExplanation />
       <PartyPromise />
-      <!-- <div class="grid grid-cols-1 gap-4">
-        <StatusLegend
-          class="text-white"
-          :showDetail="false"
-          :showInline="true"
-        />
-        <StatusLegend class="text-white" :showDetail="false" />
-        <StatusLegend
-          class="text-white"
-          :showDetail="false"
-          showOnly="ถูกระงับ"
-        />
-        <StatusLegend
-          class="text-white"
-          :showDetail="false"
-          showOnly="สำเร็จ"
-        />
-      </div> -->
       <ExplanationContainer title="ทวงสัญญากับฝ่ายค้านได้ด้วยเหรอ?">
         <img
           class="mb-4 sm:mr-8 sm:mb-0 w-28 sm:w-48"
