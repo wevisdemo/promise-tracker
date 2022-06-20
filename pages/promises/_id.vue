@@ -62,6 +62,7 @@ import PromiseCard from '@/components/promise-card/promise-card.vue';
 import LinkBanner from '@/components/link-banner.vue';
 import FormLink from '@/components/form-link.vue';
 import { PromiseStatus, TrackingPromise } from '@/models/promise';
+import { createMetadata } from '~/utils/metadata';
 
 export default Vue.extend({
   name: 'PromisePage',
@@ -76,31 +77,16 @@ export default Vue.extend({
     };
   },
   head(): {} {
-    return {
-      title: this.promiseStatusInfo.title,
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.promiseStatusInfo.description,
-        },
-        {
-          hid: 'og-title',
-          property: 'og:title',
-          content: this.promiseStatusInfo.title,
-        },
-        {
-          hid: 'og-description',
-          property: 'og:description',
-          content: this.promiseStatusInfo.description,
-        },
-        {
-          hid: 'og-image',
-          property: 'og:image',
-          content: this.promiseStatusInfo.image,
-        },
-      ],
-    };
+    if (!this.promise) return createMetadata();
+
+    const baseImageUrl = `https://raw.githubusercontent.com/wevisdemo/promise-tracker/main/static/og`;
+    const { title, party, status } = this.promise as TrackingPromise;
+
+    return createMetadata({
+      pageName: titleText(title, party, status),
+      description: descriptionMap.get(status as PromiseStatus),
+      image: imageUrl(baseImageUrl, status),
+    });
   },
   computed: {
     id(): number {
@@ -108,23 +94,6 @@ export default Vue.extend({
     },
     promise(): TrackingPromise | {} {
       return matchedPromise(promises as TrackingPromise[], this.id);
-    },
-    promiseStatusInfo() {
-      const baseImageUrl = `https://raw.githubusercontent.com/wevisdemo/promise-tracker/main/static/og`;
-      if (this.promise) {
-        const promise = this.promise as TrackingPromise;
-        return {
-          title: titleText(promise.title, promise.party, promise.status),
-          description: descriptionMap.get(promise.status as PromiseStatus),
-          image: imageUrl(baseImageUrl, promise.status),
-        };
-      } else {
-        return {
-          title: `Promise Tracker แพลตฟอร์มสำรวจคำสัญญาต่างๆของผู้นำ พรรคการเมือง ที่ให้คำสัญญาไว้`,
-          description: `สำรวจ รับรู้ ร่วมติดตาม ให้พรรคการเมืองทำตามคำสัญญาที่ให้ไว้กับเรา`,
-          image: `${baseImageUrl}/default.jpg`,
-        };
-      }
     },
   },
 });

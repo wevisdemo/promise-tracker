@@ -97,6 +97,7 @@ import LinkBanner from '@/components/link-banner.vue';
 import FormLink from '@/components/form-link.vue';
 import { PromiseTopic, PromiseStatus, TrackingPromise } from '@/models/promise';
 import { Filter, FilterType } from '~/models/filter';
+import { createMetadata } from '~/utils/metadata';
 
 enum GroupBy {
   Topic = 'topic',
@@ -164,6 +165,7 @@ export default Vue.extend({
       ] as ListOption[],
     };
   },
+  head: createMetadata({ pageName: 'ดูคำสัญญา' }),
   computed: {
     filteredPromises(): TrackingPromise[] {
       return this.filters.length > 0

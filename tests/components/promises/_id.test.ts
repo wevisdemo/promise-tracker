@@ -64,7 +64,7 @@ describe('PromisePage', () => {
       localVue,
     });
 
-    expect(wrapper.vm.$meta().refresh().metaInfo.title).toBe(
+    expect(wrapper.vm.$meta().refresh().metaInfo.title).toContain(
       titleText(promise.title, promise.party, promise.status)
     );
   });
@@ -92,7 +92,7 @@ describe('PromisePage', () => {
       expect(description).toBe(
         descriptionMap.get(promise.status as PromiseStatus)
       );
-      expect(ogTitle).toBe(
+      expect(ogTitle).toContain(
         titleText(promise.title, promise.party, promise.status)
       );
       expect(ogImage).toBe(imageUrl(baseImageUrl, promise.status));

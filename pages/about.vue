@@ -222,6 +222,7 @@ import WvButton from '@wevisdemo/ui/components/button.vue';
 import WvButtonGroup from '@wevisdemo/ui/components/button-group.vue';
 import WvSharer from '@wevisdemo/ui/components/sharer.vue';
 import ExternalLink from '@/components/external-link.vue';
+import { createMetadata } from '~/utils/metadata';
 
 export default Vue.extend({
   name: 'AboutPage',
@@ -612,6 +613,7 @@ export default Vue.extend({
       githubUrl: 'https://github.com/wevisdemo/promise-tracker',
     };
   },
+  head: createMetadata({ pageName: 'เกี่ยวกับโครงการ' }),
   computed: {
     roleGroup(): {} {
       return this.groupBy('role', this.contributors);
