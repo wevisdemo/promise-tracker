@@ -1,50 +1,47 @@
 <template>
-  <div>
+  <div
+    class="flex flex-col items-center z-10 bg-no-repeat bg-fixed bg-cover"
+    :style="{
+      backgroundImage: `url(${$config.path.images}/background/blog_bg.png)`,
+    }"
+  >
+    <div class="blog-header wv-font-kondolar wv-h10">
+      <img
+        class="w-16 h-16 mr-3"
+        :src="`${$config.path.images}/status/default.png`"
+        alt="promise-logo"
+      />
+      <div>
+        <h1 class="wv-font-bold">PROMISE TRACKER</h1>
+        <h2>สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?</h2>
+      </div>
+    </div>
     <div
-      class="blog-bg"
-      :style="{
-        backgroundImage: `url(${$config.path.images}/background/blog_bg.png)`,
-      }"
-    />
-    <div class="flex flex-col items-center z-10">
-      <div class="blog-header wv-font-kondolar wv-h10">
-        <img
-          class="w-16 h-16 mr-3"
-          :src="`${$config.path.images}/status/default.png`"
-          alt="promise-logo"
-        />
-        <div>
-          <h1 class="wv-font-bold">PROMISE TRACKER</h1>
-          <h2>สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?</h2>
-        </div>
-      </div>
-      <div
-        class="mt-10 sm:mt-20 grid gap-6 max-w-4xl justify-items-center px-2 sm:px-6"
-      >
-        <PromiseCard
-          v-if="promise"
-          class="shadow-2xl"
-          :openState="true"
-          :promise="promise"
-        />
-        <LinkBanner
-          theme="ultramarine"
-          iconImage="article/explore.png"
-          titleText="PROMISE TRACKER"
-          bodyText="สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?"
-          buttonText="ดูคำสัญญา"
-          buttonUrl="explore"
-        />
-        <LinkBanner
-          theme="ultramarine"
-          iconImage="article/article.png"
-          titleText="วิธีตรวจสอบคำสัญญา"
-          bodyText="หากนัก/พรรคการเมืองที่ได้เข้าไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา มีกระบวนการตรวจ สอบอย่างไรบ้าง"
-          buttonText="อ่านเพิ่มเติม"
-          buttonUrl="guide"
-        />
-        <FormLink />
-      </div>
+      class="mt-10 sm:mt-20 grid gap-6 max-w-4xl justify-items-center px-2 sm:px-6"
+    >
+      <PromiseCard
+        v-if="promise"
+        class="shadow-2xl"
+        :open-state="true"
+        :promise="promise"
+      />
+      <LinkBanner
+        theme="ultramarine"
+        icon-image="article/explore.png"
+        title-text="PROMISE TRACKER"
+        body-text="สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?"
+        button-text="ดูคำสัญญา"
+        button-url="explore"
+      />
+      <LinkBanner
+        theme="ultramarine"
+        icon-image="article/article.png"
+        title-text="วิธีตรวจสอบคำสัญญา"
+        body-text="หากนัก/พรรคการเมืองที่ได้เข้าไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา มีกระบวนการตรวจ สอบอย่างไรบ้าง"
+        button-text="อ่านเพิ่มเติม"
+        button-url="guide"
+      />
+      <FormLink />
     </div>
   </div>
 </template>
@@ -100,16 +97,7 @@ export default Vue.extend({
 </script>
 
 <style scoped>
-.blog-bg {
-  height: 100vh;
-  width: 100vw;
-  object-fit: cover;
-  z-index: -1;
-  position: sticky;
-  top: 0;
-  margin-top: -100vh;
-}
 .blog-header {
-  @apply flex justify-center items-center bg-gradient-to-b from-ultramarine to-transparent text-white w-screen h-28 p-4;
+  @apply flex justify-center items-center bg-gradient-to-b from-ultramarine to-transparent text-white w-full h-28 p-4;
 }
 </style>
