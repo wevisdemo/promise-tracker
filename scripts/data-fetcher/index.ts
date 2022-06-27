@@ -15,4 +15,9 @@ async function fetchData() {
   await writeFile('./data/parties.json', JSON.stringify(parties, null, 2));
 }
 
-fetchData();
+try {
+  fetchData();
+} catch (e) {
+  console.error(e);
+  process.exit(1);
+}
