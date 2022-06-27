@@ -67,14 +67,16 @@
     <div
       class="flex justify-between bg-black text-white wv-font-anuphan wv-u4 wv-font-bold px-1 py-2"
     >
-      <div :id="`single-card-${promise.id}-readmore`" class="flex items-center">
-        <p v-if="!clicked" class="px-3">อ่านเพิ่มเติม</p>
-        <p v-else class="px-3">ปิด</p>
-        <button @click="onReadClick">
-          <IconUp v-if="clicked" />
-          <IconUp v-else class="transform rotate-180" />
-        </button>
-      </div>
+      <button
+        :id="`single-card-${promise.id}-readmore`"
+        class="flex items-center"
+        @click="onReadClick"
+      >
+        <p class="px-3">
+          {{ clicked ? 'ปิด' : 'อ่านเพิ่มเติม' }}
+        </p>
+        <IconUp :class="clicked ? '' : 'transform rotate-180'" />
+      </button>
       <div class="flex items-center">
         <p class="hidden sm:block">แชร์คำสัญญา</p>
         <WvSharer
