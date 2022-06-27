@@ -10,9 +10,13 @@ async function fetchData() {
     await getRawPromises(),
     await getRawPromiseTimelines()
   );
-  const parties = await transformToParties(await getRawParties());
+  const parties = transformToParties(await getRawParties());
   await writeFile('./data/promises.json', JSON.stringify(promises, null, 2));
   await writeFile('./data/parties.json', JSON.stringify(parties, null, 2));
+  await writeFile(
+    './data/metadata.json',
+    JSON.stringify({ lastUpdated: new Date() })
+  );
 }
 
 try {

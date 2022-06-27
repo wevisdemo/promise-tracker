@@ -24,7 +24,7 @@
       </h4>
       <div class="flex flex-col items-center py-4 w-full px-4">
         <div class="p-2 wv-font-anuphan wv-u5 bg-gray bg-opacity-10 rounded-sm">
-          อัปเดตล่าสุด {{ formatDate(updatedDate) }}
+          อัปเดตล่าสุด {{ updatedDate }}
         </div>
         <NuxtLink class="mt-3 mb-6 mx-auto" to="explore">
           <Button
@@ -59,29 +59,23 @@
 import Vue from 'vue';
 import StatusAnimation from './status-animation.vue';
 import Button from './button.vue';
+import { lastUpdated } from '@/data/metadata.json';
 
 export default Vue.extend({
   name: 'Landing',
   components: { StatusAnimation, Button },
   data() {
     return {
-      updatedDate: '2022-03-12',
-    };
-  },
-  methods: {
-    formatDate(isoDate: string) {
-      const dateArray = isoDate.split('-').map((date) => parseInt(date, 10));
-      const date = new Date(dateArray[0], dateArray[1] - 1, dateArray[2]);
-      const formattedDate = date.toLocaleDateString('th-TH', {
+      updatedDate: new Date(lastUpdated).toLocaleDateString('th-TH', {
         year: '2-digit',
         month: 'short',
         day: 'numeric',
-      });
-      return formattedDate;
-    },
+      }),
+    };
   },
 });
 </script>
+
 <style scoped>
 .landing-bg {
   height: 540px;
