@@ -26,7 +26,7 @@
         <div class="p-2 wv-font-anuphan wv-u5 bg-gray bg-opacity-10 rounded-sm">
           อัปเดตล่าสุด {{ formatDate(updatedDate) }}
         </div>
-        <NuxtLink class="mt-3 mb-6 w-full flex justify-center" to="explore">
+        <NuxtLink class="mt-3 mb-6 mx-auto" to="explore">
           <Button
             theme="primary-white"
             class="h-10 w-full sm:w-max wv-font-anuphan wv-u4 flex justify-center"

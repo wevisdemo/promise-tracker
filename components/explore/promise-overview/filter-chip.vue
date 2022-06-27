@@ -5,7 +5,7 @@
     <div class="flex items-center">
       <img
         v-if="topic !== 'keyword'"
-        class="h-4 rounded-full shadow-xl"
+        class="h-4 w-4 object-cover rounded-full shadow-xl"
         :src="`${$config.path.images}/${topic}/${icon}`"
         :alt="text"
       />

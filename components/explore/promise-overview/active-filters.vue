@@ -3,15 +3,18 @@
     class="flex-1 md:h-80 bg-white flex flex-row p-8 space-x-8 items-center justify-center rounded-t-xl"
   >
     <div class="flex flex-col -space-y-4">
-      <img
+      <div
         v-for="({ type, value, src }, i) in filterImages"
         :key="type"
-        class="rounded-full shadow-xl active-image"
-        :class="filterImages.length > 1 ? 'w-24' : 'w-32'"
+        :class="filterImages.length > 1 ? 'w-24 h-24' : 'w-32 h-32'"
         :style="{ zIndex: -i + filterImages.length }"
-        :src="`${$config.path.images}/${src}`"
-        :alt="value"
-      />
+      >
+        <img
+          class="rounded-full shadow-xl object-cover active-image w-full h-full"
+          :src="`${$config.path.images}/${src}`"
+          :alt="value"
+        />
+      </div>
     </div>
     <div v-if="promises.length > 0" class="flex flex-col space-y-2">
       <h1 class="wv-h8 wv-font-kondolar wv-font-black">
