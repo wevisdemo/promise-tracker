@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { fetchNocoDB } from '../../extracts/helpers';
+import { fetchNocoDB, LIMIT } from '../../extracts/helpers';
 jest.mock('node-fetch', () => jest.fn());
 
 describe('fetchNocoDB', () => {
@@ -36,7 +36,7 @@ describe('fetchNocoDB', () => {
     const RESOURCE = '/parties';
     await fetchNocoDB(RESOURCE);
     expect(fetch).toBeCalledWith(
-      `${MOCK_API_PATH}${RESOURCE}`,
+      `${MOCK_API_PATH}${RESOURCE}?limit=${LIMIT}`,
       expect.anything()
     );
   });
