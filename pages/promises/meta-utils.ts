@@ -4,20 +4,8 @@ export const matchedPromise = (promises: TrackingPromise[], ID: number) => {
   return promises.filter((promise) => promise.id === ID)[0] as TrackingPromise;
 };
 
-const promiseStatusTitleMap = new Map<PromiseStatus, string>([
-  [PromiseStatus.NoData, 'ยังไม่พบข้อมูล'],
-  [PromiseStatus.Proposed, 'ถูกเสนอต่อสภาแล้ว'],
-  [PromiseStatus.Paused, 'ถูกระงับ'],
-  [PromiseStatus.Working, 'กำลังดำเนินการ'],
-  [PromiseStatus.Done, 'สำเร็จแล้ว'],
-]);
-
-export const titleText = (
-  title: string,
-  party: string,
-  status: PromiseStatus
-) => {
-  return `โครงการ${title} โดยพรรค${party} ${promiseStatusTitleMap.get(status)}`;
+export const titleText = (title: string, party: string) => {
+  return `โครงการ${title} โดยพรรค${party}`;
 };
 
 export const descriptionMap = new Map<PromiseStatus, string>([

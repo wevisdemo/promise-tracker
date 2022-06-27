@@ -83,7 +83,7 @@ export default Vue.extend({
     const { title, party, status } = this.promise as TrackingPromise;
 
     return createMetadata({
-      pageName: titleText(title, party, status),
+      pageName: titleText(title, party),
       description: descriptionMap.get(status as PromiseStatus),
       image: imageUrl(baseImageUrl, status),
     });

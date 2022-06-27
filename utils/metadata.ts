@@ -1,5 +1,4 @@
-const BASE_TITLE =
-  'Promise Tracker แพลตฟอร์มสำรวจคำสัญญาต่างๆของผู้นำ พรรคการเมือง ที่ให้คำสัญญาไว้';
+export const BASE_TITLE = 'Promise Tracker';
 const DESCRIPTION =
   'สำรวจ รับรู้ ร่วมติดตาม ให้พรรคการเมืองทำตามคำสัญญาที่ให้ไว้กับเรา';
 export const DEFAULT_OG_IMAGE =

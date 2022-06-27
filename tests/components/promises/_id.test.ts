@@ -65,7 +65,7 @@ describe('PromisePage', () => {
     });
 
     expect(wrapper.vm.$meta().refresh().metaInfo.title).toContain(
-      titleText(promise.title, promise.party, promise.status)
+      titleText(promise.title, promise.party)
     );
   });
 
@@ -92,9 +92,7 @@ describe('PromisePage', () => {
       expect(description).toBe(
         descriptionMap.get(promise.status as PromiseStatus)
       );
-      expect(ogTitle).toContain(
-        titleText(promise.title, promise.party, promise.status)
-      );
+      expect(ogTitle).toContain(titleText(promise.title, promise.party));
       expect(ogImage).toBe(imageUrl(baseImageUrl, promise.status));
     }
   );
@@ -134,15 +132,11 @@ describe('PromisePage', () => {
     const ogTitle = meta[1].content;
     const ogImage = meta[3].content;
 
-    expect(title).toBe(
-      'Promise Tracker แพลตฟอร์มสำรวจคำสัญญาต่างๆของผู้นำ พรรคการเมือง ที่ให้คำสัญญาไว้'
-    );
+    expect(title).toBe('Promise Tracker');
     expect(description).toBe(
       'สำรวจ รับรู้ ร่วมติดตาม ให้พรรคการเมืองทำตามคำสัญญาที่ให้ไว้กับเรา'
     );
-    expect(ogTitle).toBe(
-      'Promise Tracker แพลตฟอร์มสำรวจคำสัญญาต่างๆของผู้นำ พรรคการเมือง ที่ให้คำสัญญาไว้'
-    );
+    expect(ogTitle).toBe('Promise Tracker');
     expect(ogImage).toBe(`${baseImageUrl}/default.jpg`);
   });
 });

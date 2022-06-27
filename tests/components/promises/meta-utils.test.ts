@@ -2,20 +2,8 @@ import { titleText, imageUrl } from '@/pages/promises/meta-utils';
 import { PromiseStatus } from '@/models/promise';
 
 test('should output title text', () => {
-  expect(titleText('ที่ 1', 'พลังประชารวย', 'nodata' as PromiseStatus)).toBe(
-    'โครงการที่ 1 โดยพรรคพลังประชารวย ยังไม่พบข้อมูล'
-  );
-  expect(titleText('ที่ 1', 'พลังประชารวย', 'proposed' as PromiseStatus)).toBe(
-    'โครงการที่ 1 โดยพรรคพลังประชารวย ถูกเสนอต่อสภาแล้ว'
-  );
-  expect(titleText('ที่ 1', 'พลังประชารวย', 'paused' as PromiseStatus)).toBe(
-    'โครงการที่ 1 โดยพรรคพลังประชารวย ถูกระงับ'
-  );
-  expect(titleText('ที่ 1', 'พลังประชารวย', 'working' as PromiseStatus)).toBe(
-    'โครงการที่ 1 โดยพรรคพลังประชารวย กำลังดำเนินการ'
-  );
-  expect(titleText('ที่ 1', 'พลังประชารวย', 'done' as PromiseStatus)).toBe(
-    'โครงการที่ 1 โดยพรรคพลังประชารวย สำเร็จแล้ว'
+  expect(titleText('ที่ 1', 'พลังประชารวย')).toBe(
+    `โครงการที่ 1 โดยพรรคพลังประชารวย`
   );
 });
 
