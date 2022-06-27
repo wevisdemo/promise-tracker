@@ -40,7 +40,7 @@ export default {
 
   buildModules: ['@nuxt/typescript-build', '@nuxtjs/tailwindcss'],
 
-  modules: [],
+  modules: ['vue-plausible'],
 
   build: {},
 
@@ -68,4 +68,10 @@ export default {
       return [...promisesRoute];
     },
   },
+  plausible: process.env.ENABLE_PLAUSIBLE
+    ? {
+        domain: 'promisetracker.wevis.info',
+        apiHost: 'https://analytics.punchup.world',
+      }
+    : {},
 };
