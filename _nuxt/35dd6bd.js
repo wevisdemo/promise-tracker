@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[32],{244:function(e,n,t){"use strict";t.r(n);var l=t(2).a.extend({name:"BoxContainer"}),o=t(16),component=Object(o.a)(l,(function(){var e=this,n=e.$createElement;return(e._self._c||n)("div",{staticClass:"p-3 rounded-md overflow-hidden w-full"},[e._t("default")],2)}),[],!1,null,null,null);n.default=component.exports}}]);
