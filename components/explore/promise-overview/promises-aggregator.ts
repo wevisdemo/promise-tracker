@@ -124,13 +124,13 @@ export const groupPromisesBy = (
     ];
   }
 
-  const groupCounts = Object.values(groupedPromiseObject).map(
-    ({ count }) => count
+  const chartsCount = charts.map(({ data }) =>
+    data.reduce((sum, { count }) => sum + count, 0)
   );
 
   return {
-    max: Math.max(...groupCounts),
-    total: groupCounts.reduce((sum, count) => sum + count, 0),
+    max: Math.max(...chartsCount),
+    total: chartsCount.reduce((sum, count) => sum + count, 0),
     charts,
   };
 };
