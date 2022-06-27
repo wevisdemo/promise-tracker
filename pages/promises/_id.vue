@@ -31,7 +31,7 @@
         title-text="PROMISE TRACKER"
         body-text="สำรวจคำสัญญาของพรรคการเมืองที่ผ่านมารักษาคำสัญญาได้แค่ไหน ?"
         button-text="ดูคำสัญญา"
-        button-url="explore"
+        button-url="/explore"
       />
       <LinkBanner
         theme="ultramarine"
@@ -39,7 +39,7 @@
         title-text="วิธีตรวจสอบคำสัญญา"
         body-text="หากนัก/พรรคการเมืองที่ได้เข้าไปเป็น รัฐบาล แล้วไม่ทำตามสัญญา มีกระบวนการตรวจ สอบอย่างไรบ้าง"
         button-text="อ่านเพิ่มเติม"
-        button-url="guide"
+        button-url="/guide"
       />
       <FormLink />
     </div>

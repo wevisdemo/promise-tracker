@@ -70,23 +70,3 @@ describe('Props handling', () => {
     expect(button.text()).toContain(buttonText);
   });
 });
-
-describe('Event handling', () => {
-  test('routes on button click', async () => {
-    const mockRouter = {
-      push: jest.fn(),
-    };
-    const wrapper = mount(LinkBanner, {
-      propsData: {
-        buttonText: 'ดูคำสัญญา',
-        buttonUrl: 'explore',
-      },
-      mocks: {
-        $router: mockRouter,
-      },
-    });
-    await wrapper.find('[data-testid="navigation"]').trigger('click');
-    expect(mockRouter.push).toHaveBeenCalledTimes(1);
-    expect(mockRouter.push).toHaveBeenCalledWith('/explore');
-  });
-});
