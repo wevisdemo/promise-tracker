@@ -39,7 +39,7 @@ describe('Style handling', () => {
   test('show only selected legend', () => {
     const expectedClasses: [] = [];
     const wrapper = mount(StatusLegend, {
-      propsData: { showOnly: 'ไม่พบข้อมูล' },
+      propsData: { showOnly: 'ไม่พบความเคลื่อนไหว' },
     });
     const text = wrapper.find('[data-testid="status-legend-text"]');
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
@@ -72,7 +72,7 @@ describe('Style handling', () => {
 
 describe('Selection handling', () => {
   const expectedText = [
-    { id: 0, text: 'ไม่พบข้อมูล' },
+    { id: 0, text: 'ไม่พบความเคลื่อนไหว' },
     { id: 1, text: 'ถูกเสนอต่อสภา' },
     { id: 2, text: 'ถูกระงับ' },
     { id: 3, text: 'กำลังดำเนินการ' },
@@ -90,9 +90,9 @@ describe('Selection handling', () => {
   });
 
   test('selects one', () => {
-    const expectedText = ['ไม่พบข้อมูล'];
+    const expectedText = ['ไม่พบความเคลื่อนไหว'];
     const wrapper = mount(StatusLegend, {
-      propsData: { showDetail: false, showOnly: 'ไม่พบข้อมูล' },
+      propsData: { showDetail: false, showOnly: 'ไม่พบความเคลื่อนไหว' },
     });
     const spans = wrapper.findAll('[data-testid="status-legend-text"]');
     expect(spans.length).toEqual(expectedText.length);

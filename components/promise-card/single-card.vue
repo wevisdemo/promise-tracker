@@ -14,7 +14,7 @@
           <StatusLegend
             :show-detail="false"
             :show-only="
-              promise.status ? getStatus(promise.status) : 'ไม่พบข้อมูล'
+              promise.status ? getStatus(promise.status) : 'ไม่พบความเคลื่อนไหว'
             "
           />
         </div>

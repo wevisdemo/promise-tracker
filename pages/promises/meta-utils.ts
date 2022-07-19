@@ -11,7 +11,7 @@ export const titleText = (title: string, party: string) => {
 export const descriptionMap = new Map<PromiseStatus, string>([
   [
     PromiseStatus.NoData,
-    'คำสัญญานี้ยังไม่พบข้อมูล ขอ(ทวง)ถามพรรคการเมืองถึงข้อมูลและการดำเนินการเกี่ยวกับคำสัญญานี้',
+    'คำสัญญานี้ยังไม่พบความเคลื่อนไหว ขอ(ทวง)ถามพรรคการเมืองถึงข้อมูลและการดำเนินการเกี่ยวกับคำสัญญานี้',
   ],
   [
     PromiseStatus.Proposed,
