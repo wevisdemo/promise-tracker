@@ -18,14 +18,16 @@ export function transformToTrackingPromises(
 
       const timelines = (
         rawTimelines.find((tl) => tl.promiseId === r.promiseId)?.timelines || []
-      ).map((tl): PromiseTimeline => {
-        const { from, to } = convertRangeToFromTo(tl.range);
-        return {
-          label: tl.name,
-          from,
-          to,
-        };
-      });
+      )
+        .filter(({ name, range }) => name && range)
+        .map((tl): PromiseTimeline => {
+          const { from, to } = convertRangeToFromTo(tl.range);
+          return {
+            label: tl.name,
+            from,
+            to,
+          };
+        });
 
       return {
         id: r.promiseId,
