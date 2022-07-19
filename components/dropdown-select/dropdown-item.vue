@@ -1,8 +1,13 @@
 <template>
+  <div v-if="option.isHeader" class="dropdown-item wv-font-anuphan wv-u4">
+    <div class="header-dash" />
+    <span class="opacity-70">{{ option.label }}</span>
+    <div class="header-dash" />
+  </div>
   <button
-    class="bg-white items-center py-2.5 px-2 wv-font-anuphan wv-u4"
-    :class="optionClasses(option)"
-    @click.stop="click"
+    v-else
+    class="dropdown-item wv-font-anuphan wv-u4 hover:bg-gray hover:bg-opacity-20"
+    @click="click"
   >
     <img
       v-if="option.iconUrl"
@@ -26,12 +31,6 @@ export default Vue.extend({
     },
   },
   methods: {
-    optionClasses(option: Option) {
-      if (option.isHeader) {
-        return 'wv-font-semibold';
-      }
-      return 'flex space-x-2 cursor-pointer';
-    },
     click() {
       if (this.option?.isHeader) {
         return;
@@ -41,3 +40,12 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style scoped>
+.dropdown-item {
+  @apply flex flex-row items-center py-2.5 px-2 space-x-2;
+}
+.header-dash {
+  @apply flex-1 h-1 border-b border-gray border-dashed;
+}
+</style>

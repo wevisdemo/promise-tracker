@@ -38,26 +38,15 @@ describe('header item', () => {
     label: 'พรรคร่วมรัฐบาล',
   };
 
-  test('should show header as bold', () => {
+  test('should render div instead of button', () => {
     const wrapper = mount(DropdownItem, {
       propsData: {
         option: HEADER_OPTION,
       },
     });
 
-    expect(wrapper.element).toHaveClass('wv-font-semibold');
-  });
-
-  test('should NOT emit click event when click', () => {
-    const wrapper = mount(DropdownItem, {
-      propsData: {
-        option: HEADER_OPTION,
-      },
-    });
-
-    wrapper.find('button').trigger('click');
-
-    expect(wrapper.emitted().click?.length).toBeFalsy();
+    expect(wrapper.find('button').exists()).toBeFalsy();
+    expect(wrapper.find('div').exists()).toBeTruthy();
   });
 });
 
@@ -67,16 +56,6 @@ describe('non-header item', () => {
     label: 'ประชาธิปัตย์',
     value: 'ประชาธิปัตย์',
   };
-
-  test('should have cursor as pointer when item is NOT a header', () => {
-    const wrapper = mount(DropdownItem, {
-      propsData: {
-        option: OPTION,
-      },
-    });
-
-    expect(wrapper.element).toHaveClass('cursor-pointer');
-  });
 
   test('should emit click event when click on element', () => {
     const wrapper = mount(DropdownItem, {

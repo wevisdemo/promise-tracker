@@ -22,13 +22,13 @@
       />
     </button>
     <template v-if="selecting">
-      <div class="fixed inset-0" @click="selecting = false" />
+      <div class="hidden md:fixed inset-0" @click="selecting = false" />
 
       <div
         id="item-list"
         class="md:absolute inset-x-0 top-full z-10 md:max-h-64 overflow-y-scroll mt-1 bg-white rounded overflow-hidden"
       >
-        <div class="flex flex-col bg-gray bg-opacity-20 space-y-0.5">
+        <div class="flex flex-col bg-opacity-20">
           <DropdownItem
             :option="{ label: placeholder, value: '' }"
             @click="select($event)"
