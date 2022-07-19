@@ -45,7 +45,7 @@ describe('Style handling', () => {
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
   test('show detail', () => {
-    const expectedClasses = ['mr-2', 'w-24', 'mb-2'];
+    const expectedClasses = ['mr-2', 'w-32', 'mb-2'];
     const wrapper = mount(StatusLegend, {
       propsData: { showDetail: true },
     });
@@ -61,7 +61,7 @@ describe('Style handling', () => {
     expect(text.classes()).toEqual(expect.arrayContaining(expectedClasses));
   });
   test('no inline, no detail', () => {
-    const expectedClasses = ['w-24'];
+    const expectedClasses = ['w-32'];
     const wrapper = mount(StatusLegend, {
       propsData: { showInline: true },
     });
