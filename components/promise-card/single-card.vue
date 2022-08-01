@@ -54,8 +54,11 @@
       <div class="flex px-3">
         <div class="w-4 mr-2">
           <img
+            v-if="promise.party"
             :id="`single-card-${promise.id}-party-logo`"
-            :src="`${$config.path.images}/party/${promise.party}.jpg`"
+            :src="`${$config.path.images}/party/${
+              promise.party.split('/')[0]
+            }.jpg`"
             :alt="`${promise.party}`"
           />
         </div>

@@ -175,7 +175,7 @@ const [governmentParties, oppositionParties] = parties.reduce<
     const option: Option = {
       value: name,
       label: name,
-      iconUrl: `/party/${name}.jpg`,
+      iconUrl: `/party/${name.split('/')[0]}.jpg`,
     };
 
     return side === 'government'

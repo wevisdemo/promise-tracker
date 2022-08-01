@@ -77,7 +77,7 @@ export const groupPromisesBy = (
       ? Object.entries(groupedPromiseObject)
           .map<Chart>(([label, group]) => ({
             label,
-            icon: `party/${label}.jpg`,
+            icon: `party/${label.split('/')[0]}.jpg`,
             isNCPO: group.isNCPO,
             data: parseChartDataFromStatusPair(group.statuses),
           }))

@@ -92,7 +92,7 @@ export default Vue.extend({
             .map(({ type, value }) => ({
               type,
               value,
-              src: `${type}/${value}.${
+              src: `${type}/${value.split('/')[0]}.${
                 type === FilterType.Party ? 'jpg' : 'png'
               }`,
             }));

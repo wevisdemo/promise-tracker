@@ -80,7 +80,7 @@
     "side": "government"
   },
   {
-    "name": "ก้าวไกล",
+    "name": "ก้าวไกล/อนาคตใหม่",
     "side": "opposition"
   },
   {
@@ -105,10 +105,6 @@
   },
   {
     "name": "เสรีรวมไทย",
-    "side": "opposition"
-  },
-  {
-    "name": "อนาคตใหม่",
     "side": "opposition"
   }
 ]

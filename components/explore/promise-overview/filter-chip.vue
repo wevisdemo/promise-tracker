@@ -70,7 +70,7 @@ export default Vue.extend({
 
       switch (type) {
         case FilterType.Party:
-          return `${value}.jpg`;
+          return `${value.split('/')[0]}.jpg`;
         case FilterType.Status:
           return `${value}_small.png`;
         case FilterType.Topic:
