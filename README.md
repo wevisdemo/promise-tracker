@@ -4,8 +4,8 @@ Thai politicians and parties promise tracker
 
 ## 🌎 Environment
 
-- Staging: https://wevisdemo.github.io/promise-tracker/
-- Production: Not deployed yet
+- Production: https://promisetracker.wevis.info
+- Staging: https://wevisdemo.github.io/promise-tracker
 
 ## 💻 Tech stack
 
