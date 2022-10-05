@@ -53,7 +53,7 @@ import {
   titleText,
   descriptionMap,
   imageUrl,
-} from './meta-utils';
+} from '@/utils/promises-meta';
 import promises from '@/data/promises.json';
 import PromiseCard from '@/components/promise-card/promise-card.vue';
 import LinkBanner from '@/components/link-banner.vue';

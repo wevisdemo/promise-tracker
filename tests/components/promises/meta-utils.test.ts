@@ -1,4 +1,4 @@
-import { titleText, imageUrl } from '@/pages/promises/meta-utils';
+import { titleText, imageUrl } from '@/utils/promises-meta';
 import { PromiseStatus } from '@/models/promise';
 
 test('should output title text', () => {

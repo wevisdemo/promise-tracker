@@ -14,7 +14,7 @@ import {
   titleText,
   descriptionMap,
   imageUrl,
-} from '@/pages/promises/meta-utils';
+} from '@/utils/promises-meta';
 
 const baseImageUrl =
   'https://raw.githubusercontent.com/wevisdemo/promise-tracker/main/static/og';
