@@ -52,11 +52,11 @@ describe('fetchNocoDB', () => {
   });
 
   test('should return json response to caller', async () => {
-    const JSON = [{ some: 'value' }];
+    const JSON = { list: [{ some: 'value' }] };
     mockFetch.json = jest.fn().mockResolvedValue(JSON);
 
     const actual = await fetchNocoDB('/parties');
 
-    expect(actual).toBe(JSON);
+    expect(actual).toBe(JSON.list);
   });
 });

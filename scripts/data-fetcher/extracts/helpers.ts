@@ -13,5 +13,5 @@ export async function fetchNocoDB(
       'xc-token': apiToken,
     },
   });
-  return res.json();
+  return (await res.json()).list;
 }
