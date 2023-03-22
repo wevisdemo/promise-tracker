@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import { fetchNocoDB, LIMIT } from '../../extracts/helpers';
 jest.mock('node-fetch', () => jest.fn());
 
+const JSON = { list: [{ some: 'value' }], pageInfo: { isLastPage: true } };
+
 describe('fetchNocoDB', () => {
   const MOCK_API_PATH = 'http://nocodb-instance/api';
   const MOCK_TOKEN = 'mock_token';
@@ -27,7 +29,7 @@ describe('fetchNocoDB', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockFetch = {
-      json: jest.fn().mockResolvedValue([]),
+      json: jest.fn().mockResolvedValue(JSON),
     };
     (fetch as unknown as any).mockResolvedValue(mockFetch);
   });
@@ -36,7 +38,7 @@ describe('fetchNocoDB', () => {
     const RESOURCE = '/parties';
     await fetchNocoDB(RESOURCE);
     expect(fetch).toBeCalledWith(
-      `${MOCK_API_PATH}${RESOURCE}?limit=${LIMIT}`,
+      `${MOCK_API_PATH}${RESOURCE}?limit=${LIMIT}&offset=0`,
       expect.anything()
     );
   });
@@ -52,11 +54,8 @@ describe('fetchNocoDB', () => {
   });
 
   test('should return json response to caller', async () => {
-    const JSON = { list: [{ some: 'value' }] };
-    mockFetch.json = jest.fn().mockResolvedValue(JSON);
-
     const actual = await fetchNocoDB('/parties');
 
-    expect(actual).toBe(JSON.list);
+    expect(actual).toEqual(JSON.list);
   });
 });

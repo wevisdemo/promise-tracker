@@ -70,8 +70,14 @@ describe('getRawPromises', () => {
     mockResolvedFetchNocoDB([
       {
         ...getStubJSONPromise(),
-        images:
-          '[{"url":"https://path/to/image","title":"title.jpg","mimetype":"image/jpg","size":10}]',
+        images: [
+          {
+            url: 'https://path/to/image',
+            title: 'title.jpg',
+            mimetype: 'image/jpg',
+            size: 10,
+          },
+        ],
       },
     ]);
 
@@ -233,9 +239,7 @@ describe('getRawPromises', () => {
     };
   }
 
-  function mockResolvedFetchNocoDB(
-    raw: { [key: string]: string | number | boolean }[]
-  ): void {
+  function mockResolvedFetchNocoDB(raw: { [key: string]: any }[]): void {
     (fetchNocoDB as unknown as any).mockResolvedValue(raw);
   }
 });

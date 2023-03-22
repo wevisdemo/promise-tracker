@@ -44,7 +44,7 @@ export async function getRawPromises(): Promise<RawPromise[]> {
       status: e.status,
       explain: e.explain,
       isNCPO: e.isNCPO,
-      images: JSON.parse(e.images),
+      images: e.images,
       vdo: guardEmptiness(e.vdo),
       links,
     };
