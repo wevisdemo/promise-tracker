@@ -2,7 +2,7 @@
   <a
     ref="form"
     class="w-full mb-6"
-    href="https://docs.google.com/forms/d/e/1FAIpQLSc288kwduqZ5SJvq4osroZPN-MVpoSLzgSjFcEoXLV5YqWZMg/viewform?usp=sf_link"
+    href="https://bit.ly/promisetracker-feedback"
     target="_blank"
     rel="noopener noreferrer"
     @click="$emit('tagClicked', true)"

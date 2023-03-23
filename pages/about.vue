@@ -27,11 +27,11 @@
       <br /><br />
       <WvParagraphGroup heading="นโยบายการนำข้อมูลไปใช้ต่อ">
         <p>
-          ทางทีมมีความตั้งใจที่พัฒนาทุกโปรเจ็กต์ให้เป็น Open Source
-          และเปิดข้อมูลเป็น Open Data ภายใต้เงื่อนไข Creative Commons
-          Attribution-ShareAlike License คือสามารถนำไปเผยแพร่และดัดแปลงได้
-          โดยต้องระบุที่มา แต่ห้ามนำไปใช้เพื่อการค้า
-          และต้องเผยแพร่งานดัดแปลงโดยใช้สัญญาอนุญาตชนิดเดียวกัน
+          WeVis มีความตั้งใจที่พัฒนาทุกโปรเจ็กต์ให้เป็น Open Source
+          และเปิดข้อมุลเป็น Open Data ภายใต้เงื่อนไข Creative Commons
+          Attribution-NonCommercial License (CC-BY-NC)
+          คือสามารถนำไปเผยแพร่และดัดแปลงได้ โดยต้องระบุที่มา
+          แต่ห้ามนำไปใช้เพื่อการค้า
         </p>
         <p>
           หากมีข้อสงสัยต้องการสอบถามเพิ่มเติม
@@ -606,8 +606,8 @@ export default Vue.extend({
         'https://www.moveforwardparty.org/about/',
       ],
       downloadUrl:
-        'https://docs.google.com/spreadsheets/d/1oXOgSQMrX3ZiUXxXMTZDglBVBH33BScFJAJr8gieYSk/edit?usp=sharing',
-      feedbackUrl: 'https://airtable.com/shryu4errnlj1LWsM',
+        'https://sheets.wevis.info/dashboard/#/base/e8f1ad5d-f1af-4f68-aa38-bcf45d519312',
+      feedbackUrl: 'https://bit.ly/promisetracker-feedback',
       githubUrl: 'https://github.com/wevisdemo/promise-tracker',
     };
   },
