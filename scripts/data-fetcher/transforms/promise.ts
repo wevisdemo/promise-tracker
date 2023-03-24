@@ -29,6 +29,16 @@ export function transformToTrackingPromises(
           };
         });
 
+      const [image] = r.images;
+
+      const imageUrl =
+        image?.url ||
+        (image?.path
+          ? `${new URL(process.env.NOCODB_API_PATH as string).origin}/${
+              image?.path
+            }`
+          : undefined);
+
       return {
         id: r.promiseId,
         party: r.party,
@@ -37,7 +47,7 @@ export function transformToTrackingPromises(
         status,
         description: r.explain,
         isNCPO: r.isNCPO,
-        imageUrl: r.images[0]?.url,
+        imageUrl,
         links: r.links,
         timelines,
       };

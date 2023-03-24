@@ -6,7 +6,8 @@ export interface RawLink {
 }
 
 export interface RawImage {
-  url: string;
+  url?: string;
+  path?: string;
   title: string;
   mimetype: string;
   size: number;
