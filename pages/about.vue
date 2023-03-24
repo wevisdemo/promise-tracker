@@ -271,6 +271,7 @@ export default Vue.extend({
           role: 'สืบค้นและรวบรวมข้อมูล',
         },
         { name: 'ธนพล เตชไกรชนะ', url: '', role: 'สืบค้นและรวบรวมข้อมูล' },
+        { name: 'สุรวิชญ์ กาหลง', url: '', role: 'สืบค้นและรวบรวมข้อมูล' },
         {
           name: 'ธนิสรา เรืองเดช',
           url: 'https://www.linkedin.com/in/thanisara-r/',
