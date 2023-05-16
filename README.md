@@ -62,4 +62,8 @@ Use `pascal-case` for every file name since Linux (eg. Github Action runner) is 
   - Color is defined in `tailwind.config.css` which naming should be related to Figma
   - Configuration is also available on http://localhost:3000/\_tailwind/ when dev server is running
 
+## 🤝 License and Terms of Use
+
+Please read WeVis's [Terms of Use](https://wevis.info/terms-of-use/)
+
 **THANK YOU FOR ALL THE CONTRIBUTION ❤️**
